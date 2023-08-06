@@ -3,7 +3,13 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
-const routes = [];
+const routes = [
+    {
+        path: "/game",
+        name: "game",
+        component: () => import("../views/Game.vue"),
+    }
+];
 
 const router = new VueRouter({
     mode: "history",

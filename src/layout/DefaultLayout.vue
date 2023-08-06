@@ -22,7 +22,7 @@
 
 <script>
 export default {
-    name: "ListLayout",
+    name: "DefaultLayout",
     props: {
         name: {
             type: String,
