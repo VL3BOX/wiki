@@ -2,7 +2,7 @@
     <div>
         <Header></Header>
 
-        <Breadcrumb :name="name" :slug="slug" :root="root"></Breadcrumb>
+        <Breadcrumb :name="name" :slug="slug" :root="computedRoot"></Breadcrumb>
         <LeftSidebar>
             <slot name="left"></slot>
         </LeftSidebar>
@@ -34,15 +34,26 @@ export default {
         },
         root: {
             type: String,
-            default: "cj"
+            default: ""
         },
         withoutRight: {
             type: Boolean,
             default: false
         }
     },
-    data() {
-        return {}
+    computed: {
+        computedRoot: function () {
+            return this.root ? this.root : this.slug;
+        }
     }
 };
 </script>
+
+<style lang="less">
+.c-main {
+    padding: 0 10px;
+}
+.m-main {
+    padding-top: 10px;
+}
+</style>

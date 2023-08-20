@@ -1,0 +1,32 @@
+.u-chain {
+    .lh(2);
+}
+
+.u-chain-name {
+    display: inline-block;
+
+    & .u-chain-link.current {
+        color: #fa9907;
+        .bold;
+    }
+
+    & .u-chain-link:not(.current) {
+        color: #8b4dff;
+    }
+
+    i {
+        .fz(12px);
+    }
+}
+
+.branch>.u-chain-name:not(:last-of-type)::after {
+    content: '|';
+}
+
+.u-chain-name .all:not(:last-of-type)::after {
+    content: '&';
+}
+
+.u-chain-name .one:not(:last-of-type)::after {
+    content: '|';
+}
