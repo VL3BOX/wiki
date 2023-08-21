@@ -2,7 +2,7 @@
     <div>
         <Header></Header>
 
-        <Breadcrumb :name="name" :slug="slug" :root="computedRoot"></Breadcrumb>
+        <Breadcrumb :name="name" :slug="slug" :root="computedRoot" :publishEnable="publishEnable" :adminEnable="adminEnable" :topicEnable="topicEnable" :feedbackEnable="feedbackEnable" :overlayEnable="overlayEnable" :crumbEnable="crumbEnable" :withoutLeft="withoutLeft" :adminMarks="adminMarks"></Breadcrumb>
         <LeftSidebar>
             <slot name="left"></slot>
         </LeftSidebar>
@@ -39,6 +39,38 @@ export default {
         withoutRight: {
             type: Boolean,
             default: false
+        },
+        publishEnable: {
+            type: Boolean,
+            default: false
+        },
+        adminEnable: {
+            type: Boolean,
+            default: false
+        },
+        topicEnable: {
+            type: Boolean,
+            default: false
+        },
+        feedbackEnable: {
+            type: Boolean,
+            default: false
+        },
+        overlayEnable: {
+            type: Boolean,
+            default: false
+        },
+        crumbEnable: {
+            type: Boolean,
+            default: true
+        },
+        withoutLeft: {
+            type: Boolean,
+            default: false
+        },
+        adminMarks: {
+            type: Array,
+            default: () => []
         }
     },
     computed: {

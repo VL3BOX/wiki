@@ -1,5 +1,5 @@
 <template>
-    <DefaultLayout name="任务百科" slug="quest" without-right>
+    <DefaultLayout name="任务百科" slug="quest" without-right :publishEnable="true" :feedbackEnable="true" :crumbEnable="false">
         <template #left>
             <Nav></Nav>
         </template>

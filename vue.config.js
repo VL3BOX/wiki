@@ -18,6 +18,12 @@ module.exports = {
             entry: "src/pages/quest.js",
             filename: "quest/index.html",
         },
+        knowledge: {
+            title: "通识百科 - JX3BOX",
+            template: "public/index.html",
+            entry: "src/pages/knowledge.js",
+            filename: "knowledge/index.html",
+        },
     },
 
     // ❤️ Porxy ~

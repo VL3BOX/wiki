@@ -1,0 +1,14 @@
+{
+    "game": "el-icon-orange",
+    "jargon": "el-icon-postcard",
+    "plot": "el-icon-collection",
+    "bigbang": "el-icon-mic",
+    "gossip": "el-icon-film",
+    "organization": "el-icon-school",
+    "player": "el-icon-user",
+    "sleep": "el-icon-map-location",
+    "npc": "el-icon-monitor",
+    "castle": "el-icon-coordinate",
+    "blacklist": "el-icon-warning-outline",
+    "other": "el-icon-more-outline"
+}
