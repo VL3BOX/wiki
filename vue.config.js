@@ -24,6 +24,12 @@ module.exports = {
             entry: "src/pages/knowledge.js",
             filename: "knowledge/index.html",
         },
+        knowledge: {
+            title: "物品百科 - JX3BOX",
+            template: "public/index.html",
+            entry: "src/pages/item.js",
+            filename: "item/index.html",
+        },
     },
 
     // ❤️ Porxy ~

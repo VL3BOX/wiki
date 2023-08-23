@@ -1,0 +1,112 @@
+// .m-index-price {
+//     .h(520px);
+//     overflow: hidden;
+// }
+// @keyframes priceAni {
+//     from {
+//         transform: translateY(0);
+//     }
+//     to {
+//         transform: translateY(-50%);
+//     }
+// }
+
+.m-price-header{
+    .u-title{
+        .lh(28px);
+        .mr(10px);
+    }
+    .u-server,.u-title{
+        .fl;
+    }
+    .m-panel-title{
+        .clearfix;
+    }
+}
+
+.m-transaction-box{
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.m-price-list {
+    animation: priceAni 10s linear infinite;
+
+    .u-group-title {
+        .mb(8px);
+        font-weight: 600;
+        color: #666666;
+        padding: 0 10px;
+    }
+
+    .u-item {
+        .db;
+        .clearfix;
+        .mb(10px);
+        background-color: @bg-gray;
+        transition: 0.1s ease-in-out;
+
+        &:hover {
+            background-color: #ceefff;
+        }
+    }
+
+    .u-icon {
+        .fl;
+        .mr(10px);
+        .size(32px);
+    }
+
+    .u-content {
+        .fz(12px, 32px);
+        .bold;
+    }
+
+    .u-name {
+        .db;
+        .fl;
+        max-width: 80px;
+        overflow: hidden;
+        .nobreak;
+    }
+
+    .u-price {
+        .fr;
+        color: @color;
+    }
+
+    .u-trending {
+        &.up {
+            color: #fc3c3c;
+        }
+        &.down {
+            color: #49c10f;
+        }
+        &.keep {
+            color: #aaa;
+        }
+    }
+}
+
+@media screen and (max-width: 1980px) {
+    .m-price-list {
+        .el-col {
+            .w(33%);
+        }
+    }
+}
+@media screen and (max-width: @smallpc) {
+    .m-price-list {
+        .el-col {
+            .w(50%);
+        }
+    }
+}
+@media screen and (max-width: @phone) {
+    .m-price-list {
+        .el-col {
+            .w(100%);
+        }
+    }
+}

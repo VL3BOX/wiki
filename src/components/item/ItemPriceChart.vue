@@ -1,13 +1,13 @@
 <template>
     <div class="m-item-price-logs">
         <!-- 今日价格 -->
-        <el-row class="m-today" v-if="today">
+        <el-row class="m-today" v-if="currentPrice">
             <el-col :span="8">
                 <div class="u-label">
                     <i class="el-icon-right u-avg"></i> 今日均价
                 </div>
                 <div class="u-value u-avg">
-                    <GamePrice :price="today.price" />
+                    <GamePrice :price="currentPrice.AvgPrice" />
                 </div>
             </el-col>
             <el-col :span="8">
@@ -15,7 +15,7 @@
                     <i class="el-icon-bottom u-min"></i> 今日最低价
                 </div>
                 <div class="u-value u-min">
-                    <GamePrice :price="today.min_price" />
+                    <GamePrice :price="currentPrice.LowestPrice" />
                 </div>
             </el-col>
             <el-col :span="8">
@@ -23,35 +23,7 @@
                     <i class="el-icon-top u-max"></i> 今日最高价
                 </div>
                 <div class="u-value u-max">
-                    <GamePrice :price="today.max_price" />
-                </div>
-            </el-col>
-        </el-row>
-
-        <!-- 昨日价格 -->
-        <el-row class="m-today" v-if="!today && yesterday">
-            <el-col :span="8">
-                <div class="u-label">
-                    <i class="el-icon-right u-avg"></i> 今日均价
-                </div>
-                <div class="u-value u-avg">
-                    <GamePrice :price="yesterday.price" />
-                </div>
-            </el-col>
-            <el-col :span="8">
-                <div class="u-label">
-                    <i class="el-icon-bottom u-min"></i> 今日最低价
-                </div>
-                <div class="u-value u-min">
-                    <GamePrice :price="yesterday.min_price" />
-                </div>
-            </el-col>
-            <el-col :span="8">
-                <div class="u-label">
-                    <i class="el-icon-top u-max"></i> 今日最高价
-                </div>
-                <div class="u-value u-max">
-                    <GamePrice :price="yesterday.max_price" />
+                    <GamePrice :price="currentPrice.HighestPrice" />
                 </div>
             </el-col>
         </el-row>
@@ -63,14 +35,16 @@
 
 <script>
 import { Chart } from "@antv/g2";
-import { get_item_servers_price_logs, } from "@/service/item";
-import GamePrice from "@/components/GamePrice.vue";
-import item_price from "@/utils/ItemPrice.js";
+import {
+    get_item_price_logs,
+    get_item_servers_price_logs,
+} from "@/service/item";
+import GamePrice from "@jx3box/jx3box-common-ui/src/wiki/GamePrice.vue";
 
 export default {
     name: "ItemPriceChart",
     props: ["item_id", "server"],
-    data () {
+    data() {
         return {
             today: null,
             yesterday: null,
@@ -79,15 +53,20 @@ export default {
             hidden: false,
         };
     },
+    computed: {
+        currentPrice({ today, yesterday }) {
+            return today || yesterday || null
+        }
+    },
     methods: {
-        get_data () {
+        get_data() {
             if (this.item_id) {
-                get_item_servers_price_logs(this.item_id, {
-                    server: this.server,
-                }).then((data) => {
-                    data = data.data;
-                    let output = [];
-                    if (this.server) {
+                if (this.server) {
+                    get_item_price_logs(this.item_id, {
+                        server: this.server,
+                    }).then((data) => {
+                        data = data.data;
+                        let output = [];
                         for (let i in data.data.logs) {
                             let log = data.data.logs[i];
                             output.push({
@@ -106,33 +85,39 @@ export default {
                                 type: "最高价",
                             });
                         }
-                    } else {
-                        for (let i in data.data.logs) {
-                            let log = data.data.logs[i];
-                            output.push({
-                                date: log.Date,
-                                price: log.AvgPrice,
-                                server: log.Server,
-                            });
-                        }
-                    }
-                    this.today = null;
-                    this.yesterday = null;
-                    this.logs = output;
-                    this.render();
-                    this.hidden = !(this.logs.length > 0);
-                });
-
+                        this.today = data.data.today;
+                        this.yesterday = data.data.yesterday;
+                        this.logs = output;
+                        this.hidden = !(this.logs.length > 0);
+                    });
+                } else {
+                    get_item_servers_price_logs(this.item_id).then((data) => {
+                        data = data.data;
+                        this.today = null;
+                        this.yesterday = null;
+                        this.logs = data.data.logs.map((item)=>{
+                            return {
+                                server: item.Server,
+                                price: item.AvgPrice,
+                                date: item.Date
+                            }
+                        });
+                        this.hidden = !(this.logs.length > 0);
+                    });
+                }
             }
         },
-        render () {
-            if (this.chart) this.chart.destroy();
-            this.chart = new Chart({
-                container: "m-item-price-chart",
-                autoFit: true,
-                width: "100%",
-                height: 200,
-            });
+        render() {
+            if (!this.chart) {
+                this.chart = new Chart({
+                    container: "m-item-price-chart",
+                    autoFit: true,
+                    width: "100%",
+                    height: 300,
+                });
+            }else{
+                this.chart.clear();
+            }
 
             this.chart.scale({
                 date: {
@@ -146,7 +131,7 @@ export default {
             this.chart.axis("price", {
                 label: {
                     formatter: (val) => {
-                        return item_price(val);
+                        return this.$options.filters.item_price(val);
                     },
                 },
             });
@@ -156,7 +141,9 @@ export default {
                 shared: true,
                 customItems: (items) => {
                     for (let index = 0; index < items.length; index++) {
-                        items[index].value = item_price(items[index].value);
+                        items[index].value = this.$options.filters.item_price(
+                            items[index].value
+                        );
                     }
                     return items;
                 },
@@ -178,19 +165,19 @@ export default {
             this.chart.render();
         },
     },
-    computed: {
-        params() {
-            return [this.item_id, this.server];
-        }
-    },
     watch: {
-        params: {
-            deep: true,
+        item_id() {
+            this.get_data();
+        },
+        server: {
             immediate: true,
             handler() {
                 this.get_data();
-            }
-        }
+            },
+        },
+        logs() {
+            this.render();
+        },
     },
     components: {
         GamePrice,
@@ -199,5 +186,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/item/price-logs.less";
+@import "~@/assets/css/item/item_price_logs.less";
 </style>

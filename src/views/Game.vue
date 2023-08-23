@@ -10,7 +10,6 @@
                 :source-id="source_id"
             />
             <Relations :source-id="source_id" v-if="type == 'achievement'" />
-            <!-- <RelationPlans :source-id="id" v-if="type == 'item'" /> -->
             <WikiRevisions v-if="wikiPost && wikiPost.post" :type="source_type" :source-id="source_id" :isGame="true" />
             <WikiComments v-if="wikiPost && wikiPost.post" :type="source_type" :source-id="source_id" />
         </div>
@@ -131,7 +130,6 @@ export default {
         WikiRevisions,
         WikiComments,
         Relations,
-        // RelationPlans,
         PriceTabs,
         GameLayout,
     },

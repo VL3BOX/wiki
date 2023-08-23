@@ -2,7 +2,21 @@
     <div>
         <Header></Header>
 
-        <Breadcrumb :name="name" :slug="slug" :root="computedRoot" :publishEnable="publishEnable" :adminEnable="adminEnable" :topicEnable="topicEnable" :feedbackEnable="feedbackEnable" :overlayEnable="overlayEnable" :crumbEnable="crumbEnable" :withoutLeft="withoutLeft" :adminMarks="adminMarks"></Breadcrumb>
+        <Breadcrumb
+            :name="name"
+            :slug="slug"
+            :root="computedRoot"
+            :publishEnable="publishEnable"
+            :adminEnable="adminEnable"
+            :topicEnable="topicEnable"
+            :feedbackEnable="feedbackEnable"
+            :overlayEnable="overlayEnable"
+            :crumbEnable="crumbEnable"
+            :withoutLeft="withoutLeft"
+            :adminMarks="adminMarks"
+        >
+            <slot name="breadcrumb"></slot>
+        </Breadcrumb>
         <LeftSidebar>
             <slot name="left"></slot>
         </LeftSidebar>
@@ -26,58 +40,58 @@ export default {
     props: {
         name: {
             type: String,
-            default: "成就百科"
+            default: "成就百科",
         },
         slug: {
             type: String,
-            default: "achievement"
+            default: "achievement",
         },
         root: {
             type: String,
-            default: ""
+            default: "",
         },
         withoutRight: {
             type: Boolean,
-            default: false
+            default: false,
         },
         publishEnable: {
             type: Boolean,
-            default: false
+            default: false,
         },
         adminEnable: {
             type: Boolean,
-            default: false
+            default: false,
         },
         topicEnable: {
             type: Boolean,
-            default: false
+            default: false,
         },
         feedbackEnable: {
             type: Boolean,
-            default: false
+            default: false,
         },
         overlayEnable: {
             type: Boolean,
-            default: false
+            default: false,
         },
         crumbEnable: {
             type: Boolean,
-            default: true
+            default: true,
         },
         withoutLeft: {
             type: Boolean,
-            default: false
+            default: false,
         },
         adminMarks: {
             type: Array,
-            default: () => []
-        }
+            default: () => [],
+        },
     },
     computed: {
         computedRoot: function () {
             return this.root ? this.root : this.slug;
-        }
-    }
+        },
+    },
 };
 </script>
 
@@ -85,6 +99,7 @@ export default {
 .c-main {
     padding: 0 10px;
 }
+
 .m-main {
     padding-top: 10px;
 }

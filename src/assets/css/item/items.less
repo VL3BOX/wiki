@@ -1,0 +1,61 @@
+.m-items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    .m-item-container {
+        display: block;
+        margin: 0 0 10px;
+        padding: 0 10px 0 0;
+        vertical-align: top;
+
+        .m-link {
+            display: block;
+            padding: 10px 5px;
+            background: #fafbfc;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            overflow: hidden;
+
+            &:hover {
+                border-color: #49c10f;
+            }
+        }
+
+        .m-left {
+            float: left;
+            width: 60px;
+            text-align: center;
+
+            .u-icon {
+                width: 48px;
+                margin-right: 10px;
+            }
+        }
+
+        .m-right {
+            margin-left: 60px;
+            font-size: 14px;
+
+            .u-uiid {
+                .fr;
+                .mr(10px);
+                font-size: 13px;
+                color: gray;
+            }
+
+            .u-name {
+                margin: 0;
+                font-size: inherit;
+                font-weight: bold;
+                vertical-align: top;
+            }
+
+            .u-description {
+                margin-top: 5px;
+                color: #666666;
+                .fz(12px, 1.8);
+            }
+        }
+    }
+}

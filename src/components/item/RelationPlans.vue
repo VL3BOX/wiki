@@ -1,95 +1,99 @@
 <template>
-    <div class="m-item-plan" v-if="relation_plans.length">
-        <div class="m-title">
-            <span class="u-label">📜 相关物品清单</span>
-        </div>
-        <div class="m-section">
-            <div class="m-relation-plans">
-                <el-row :gutter="20">
-                    <el-col
-                        :span="12"
-                        v-for="(plan, key) in relation_plans"
-                        :key="key"
-                    >
-                        <div class="u-plan">
-                            <span
-                                v-if="plan.type == 1"
-                                class="u-type"
-                                :class="'u-type-' + plan.type"
-                            >
-                                <img :src="plan_1_icon" />
-                            </span>
-                            <span
-                                v-if="plan.type == 2"
-                                class="u-type"
-                                :class="'u-type-' + plan.type"
-                            >
-                                <img :src="plan_2_icon" />
-                            </span>
-                            <a
-                                class="u-name"
-                                v-text="plan.title"
-                                :href="
-                                    `${rootPath}item/#/plan_view/${plan.id}`
-                                "
-                            ></a>
-                            <span
-                                class="u-desc"
-                                v-text="plan.description"
-                            ></span>
-                        </div>
-                    </el-col>
-                </el-row>
-            </div>
-        </div>
-    </div>
+	<div class="m-relation-plans">
+		<template v-if="relation_plans.length">
+			<el-table :data="relation_plans" @cell-click="openLink">
+				<el-table-column prop="title" label="清单名称">
+					<template slot-scope="scope">
+						<div class="u-title">
+                            <i class="el-icon-tickets"></i>
+                            {{ scope.row.title }}
+                            </div>
+					</template>
+				</el-table-column>
+				<el-table-column prop="description" label="描述"> </el-table-column>
+				<el-table-column prop="user_nickname" label="作者">
+					<template slot-scope="scope">
+						<a :href="author_url(scope.row.user_id)" class="u-name" target="_blank" @click.stop>
+							<img :src="scope.row.user_avatar" :alt="scope.row.user_nickname" />
+							<span>{{ scope.row.user_nickname }}</span>
+						</a>
+					</template>
+				</el-table-column>
+				<el-table-column prop="updated" label="更新日期">
+					<template slot-scope="scope">
+						<span>{{ date_format(scope.row.updated) }}</span>
+					</template>
+				</el-table-column>
+			</el-table>
+			<!-- <el-row :gutter="20">
+				<el-col :span="12" v-for="(plan, key) in relation_plans" :key="key">
+					<div class="u-plan">
+						<span v-if="plan.type == 1" class="u-type" :class="'u-type-' + plan.type">
+							<img :src="plan_1_icon" />
+						</span>
+						<span v-if="plan.type == 2" class="u-type" :class="'u-type-' + plan.type">
+							<img :src="plan_2_icon" />
+						</span>
+						<router-link
+							class="u-name"
+							v-text="plan.title"
+							:to="{
+								name: 'plan_view',
+								params: { plan_id: plan.id },
+							}"
+						></router-link>
+						<span class="u-desc" v-text="plan.description"></span>
+					</div>
+				</el-col>
+			</el-row> -->
+		</template>
+		<div v-else style="text-align: center">🐖 暂无记录</div>
+	</div>
 </template>
 
 <script>
-import { __iconPath, __Root, __OriginRoot } from '@jx3box/jx3box-common/data/jx3box.json'
-import { get_item_relation_plans } from "../../service/item";
+import { get_item_relation_plans } from "@/service/item";
+import { date_format, author_url } from "@/filters/";
+import { __iconPath } from "@jx3box/jx3box-common/data/jx3box.json";
 
 export default {
-    name: "RelationPlans",
-    props: ["sourceId"],
-    data() {
-        return {
-            params: new URLSearchParams(location.search),
-            relation_plans: [],
-            plan_2_icon: __iconPath + "icon/2410.png",
-            plan_1_icon: __iconPath + "icon/3089.png",
-        };
-    },
-    computed: {
-        client: function () {
-            let client = this.params.get("L") == "classic_yq" ? "origin" : "std";
-            return client;
-        },
-        rootPath: function () {
-            return this.client == "origin" ? __OriginRoot : __Root;
-        },
-    },
-    watch: {
-        sourceId: {
-            immediate: true,
-            handler() {
-                if (this.sourceId) {
-                    get_item_relation_plans(this.sourceId, { limit: 6 }).then(
-                        (data) => {
-                            data = data.data;
-                            this.relation_plans = data.data.data;
-                        },
-                        (err) => {
-                            this.relation_plans = [];
-                        }
-                    );
-                }
-            },
-        },
-    },
+	name: "RelationPlans",
+	props: ["item_id"],
+	data() {
+		return {
+			relation_plans: [],
+			avatar: __iconPath + "icon/2410.png",
+			plan_1_icon: __iconPath + "icon/3089.png",
+		};
+	},
+	watch: {
+		item_id: {
+			immediate: true,
+			handler() {
+				if (this.item_id) {
+					get_item_relation_plans(this.item_id, { limit: 10 }).then(
+						(data) => {
+							data = data.data;
+							this.relation_plans = data.data.data;
+						},
+						(err) => {
+							this.relation_plans = [];
+						}
+					);
+				}
+			},
+		},
+	},
+	methods: {
+		date_format,
+		author_url,
+		openLink(row) {
+            this.$router.push({ name: 'plan_view', params: { plan_id: row.id } });
+		},
+	},
 };
 </script>
 
 <style lang="less">
-@import "~@/assets/css/item/relation-plans.less";
+@import "~@/assets/css/item/relation_plans.less";
 </style>

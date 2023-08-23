@@ -1,0 +1,506 @@
+<template>
+    <div id="m-item-view">
+        <Search />
+        <div v-if="wiki_post.source && JSON.stringify(wiki_post.source) !== '{}'" class="w-item">
+            <div class="m-item-viewer">
+                <div class="w-left">
+                    <jx3-item :item_id="wiki_post.source.id" />
+                </div>
+                <div class="w-right">
+                    <div class="m-name">
+                        <div class="u-title">
+                            <item-icon :item="wiki_post.source" :dishoverable="true" />
+                            <h6 class="u-name" :class="{ white: wiki_post.source.Quality == 1 }"
+                                v-text="wiki_post.source.Name" :style="{
+                                    color: item_color(wiki_post.source.Quality),
+                                }"></h6>
+                        </div>
+
+                        <div class="m-buttons fr">
+                            <!-- 加入清单 -->
+                            <Plan class="u-plan" :itemId="id" />
+                            <!-- 收藏按钮 -->
+                            <Fav class="u-collect" post-type="item" :post-id="wiki_post.source.id"
+                                :post-title="fav_title" />
+                        </div>
+                    </div>
+                    <!-- 原料 -->
+                    <div class="m-item-required" v-if="requiredList.length">
+                        <span class="u-label">制作原料</span>
+                        <router-link class="u-item" v-for="item in requiredList" :key="item.ID" target="_blank"
+                            :to="`/view/5_${item.ID}`">
+                            <img class="u-icon" :src="iconLink(item)" :alt="item.Name" :title="item.Name" />
+                            <span class="u-count">{{ item._count }}</span>
+                        </router-link>
+                    </div>
+                    <!-- 其余属性 -->
+                    <ul class="m-other-fields">
+                        <li class="m-other-field">
+                            <span class="u-label">拾取绑定</span>
+                            <span class="u-value">{{ item_bind(wiki_post.source.BindType) }}</span>
+                        </li>
+                        <li class="m-other-field">
+                            <span class="u-label">可否交易</span>
+                            <span class="u-value">{{ wiki_post.source.CanTrade ? "✔️ 可以" : "❌ 不可以" }}</span>
+                        </li>
+                        <li>
+                            <span class="u-label">回购价格</span>
+                            <GamePrice class="u-value" :price="wiki_post.source.Price" v-if="wiki_post.source.Price" />
+                            <span class="u-value" v-else>-</span>
+                        </li>
+                        <!-- <li v-if="wiki_post.source.Level">
+							<span class="u-label">品质等级</span>
+							<span class="u-value" v-text="wiki_post.source.Level"></span>
+						</li> -->
+                        <!-- <li class="m-other-field">
+							<span class="u-label">品质</span>
+							<span class="u-value" v-html="`<span style='color:${item_color(wiki_post.source.Quality)}'>${item_quality(wiki_post.source.Quality)}</span>`"></span>
+						</li> -->
+
+                        <li class="m-other-field">
+                            <span class="u-label">可否堆叠</span>
+                            <span class="u-value">{{ wiki_post.source.CanStack ? "✔️ 可以" : "❌ 不可以" }}</span>
+                        </li>
+                        <li v-if="wiki_post.source.MaxExistAmount > 0">
+                            <span class="u-label">最大拥有数</span>
+                            <span class="u-value">{{ wiki_post.source.MaxExistAmount }}</span>
+                        </li>
+                        <li v-if="wiki_post.source.MaxExistTime > 0">
+                            <span class="u-label">限时有效</span>
+                            <span class="u-value">{{ showDuration(wiki_post.source.MaxExistTime) }}</span>
+                        </li>
+
+                        <!-- <li v-if="wiki_post.source.BelongSchool">
+							<span class="u-label">门派</span>
+							<span class="u-value">{{wiki_post.source.BelongSchool}}</span>
+						</li>
+						<li v-if="wiki_post.source.MagicKind">
+							<span class="u-label">心法</span>
+							<span class="u-value">{{wiki_post.source.MagicKind}}</span>
+						</li>
+						<li v-if="wiki_post.source.MagicType">
+							<span class="u-label">属性</span>
+							<span class="u-value">{{wiki_post.source.MagicType}}</span>
+						</li> -->
+                        <li v-if="wiki_post.source.GetType">
+                            <span class="u-label">获得途径</span>
+                            <span class="u-value">{{ wiki_post.source.GetType }}</span>
+                        </li>
+                        <li v-if="wiki_post.source.CanChangeMagic">
+                            <span class="u-label">可否附魔</span>
+                            <span class="u-value">✔️ 可以</span>
+                        </li>
+                        <li v-if="wiki_post.source.CanExterior">
+                            <span class="u-label">可否收集</span>
+                            <span class="u-value">✔️ 可以</span>
+                        </li>
+                        <li v-if="wiki_post.source.CanSetColor">
+                            <span class="u-label">可否染色</span>
+                            <span class="u-value">✔️ 可以</span>
+                        </li>
+                        <li class="m-other-field">
+                            <span class="u-label">可否分解</span>
+                            <span class="u-value">{{ wiki_post.source.CanApart ? "✔️ 可以" : "❌ 不可以" }}</span>
+                        </li>
+                        <li class="m-other-field">
+                            <span class="u-label">可否摧毁</span>
+                            <span class="u-value">{{
+                                    wiki_post.source.CanDestroy || wiki_post.source.CanDestroy === null
+                                        ? "✔️ 可以"
+                                        : "❌ 不可以"
+                            }}</span>
+                        </li>
+                        <!-- <li v-if="wiki_post.source.CanShared">
+							<span class="u-label">可否分享</span>
+							<span class="u-value" v-text="'可以分享'"></span>
+						</li> -->
+
+                        <!-- <li v-if="wiki_post.source.Requires && wiki_post.source.Requires[100]">
+							<span class="u-value" v-text="wiki_post.source.Requires[100]"></span>
+						</li> -->
+                        <!--<li v-if="wiki_post.source.Require1Type">
+                            <label class="u-title" v-text="item_require_1_type(wiki_post.source.Require1Type) + '：'"></label>
+                            <span class="u-value" v-text="wiki_post.source.Require1Value"></span>
+                        </li>-->
+
+                        <!-- <li v-if="wiki_post.source.AucGenre >= 1 && wiki_post.source.AucGenre <= 3">
+							<span class="u-label">耐久度</span>
+							<span class="u-value" v-text="`${wiki_post.source.MaxDurability}/${wiki_post.source.MaxDurability}`"></span>
+						</li> -->
+                        <!--<li class="m-field">
+                            <label class="u-title">磨损率：</label>
+                            <span class="u-value" v-text="wiki_post.source.AbradeRate"></span>
+                        </li>-->
+                        <!--<li class="m-other-field">
+                            <label class="u-title">修理费：</label>
+                            <span class="u-value" v-text="wiki_post.source.RepairPriceRebate"></span>
+                        </li>-->
+
+                        <!-- <li v-if="wiki_post.source.CanConsume">
+							<span class="u-label">消耗品</span>
+							<span class="u-value" v-text="'是'"></span>
+						</li> -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="m-tabs">
+            <div class="m-price-server">
+                <i class="el-icon-s-shop"></i> 全服价格
+                <el-select v-if="activeTab === 'item-price-chart' || activeTab === 'item-prices'" class="u-server"
+                    v-model="server" placeholder="请选择服务器" size="mini">
+                    <el-option key label="前五低价区服" value v-if="isStdClient"></el-option>
+                    <el-option v-for="serve in servers" :key="serve" :label="serve" :value="serve"></el-option>
+                </el-select>
+            </div>
+
+            <el-tabs v-model="activeTab" type="border-card" @tab-click="active_tab_handle" v-loading="loading">
+                <el-tab-pane label="📈 价格波动" name="item-price-chart"
+                    v-if="wiki_post.source && wiki_post.source.BindType != 3">
+                    <item-price-chart ref="item_price_chart" :item_id="wiki_post.source.id" :server="server" />
+                </el-tab-pane>
+                <el-tab-pane label="💰 近期价格" name="item-prices"
+                    v-if="wiki_post.source && wiki_post.source.BindType != 3" lazy>
+                    <item-prices :item_id="wiki_post.source.id" :server="server" />
+                </el-tab-pane>
+                <!-- <el-tab-pane label="📜 相关物品清单" name="relation-plans" lazy>
+                    <relation-plans :item_id="wiki_post.source.id" />
+                </el-tab-pane> -->
+            </el-tabs>
+        </div>
+
+        <div class="m-wiki-post-panel" v-if="wiki_post && wiki_post.post">
+            <WikiPanel :wiki-post="wiki_post">
+                <template slot="head-title">
+                    <img class="u-icon" svg-inline src="@/assets/img/item.svg" />
+                    <span class="u-txt">物品攻略</span>
+                </template>
+                <template slot="head-actions">
+                    <a class="el-button el-button--primary" :href="publish_url(`item/${id}`)">
+                        <i class="el-icon-edit"></i>
+                        <span>完善物品攻略</span>
+                    </a>
+                </template>
+                <template slot="body">
+                    <div class="m-wiki-compatible" v-if="compatible">
+                        <i class="el-icon-warning-outline"></i> 暂无缘起攻略，以下为重制攻略，仅作参考，<a class="s-link"
+                            :href="publish_url(`item/${id}`)">参与修订</a>。
+                    </div>
+                    <Article :content="wiki_post.post.content" />
+                    <div class="m-wiki-signature">
+                        <i class="el-icon-edit"></i>
+                        本次修订由 <b>{{ user_name }}</b> 提交于{{ updated_at }}
+                    </div>
+                    <Thx class="m-thx" :postId="id" postType="item" :postTitle="wiki_post.source.Name"
+                        :userId="author_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" :authors="authors"
+                        mode="wiki" :key="'item-thx-' + id" :client="client" />
+                </template>
+            </WikiPanel>
+
+            <!-- 历史版本 -->
+            <WikiRevisions type="item" :source-id="id" />
+
+            <!-- 百科评论 -->
+            <WikiComments type="item" :source-id="id" />
+        </div>
+        <div class="m-wiki-post-empty" v-else>
+            <i class="el-icon-s-opportunity"></i>
+            <span>暂无攻略，我要</span>
+            <a class="s-link" :href="publish_url(`item/${id}`)">完善攻略</a>
+        </div>
+    </div>
+</template>
+
+<script>
+import Article from "@jx3box/jx3box-editor/src/Article.vue";
+import Fav from "@jx3box/jx3box-common-ui/src/interact/Fav.vue";
+import Item from "@jx3box/jx3box-editor/src/Item.vue";
+import ItemIcon from "@/components/item/ItemIcon.vue";
+import Plan from "@/components/item/Plan.vue";
+import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
+import WikiRevisions from "@jx3box/jx3box-common-ui/src/wiki/WikiRevisions";
+import WikiComments from "@jx3box/jx3box-common-ui/src/wiki/WikiComments";
+import Search from "@/components/item/Search.vue";
+import ItemPrices from "@/components/item/ItemPrices.vue";
+import ItemPriceChart from "@/components/item/ItemPriceChart.vue";
+import GamePrice from "@jx3box/jx3box-common-ui/src/wiki/GamePrice.vue";
+import User from "@jx3box/jx3box-common/js/user";
+
+import { postStat } from "@jx3box/jx3box-common/js/stat";
+import { wiki } from "@jx3box/jx3box-common/js/wiki.js";
+import { __Links } from "@jx3box/jx3box-common/data/jx3box.json";
+import std_servers from "@jx3box/jx3box-data/data/server/server_std.json";
+import origin_servers from "@jx3box/jx3box-data/data/server/server_origin.json";
+import { item_color, item_quality, item_price, item_bind } from "@/filters";
+import { publishLink, ts2str, showAvatar, iconLink } from "@jx3box/jx3box-common/js/utils";
+import { getManufactureDetail, getItemDetail } from "@/service/item";
+import { getMyInfo } from "@/service/user";
+
+import dayjs from "dayjs";
+import duration from "dayjs/plugin/duration";
+dayjs.extend(duration);
+
+const DEFAULT_ACTIVE_TAB = "item-price-chart";
+
+export default {
+    name: "Detail",
+    props: [],
+    data: function () {
+        return {
+            wiki_post: {
+                source: {},
+                post: null,
+            },
+            compatible: false,
+            is_empty: true,
+
+            server: "",
+            activeTab: DEFAULT_ACTIVE_TAB,
+            loading: false,
+            requiredList: [], // 原料列表
+        };
+    },
+    computed: {
+        id: function () {
+            return this.$route.params.item_id;
+        },
+        post_id: function () {
+            return this.$route.params.post_id;
+        },
+        isRevision: function () {
+            return !!this.$route.params.post_id;
+        },
+        author_id: function () {
+            return ~~this.wiki_post?.post?.user_id;
+        },
+        servers: function () {
+            return this.$store.state.client == "origin" ? origin_servers : std_servers;
+        },
+        isStdClient: function () {
+            return this.$store.state.client == "std";
+        },
+        client: function () {
+            return this.$store.state.client;
+        },
+        user_name: function () {
+            return this.wiki_post?.post?.user_nickname;
+        },
+        updated_at: function () {
+            return ts2str(this.wiki_post?.post?.updated);
+        },
+        auc: function () {
+            return `${this.wiki_post?.source?.AucGenre}_${this.wiki_post?.source?.AucSubType}`;
+        },
+        fav_title: function () {
+            return this.wiki_post?.source?.Name;
+        },
+        authors: function () {
+            if (!this.isRevision) {
+                return (
+                    this.wiki_post?.users
+                        ?.filter((user) => user.id)
+                        ?.map((user) => {
+                            return {
+                                user_id: user.id,
+                                user_avatar: user.avatar,
+                                display_name: user.nickname,
+                            };
+                        }) || []
+                );
+            }
+            return [];
+        },
+        firstServer: function(){
+            for(let i of (this.servers || [])){
+                return i;
+            }
+            return '';
+        },
+    },
+    components: {
+        "jx3-item": Item,
+        ItemIcon,
+        WikiPanel,
+        WikiRevisions,
+        WikiComments,
+        Article,
+        Search,
+        Fav,
+        Plan,
+        "item-prices": ItemPrices,
+        "item-price-chart": ItemPriceChart,
+        GamePrice,
+    },
+    methods: {
+        active_tab_handle (tab) {
+            if (tab.name === "item-price-chart") {
+                this.$nextTick(() => {
+                    this.$refs.item_price_chart.render();
+                });
+            }
+        },
+        go_to_comment () {
+            let target = document.querySelector("#m-reply-form");
+            target.scrollIntoView(true);
+        },
+        publish_url: publishLink,
+        item_color,
+        item_quality,
+        item_price,
+        item_bind,
+        ts2str,
+        iconLink (item) {
+            return iconLink(item.item_info[0]?.IconID || item.item_info?.IconID)
+        },
+        showAvatar: function (url) {
+            return showAvatar(url, 32);
+        },
+        loadData: function () {
+            // 获取最新攻略
+            if (this.id) {
+                wiki.mix({ type: "item", id: this.id, client: this.client }, { supply: 1 }).then((res) => {
+                    const { post, source, compatible, isEmpty, users } = res;
+                    this.wiki_post = {
+                        post: post,
+                        source: source,
+                        users,
+                    };
+                    this.is_empty = isEmpty;
+                    this.compatible = compatible;
+                });
+            }
+            this.triggerStat();
+        },
+        loadRevision: function () {
+            // 获取指定攻略
+            wiki.getById(this.post_id, { type: "item" }).then((res) => {
+                this.wiki_post = res?.data?.data;
+            });
+            this.triggerStat();
+        },
+        triggerStat: function () {
+            if (this.client == "origin") {
+                postStat("origin_item", this.id);
+            } else {
+                postStat("item", this.id);
+            }
+        },
+        loadItemDetail: function () {
+            if (this.wiki_post?.source?.UiID) {
+                getManufactureDetail({ sourceId: this.wiki_post?.source?.SourceID, client: this.client }).then(
+                    (res) => {
+                        const data = res?.data?.find(
+                            (item) => item.CreateItemIndex1 === this.wiki_post?.source?.SourceID
+                        );
+
+                        if (!data) return;
+
+                        let counts = [];
+                        let itemIds = [];
+
+                        if (data) {
+                            for (const key in data) {
+                                if (key.startsWith("RequireItemCount") && data[key]) {
+                                    counts.push(data[key]);
+                                }
+
+                                if (key.startsWith("RequireItemIndex") && data[key]) {
+                                    itemIds.push(data[key]);
+                                }
+                            }
+                        }
+
+                        getItemDetail({ ids: itemIds.join(","), per: 10, client: this.client }).then((itemRes) => {
+                            this.requiredList = itemRes?.data?.list?.map((item, i) => {
+                                return {
+                                    ...item,
+                                    _count: counts[i],
+                                };
+                            });
+                        });
+                    }
+                );
+            }
+        },
+        showDuration: function (val) {
+            val = Number(val);
+            return val && dayjs.duration(val).asDays().toFixed(0) + "天";
+        },
+        loadUserDefaultServer(){
+            User.isLogin() && getMyInfo().then((data) => {
+                let userServer = data?.jx3_server;
+                this.$nextTick(() => {
+                    if (userServer && this.servers.includes(userServer)) {
+                        this.server = userServer
+                    } else {
+                        this.server = this.firstServer
+                    }
+                    this.$refs.item_price_chart.render();
+                })
+            })
+        }
+    },
+    watch: {
+        id: {
+            handler () {
+                this.loadData();
+            },
+        },
+        post_id: {
+            handler () {
+                this.loadRevision();
+            },
+        },
+        "wiki_post.source": {
+            immediate: true,
+            deep: true,
+            handler () {
+                let item = this.wiki_post.source;
+                this.activeTab = item && item.BindType != 3 ? DEFAULT_ACTIVE_TAB : "relation-plans";
+                this.$store.state.sidebar.AucGenre = parseInt(item.AucGenre);
+                this.$store.state.sidebar.AucSubTypeID = parseInt(item.AucSubTypeID);
+
+                this.loadItemDetail();
+            },
+        },
+    },
+    mounted: function () {
+        if (this.post_id) {
+            this.loadRevision();
+        } else {
+            this.loadData();
+        }
+        this.loadUserDefaultServer()
+    },
+    created () {
+        if (this.$store.state.client == "origin") {
+            this.server = "缘起稻香";
+        }
+        if (sessionStorage.getItem('server_name')) {
+            this.server = sessionStorage.getItem('server_name')
+            sessionStorage.removeItem('server_name')
+        }
+    },
+};
+</script>
+
+<style lang="less">
+@import "~@/assets/css/item/detail.less";
+</style>
+
+<style lang="less" scoped>
+.u-plan {
+    margin-right: 10px;
+}
+
+.m-name {
+    .flex;
+    justify-content: space-between;
+
+    .u-title {
+        .flex;
+        align-items: center;
+    }
+}
+</style>
