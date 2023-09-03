@@ -51,7 +51,7 @@
                         </a>
                     </li>
                     <li class="qlink">
-                        <a target="_blank" href="/app/price">
+                        <a target="_blank" href="/pvg/price">
                             <i class="el-icon-orange"></i>
                             <span>金价走势</span>
                         </a>

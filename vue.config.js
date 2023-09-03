@@ -30,6 +30,12 @@ module.exports = {
             entry: "src/pages/item.js",
             filename: "item/index.html",
         },
+        cj: {
+            title: "成就百科 - JX3BOX",
+            template: "public/index.html",
+            entry: "src/pages/cj.js",
+            filename: "cj/index.html",
+        },
     },
 
     // ❤️ Porxy ~
