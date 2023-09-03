@@ -1,7 +1,5 @@
-import Vue from "vue";
-const Bus = new Vue();
-export default Bus
+import mitt from "mitt";
 
-// Use like
-// Bus.$emit(事件名,数据);
-// Bus.$on(事件名,data => {});
+const emitter = mitt();
+
+export default emitter;
