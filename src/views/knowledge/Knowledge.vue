@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import DefaultLayout from "@/layout/DefaultLayout";
+import DefaultLayout from "@/layout/DefaultLayout.vue";
 import Nav from "@/components/knowledge/nav";
 export default {
     name: "App",

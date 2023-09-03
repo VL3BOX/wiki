@@ -15,6 +15,9 @@ import router from "@/router/item";
 import store from "@/store/item";
 import App from "@/views/item/index.vue";
 
+import reporter from "@jx3box/jx3box-common/js/reporter";
+reporter.install(Vue);
+
 new Vue({
     router,
     store,

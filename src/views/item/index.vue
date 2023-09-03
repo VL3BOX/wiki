@@ -21,6 +21,7 @@ import ItemBreadcrumb from "@/components/item/ItemBreadcrumb.vue";
 import Sidebar from "@/components/item/Sidebar.vue";
 import Extend from "@/components/item/Extend.vue";
 export default {
-    name: "ItemIndex"
+    name: "ItemIndex",
+    components: { DefaultLayout, ItemBreadcrumb, Sidebar, Extend },
 }
 </script>
