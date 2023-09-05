@@ -5,7 +5,7 @@
         <div class="m-wiki-post-panel" v-if="wiki_post && wiki_post.post">
             <WikiPanel :wiki-post="wiki_post">
                 <template slot="head-title">
-                    <img class="u-icon" svg-inline src="../assets/img/achievement.svg" />
+                    <img class="u-icon" svg-inline src="@/assets/img/cj/achievement.svg" />
                     <span class="u-txt">成就攻略</span>
                 </template>
                 <template slot="head-actions">
@@ -48,7 +48,7 @@ import Article from "@jx3box/jx3box-editor/src/Article.vue";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import WikiRevisions from "@jx3box/jx3box-common-ui/src/wiki/WikiRevisions";
 import WikiComments from "@jx3box/jx3box-common-ui/src/wiki/WikiComments";
-import AchievementSingle from "@/components/AchievementSingle.vue";
+import AchievementSingle from "@/components/cj/AchievementSingle.vue";
 import Relations from "@/components/Relations.vue";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
 import { wiki } from "@jx3box/jx3box-common/js/wiki";
@@ -177,5 +177,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "../assets/css/views/detail.less";
+@import "~@/assets/css/cj/detail.less";
 </style>
