@@ -69,8 +69,20 @@ export default {
     data: () => ({
         height: 896,
         width: 1024,
-        MapScales: {},
+        mapScales: {},
     }),
+    watch: {
+        mapScales: {
+            immediate: true,
+            deep: true,
+            handler() {
+                this.$nextTick(function () {
+                    this.updateSize();
+                    window.addEventListener("resize", this.updateSize);
+                });
+            },
+        },
+    },
     computed: {
         containerSize: function () {
             return {
@@ -86,21 +98,21 @@ export default {
         fetchMapScales() {
             getMapScales().then((data) => {
                 this.mapScales = data;
-                this.initInnerOffset(this.focusPoint);
             });
         },
-        mapImgUrl: (id) => {
+        mapImgUrl(id) {
             return `${__imgPath}map/maps/map_${id}_0.png`;
         },
-        mapName: (id) => {
-            if (MapScales[`${id}`]) {
-                return MapScales[`${id}`][0]["Name"];
+        mapName(id) {
+            if (this.mapScales[`${id}`]) {
+                return this.mapScales[`${id}`][0]["Name"];
             } else {
                 return "未知地图";
             }
         },
         pointStyle(Coordinates, MapId) {
-            let mapScales = MapScales[`${MapId}`];
+            console.log(this.mapScales);
+            let mapScales = this.mapScales[`${MapId}`];
             if (mapScales) {
                 mapScales = mapScales[0];
             } else {
@@ -168,10 +180,6 @@ export default {
     },
     mounted() {
         this.fetchMapScales();
-        this.$nextTick(function () {
-            this.updateSize();
-            window.addEventListener("resize", this.updateSize);
-        });
     },
     beforeDestroy() {
         window.removeEventListener("resize", this.updateSize);
