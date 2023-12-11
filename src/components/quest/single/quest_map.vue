@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import MapScales from "@jx3box/jx3box-map/src/data/map_scales.json";
+import { getMapScales } from "@jx3box/jx3box-map/src/service/data.js";
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 
 export default {
@@ -69,6 +69,7 @@ export default {
     data: () => ({
         height: 896,
         width: 1024,
+        MapScales: {},
     }),
     computed: {
         containerSize: function () {
@@ -82,6 +83,12 @@ export default {
         },
     },
     methods: {
+        fetchMapScales() {
+            getMapScales().then((data) => {
+                this.mapScales = data;
+                this.initInnerOffset(this.focusPoint);
+            });
+        },
         mapImgUrl: (id) => {
             return `${__imgPath}map/maps/map_${id}_0.png`;
         },
@@ -160,6 +167,7 @@ export default {
         },
     },
     mounted() {
+        this.fetchMapScales();
         this.$nextTick(function () {
             this.updateSize();
             window.addEventListener("resize", this.updateSize);
