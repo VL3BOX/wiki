@@ -43,25 +43,25 @@ module.exports = {
         proxy: {
             "/api/inspire": {
                 target: "https://pay.jx3box.com",
-                onProxyReq: function(request) {
+                onProxyReq: function (request) {
                     request.setHeader("origin", "");
                 },
             },
             "/api/vip": {
                 target: "https://pay.jx3box.com",
-                onProxyReq: function(request) {
+                onProxyReq: function (request) {
                     request.setHeader("origin", "");
                 },
             },
             "/api/summary": {
                 target: "https://next2.jx3box.com",
-                onProxyReq: function(request) {
+                onProxyReq: function (request) {
                     request.setHeader("origin", "");
                 },
             },
             "/api/comment": {
                 target: "https://next2.jx3box.com",
-                onProxyReq: function(request) {
+                onProxyReq: function (request) {
                     request.setHeader("origin", "");
                 },
             },
@@ -70,19 +70,19 @@ module.exports = {
             },
             "/api/team": {
                 target: "https://team.api.jx3box.com",
-                onProxyReq: function(request) {
+                onProxyReq: function (request) {
                     request.setHeader("origin", "");
                 },
             },
             "/api/cny": {
                 target: "https://pay.jx3box.com/",
-                onProxyReq: function(request) {
+                onProxyReq: function (request) {
                     request.setHeader("origin", "");
                 },
             },
             "/api": {
                 target: "https://next2.jx3box.com",
-                onProxyReq: function(request) {
+                onProxyReq: function (request) {
                     request.setHeader("origin", "");
                 },
             },
@@ -128,10 +128,13 @@ module.exports = {
     //     };
     // },
 
+    outputDir: process.env["BUILD_MODE"] == "preview" ? path.resolve(__dirname, pkg.name) : "dist", // 指定构建输出的目录
+
     //❤️ define path for static files ~
     publicPath:
         //FOR Localhost => development
         (process.env.NODE_ENV === "development" && "/") ||
+        (process.env.BUILD_MODE == "preview" && `/${pkg.name}/`) ||
         //BY origin
         (process.env.STATIC_PATH === "origin" && `${JX3BOX.__staticPath["origin"]}${pkg.name}/`) ||
         //BY github
@@ -167,10 +170,7 @@ module.exports = {
             .tap((options) => Object.assign(options, { limit: 10240 }));
 
         //💝 in-line svg imgs ~
-        config.module
-            .rule("vue")
-            .use("vue-svg-inline-loader")
-            .loader("vue-svg-inline-loader");
+        config.module.rule("vue").use("vue-svg-inline-loader").loader("vue-svg-inline-loader");
 
         //💖 import common less var * mixin ~
         const types = ["vue-modules", "vue", "normal-modules", "normal"];
@@ -181,11 +181,9 @@ module.exports = {
             path.resolve(__dirname, "./src/assets/css/var.less")
         );
         function addStyleResource(rule) {
-            rule.use("style-resource")
-                .loader("style-resources-loader")
-                .options({
-                    patterns: preload_styles,
-                });
+            rule.use("style-resource").loader("style-resources-loader").options({
+                patterns: preload_styles,
+            });
         }
         types.forEach((type) => addStyleResource(config.module.rule("less").oneOf(type)));
     },
