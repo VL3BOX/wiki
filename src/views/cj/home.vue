@@ -169,9 +169,9 @@
                                                 source_id: post.source_id,
                                             },
                                         }"
-                                        v-text="post.title"
                                         target="_blank"
-                                    ></router-link>
+                                        >{{ post.title }}</router-link
+                                    >
                                 </div>
                                 <div class="u-level" v-text="'综合难度：' + star(post.level)"></div>
                                 <div class="u-remark" v-if="post.remark" v-text="'📑 ' + post.remark"></div>
