@@ -9,8 +9,6 @@
         <!-- 头部大标题 -->
         <!-- <img class="u-logo" src="@/assets/img/quest/quest_logo.png" alt="" /> -->
         <!-- <h1 class="u-title">任务百科</h1> -->
-        <!-- 通用输入框 -->
-        <search-input></search-input>
         <wiki-panel :border-none="true">
             <template slot="head-title">
                 <i class="el-icon-location-information"></i>
@@ -69,7 +67,6 @@
 </template>
 
 <script>
-import SearchInput from "@/components/quest/common/search-input.vue";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import NewestPost from "@/components/quest/home/newest-post.vue";
 import QuestCarousel from "@/components/quest/home/quest-carousel.vue";
@@ -81,7 +78,7 @@ import { getStatRank } from "@jx3box/jx3box-common/js/stat";
 
 export default {
     name: "Home",
-    components: { SearchInput, NewestPost, QuestCarousel, WikiPanel },
+    components: {  NewestPost, QuestCarousel, WikiPanel },
     data: () => ({
         by: "all",
         feedback,

@@ -1,7 +1,7 @@
 <template>
 	<div class="v-knowledge-index" v-loading="loading">
 		<!-- 搜索 -->
-		<knowledgeSearch @onSearchKey="onSearchKey" />
+        <Search @search="onSearchKey"></Search>
 		<!-- 搜索结果 -->
 		<knowledgeList v-if="search" :list="list" :total="total" :pagination="pagination" @onPageKey="onPageKey" />
 		<template v-else>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import knowledgeSearch from "@/components/knowledge/search.vue";
+import Search from "@/components/common/search.vue";
 import knowledgeList from "@/components/knowledge/list.vue";
 // import wikiEntry from "@/components/knowledge/entry.vue"; // 快捷入口
 import wikiGuide from "@/components/knowledge/guide.vue"; // 玩法指南
@@ -32,7 +32,7 @@ import { getKnowledgeSearch } from "@/service/knowledge.js";
 export default {
 	name: "KnowledgeIndex",
 	components: {
-		knowledgeSearch,
+		Search,
 		knowledgeList,
 		// wikiEntry,
 		// wikiHot,

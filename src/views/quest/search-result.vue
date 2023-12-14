@@ -1,6 +1,5 @@
 <template>
     <div class="m-search-result">
-        <search-input></search-input>
         <list-head></list-head>
         <template v-if="resultIsObject">
             <template v-if="result.prev && result.prev.length > 0">
@@ -40,11 +39,10 @@
 <script>
 import { getQuests } from "@/service/quest";
 import QuestCard from "@/components/quest/result/quest-card.vue";
-import SearchInput from "@/components/quest/common/search-input.vue";
 import ListHead from "@/components/quest/result/list-head.vue";
 export default {
     name: "SearchResult",
-    components: { QuestCard, SearchInput, ListHead },
+    components: { QuestCard, ListHead },
     data: () => ({
         total: 1,
         pageSize: 10,

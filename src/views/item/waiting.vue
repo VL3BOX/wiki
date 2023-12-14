@@ -1,6 +1,5 @@
 <template>
     <div class="m-cj-index">
-        <search-bar />
         <el-alert
             v-if="old"
             title="所有任务都已经有了各自的攻略，以下是一些比较老旧的成就攻略"
@@ -21,7 +20,6 @@
 
 <script>
 import Items from "@/components/item/items.vue";
-import Search from "@/components/item/search.vue";
 
 import { get_waiting } from "@/service/item";
 
@@ -54,7 +52,6 @@ export default {
     },
     components: {
         Items,
-        "search-bar": Search,
     },
     mounted() {
         this.getData();

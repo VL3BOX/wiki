@@ -1,7 +1,5 @@
 <template>
     <div class="m-waiting-quest">
-        <!-- 搜索框 -->
-        <search-input></search-input>
         <el-alert
             v-if="old"
             title="所有任务都已经有了各自的攻略，以下是一些比较老旧的成就攻略"
@@ -28,13 +26,12 @@
 
 <script>
 import { getWaiting, getQuests } from "@/service/quest";
-import SearchInput from "@/components/quest/common/search-input.vue";
 import QuestCard from "@/components/quest/result/quest-card.vue";
 import ListHead from "@/components/quest/result/list-head.vue";
 
 export default {
     name: "QuestNewest",
-    components: { QuestCard, SearchInput, ListHead },
+    components: { QuestCard, ListHead },
     data: () => ({
         data: [],
         total: 0,

@@ -1,6 +1,5 @@
 <template>
     <div id="m-item-view">
-        <Search />
         <div v-if="wiki_post.source && JSON.stringify(wiki_post.source) !== '{}'" class="w-item">
             <div class="m-item-viewer">
                 <div class="w-left">
@@ -221,7 +220,6 @@ import Plan from "@/components/item/plan.vue";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import WikiRevisions from "@jx3box/jx3box-common-ui/src/wiki/WikiRevisions";
 import WikiComments from "@jx3box/jx3box-common-ui/src/wiki/WikiComments";
-import Search from "@/components/item/search.vue";
 import ItemPrices from "@/components/item/item-prices.vue";
 import ItemPriceChart from "@/components/item/item-price-chart.vue";
 import GamePrice from "@jx3box/jx3box-common-ui/src/wiki/GamePrice.vue";
@@ -325,7 +323,6 @@ export default {
         WikiRevisions,
         WikiComments,
         Article,
-        Search,
         Fav,
         Plan,
         "item-prices": ItemPrices,

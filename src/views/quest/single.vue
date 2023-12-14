@@ -1,8 +1,5 @@
 <template>
     <div class="m-quest-view">
-        <div class="m-search">
-            <search-input></search-input>
-        </div>
         <div class="w-quest">
             <p class="u-title__warpper">
                 <span class="u-title">
@@ -199,7 +196,6 @@ import QuestMap from "@/components/quest/single/quest-map.vue";
 import RewardItem from "@/components/quest/single/reward-item.vue";
 import PointFilter from "@/components/quest/single/point-filter.vue";
 import ItemIcon from "@/components/quest/common/item-icon.vue";
-import SearchInput from "@/components/quest/common/search-input.vue";
 import QuestDialog from "@/components/quest/single/quest-dialog.vue";
 
 import { postStat } from "@jx3box/jx3box-common/js/stat.js";
@@ -224,7 +220,6 @@ export default {
         RewardItem,
         QuestChain,
         PointFilter,
-        SearchInput,
         QuestDialog,
         Article,
         WikiPanel,
