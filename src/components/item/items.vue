@@ -18,9 +18,13 @@
                             class="u-name"
                             :class="{ white: item.Quality == 1 }"
                             v-text="item.Name"
-                            :style="{ color: item_color(item.Quality) }"
+                            :style="{ color: item_color(item.Quality === 1 ? -1 : item.Quality) }"
                         ></h6>
-                        <game-text class="u-description" :client="client" :text="item.DescHtml || item.Desc"></game-text>
+                        <game-text
+                            class="u-description"
+                            :client="client"
+                            :text="item.DescHtml || item.Desc"
+                        ></game-text>
                     </div>
                 </router-link>
             </el-col>
@@ -29,7 +33,7 @@
 </template>
 
 <script>
-import ItemIcon from "@/components/item/item-icon.vue";
+import ItemIcon from "@/components/common/item-icon.vue";
 import GameText from "@jx3box/jx3box-editor/src/GameText.vue";
 import { item_color } from "@/filters";
 
@@ -54,7 +58,7 @@ export default {
     },
     components: {
         ItemIcon,
-        GameText
+        GameText,
     },
 };
 </script>

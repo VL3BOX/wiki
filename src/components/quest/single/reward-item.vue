@@ -43,6 +43,7 @@
                     :item_id="item.id"
                     :amount="item.amount"
                     :size="36"
+                    :has_title="true"
                 ></item-icon>
             </div>
         </template>
@@ -51,7 +52,7 @@
 
 <script>
 import GamePrice from "@jx3box/jx3box-common-ui/src/wiki/GamePrice.vue";
-import ItemIcon from "../common/item-icon.vue";
+import ItemIcon from "@/components/common/item-icon.vue";
 import PointReward from "./point-reward.vue";
 
 export default {

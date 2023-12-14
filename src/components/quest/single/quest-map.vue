@@ -111,7 +111,6 @@ export default {
             }
         },
         pointStyle(Coordinates, MapId) {
-            console.log(this.mapScales);
             let mapScales = this.mapScales[`${MapId}`];
             if (mapScales) {
                 mapScales = mapScales[0];

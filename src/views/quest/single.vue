@@ -24,6 +24,7 @@
                         class="u-endpoint-item"
                         v-if="quest.start.type == 'item'"
                         :item_id="quest.start.id"
+                        :size="28"
                     ></item-icon>
                     <span v-else>{{ quest.start.name || "未知" }}</span>
                     <span class="u-endpoint-id"
@@ -44,6 +45,7 @@
                         class="u-endpoint-item"
                         v-if="quest.end.type == 'item'"
                         :item_id="quest.end.id"
+                        :size="28"
                     ></item-icon>
                     <span v-else>{{ quest.end.name || "未知" }}</span>
                     <span class="u-endpoint-id"
@@ -79,7 +81,7 @@
                 <template v-if="quest.needItems && quest.needItems.length > 0">
                     <div class="u-target-sub" v-for="(needItem, i) in quest.needItems" :key="i">
                         <span>收集</span>
-                        <item-icon :item_id="needItem.id"></item-icon>
+                        <item-icon :item_id="needItem.id" :has_title="true" :size="28"></item-icon>
                         <span>x {{ needItem.amount }}</span>
                         <point-filter
                             v-if="showPointFilter('NeedItem' + (i + 1))"
@@ -89,7 +91,7 @@
                         ></point-filter>
                     </div>
                 </template>
-                <div class="u-target-sub" v-for="(questValue, i) in quest.questValues" :key="i">
+                <div class="u-target-sub" v-for="(questValue, i) in quest.questValues" :key="questValue + i">
                     <span>{{ questValue.str }} x {{ questValue.value }}</span>
                     <point-filter
                         v-if="showPointFilter('State' + (i + 1))"
@@ -195,7 +197,7 @@ import QuestChain from "@/components/quest/single/quest-chain.vue";
 import QuestMap from "@/components/quest/single/quest-map.vue";
 import RewardItem from "@/components/quest/single/reward-item.vue";
 import PointFilter from "@/components/quest/single/point-filter.vue";
-import ItemIcon from "@/components/quest/common/item-icon.vue";
+import ItemIcon from "@/components/common/item-icon.vue";
 import QuestDialog from "@/components/quest/single/quest-dialog.vue";
 
 import { postStat } from "@jx3box/jx3box-common/js/stat.js";
