@@ -108,5 +108,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "~@/assets/css/quest/single/point_reward.less";
+@import "~@/assets/css/quest/single/point-reward.less";
 </style>

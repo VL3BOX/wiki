@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import Items from "@/components/item/Items.vue";
-import Search from "@/components/item/Search.vue";
+import Items from "@/components/item/items.vue";
+import Search from "@/components/item/search.vue";
 
 import { get_items_search } from "@/service/item";
 

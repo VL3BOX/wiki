@@ -165,5 +165,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/quest/common/item_icon.less";
+@import "~@/assets/css/quest/common/item-icon.less";
 </style>

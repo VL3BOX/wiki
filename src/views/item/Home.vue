@@ -229,7 +229,7 @@
 
 <script>
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
-import Search from "@/components/item/Search.vue";
+import Search from "@/components/item/search.vue";
 import { iconLink, getThumbnail } from "@jx3box/jx3box-common/js/utils";
 import { get_item_posts, get_newest_items, get_items_by_node, get_waiting_rate } from "@/service/item.js";
 import { getStatRank } from "@jx3box/jx3box-common/js/stat";

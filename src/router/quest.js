@@ -17,7 +17,7 @@ const routes = [
     {
         name: "home",
         path: "/",
-        component: () => import("@/views/quest/Home.vue"),
+        component: () => import("@/views/quest/home.vue"),
         meta: {
             sidebar: false,
         },
@@ -25,22 +25,22 @@ const routes = [
     {
         name: "result",
         path: "/search",
-        component: () => import("@/views/quest/SearchResult.vue"),
+        component: () => import("@/views/quest/search-result.vue"),
     },
     {
         name: "single",
         path: "/view/:quest_id([_\\d]+)/:post_id(\\d+)?",
-        component: () => import("@/views/quest/Single.vue"),
+        component: () => import("@/views/quest/single.vue"),
     },
     {
         name: "waiting",
         path: "/waiting",
-        component: () => import("@/views/quest/Waiting.vue"),
+        component: () => import("@/views/quest/waiting.vue"),
     },
     {
         name: "newest",
         path: "/newest",
-        component: () => import("@/views/quest/Newest.vue"),
+        component: () => import("@/views/quest/newest.vue"),
     }
 ];
 

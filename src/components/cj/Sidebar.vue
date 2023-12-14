@@ -265,5 +265,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/cj/left_side.less";
+@import "~@/assets/css/cj/left-side.less";
 </style>

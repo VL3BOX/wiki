@@ -188,5 +188,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/quest/single/quest_map.less";
+@import "~@/assets/css/quest/single/quest-map.less";
 </style>

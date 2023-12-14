@@ -16,8 +16,8 @@
 <script>
 import { __Links, __ossRoot } from '@jx3box/jx3box-common/data/jx3box.json';
 import User from "@jx3box/jx3box-common/js/user.js";
-import MyPlans from '@/components/item/MyPlans.vue'
-import MyItems from '@/components/item/MyItems.vue'
+import MyPlans from '@/components/item/my-plans.vue'
+import MyItems from '@/components/item/my-items.vue'
 export default {
     name: "Extend",
     props: [],

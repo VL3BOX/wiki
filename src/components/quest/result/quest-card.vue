@@ -45,7 +45,7 @@
 
 <script>
 import { schoolIcon, questTargetDescFormat } from "@/utils/quest";
-import ItemIcon from "../common/item_icon.vue";
+import ItemIcon from "../common/item-icon.vue";
 
 export default {
     name: "QuestCard",
@@ -134,5 +134,5 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@import "~@/assets/css/quest/result/quest_card.less";
+@import "~@/assets/css/quest/result/quest-card.less";
 </style>

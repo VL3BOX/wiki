@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import AchievementSingle from "@/components/cj/AchievementSingle.vue";
+import AchievementSingle from "@/components/cj/achievement-single.vue";
 
 export default {
     name: "Achievements",

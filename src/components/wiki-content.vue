@@ -98,9 +98,9 @@
 <script>
 import _ from "lodash";
 import Utils from "@jx3box/jx3box-common/js/utils";
-import cn2tw from "../utils/cn2tw";
-import player_name from "../utils/PlayerName";
-import star from "../utils/star";
+import cn2tw from "@/utils/cn2tw";
+import player_name from "@/utils/player-name";
+import star from "@/utils/star";
 import Article from "@jx3box/jx3box-editor/src/Article.vue";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import { wiki } from "@jx3box/jx3box-common/js/wiki.js";
@@ -241,5 +241,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "../assets/css/components/achievement/wiki-content.less";
+@import "~@/assets/css/game/wiki-content.less";
 </style>

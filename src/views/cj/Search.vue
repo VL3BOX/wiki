@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import Achievements from "@/components/cj/Achievements.vue";
+import Achievements from "@/components/cj/achievements.vue";
 import { searchAchievements } from "@/service/achievement";
 
 export default {

@@ -3,15 +3,15 @@ import VueRouter from "vue-router";
 import store from "../store/cj";
 
 // 组件懒加载
-const Home = () => import("@/views/cj/Home.vue");
-const Normal = () => import("@/views/cj/Normal.vue");
-const Detail = () => import("@/views/cj/Detail.vue");
-const Search = () => import("@/views/cj/Search.vue");
-const Newest = () => import("@/views/cj/Newest.vue");
-const Waiting = () => import("@/views/cj/Waiting.vue");
-const OutPrint = () => import("@/views/cj/OutPrint.vue");
-const Adventure = () => import("@/views/cj/Adventure.vue");
-const Rare = () => import("@/views/cj/Rare.vue");
+const Home = () => import("@/views/cj/home.vue");
+const Normal = () => import("@/views/cj/normal.vue");
+const Detail = () => import("@/views/cj/detail.vue");
+const Search = () => import("@/views/cj/search.vue");
+const Newest = () => import("@/views/cj/newest.vue");
+const Waiting = () => import("@/views/cj/waiting.vue");
+const OutPrint = () => import("@/views/cj/out-print.vue");
+const Adventure = () => import("@/views/cj/adventure.vue");
+const Rare = () => import("@/views/cj/rare.vue");
 
 Vue.use(VueRouter);
 

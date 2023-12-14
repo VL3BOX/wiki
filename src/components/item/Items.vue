@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import ItemIcon from "@/components/item/ItemIcon";
+import ItemIcon from "@/components/item/item-icon.vue";
 import GameText from "@jx3box/jx3box-editor/src/GameText.vue";
 import { item_color } from "@/filters";
 

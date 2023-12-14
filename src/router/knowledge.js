@@ -2,9 +2,9 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
-const KnowledgeIndex = () => import("@/views/knowledge/KnowledgeIndex.vue");
-const KnowledgeList = () => import("@/views/knowledge/KnowledgeList.vue");
-const KnowledgeSingle = () => import("@/views/knowledge/KnowledgeSingle.vue");
+const KnowledgeIndex = () => import("@/views/knowledge/knowledge-index.vue");
+const KnowledgeList = () => import("@/views/knowledge/knowledge-list.vue");
+const KnowledgeSingle = () => import("@/views/knowledge/knowledge-single.vue");
 
 const routes = [
     { name: "index", path: "/", component: KnowledgeIndex },

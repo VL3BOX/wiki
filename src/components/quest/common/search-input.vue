@@ -84,5 +84,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/quest/common/search_input.less";
+@import "~@/assets/css/quest/common/search-input.less";
 </style>

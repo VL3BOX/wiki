@@ -1,5 +1,5 @@
 <template>
-    <div class="m-right-side" :class="{isHome: isHome}">
+    <div class="m-right-side" :class="{ isHome: isHome }">
         <RightSideMsg>
             <em>官方反馈交流Q群</em> :
             <strong @click="onQQClick" class="u-link" title="点击复制">
@@ -13,23 +13,12 @@
                 <span class="u-text">贡献榜</span>
             </h2>
             <el-tabs v-model="active_rank_type">
-                <el-tab-pane
-                    v-for="(type, key) in rank_types"
-                    :key="key"
-                    :label="type.name"
-                    :name="type.sub"
-                >
+                <el-tab-pane v-for="(type, key) in rank_types" :key="key" :label="type.name" :name="type.sub">
                     <ul class="u-list">
                         <li v-for="(rank, k) in ranks" :key="k">
-                            <a
-                                class="u-contributor"
-                                :href="rank.user_id ? author_url(rank.user_id) : null"
-                            >
+                            <a class="u-contributor" :href="rank.user_id ? author_url(rank.user_id) : null">
                                 <i class="u-avatar">
-                                    <img
-                                        :src="rank.user_avatar | resolveAvatarPath"
-                                        :alt="rank.user_nickname"
-                                    />
+                                    <img :src="rank.user_avatar | resolveAvatarPath" :alt="rank.user_nickname" />
                                 </i>
                                 <span class="u-name" v-text="rank.user_nickname"></span>
                                 <em class="u-count">+ {{ rank.total_score }}</em>
@@ -44,42 +33,27 @@
             <h2 class="m-title">
                 <img class="u-icon" svg-inline src="@/assets/img/cj/puzzle.svg" />
                 <span class="u-text">各区服成就群</span>
-                <a
-                    class="u-show-message"
-                    target="_blank"
-                    href="https://www.jx3box.com/tool/13659/"
-                >申请展示</a>
+                <a class="u-show-message" target="_blank" href="https://www.jx3box.com/tool/13659/">申请展示</a>
             </h2>
             <el-collapse accordion>
-                <el-collapse-item
-                    v-for="(server, key) in groups"
-                    :title="key"
-                    :key="key"
-                    :name="key"
-                >
+                <el-collapse-item v-for="(server, key) in groups" :title="key" :key="key" :name="key">
                     <ul class="u-groups">
                         <li v-for="(group, k) in server" :key="k">
-                            <el-tag
-                                class="u-platform"
-                                v-if="group.platform == 'QQ'"
-                                size="mini"
-                                v-text="`${group.platform}群`"
-                            ></el-tag>
-                            <el-tag
-                                class="u-platform"
-                                v-if="group.platform == 'YY'"
-                                size="mini"
-                                type="info"
-                                v-text="`${group.platform}群`"
-                            ></el-tag>
+                            <el-tag class="u-platform" v-if="group.platform == 'QQ'" size="mini">
+                                {{ group.platform }}群
+                            </el-tag>
+                            <el-tag class="u-platform" v-if="group.platform == 'YY'" size="mini" type="info">
+                                {{ group.platform }}群
+                            </el-tag>
                             <el-button
                                 class="u-number"
                                 size="mini"
-                                v-text="group.number"
                                 v-clipboard:copy="group.number"
                                 v-clipboard:success="copy_success"
                                 v-clipboard:error="copy_error"
-                            ></el-button>
+                            >
+                                {{ group.number }}
+                            </el-button>
                         </li>
                     </ul>
                 </el-collapse-item>
@@ -92,7 +66,7 @@
 import { authorLink } from "@jx3box/jx3box-common/js/utils";
 import { get_groups } from "@/service/group";
 import { getAchievementRanking } from "@/service/achievement";
-import { __ossRoot, __ossMirror } from '@jx3box/jx3box-common/data/jx3box.json'
+import { __ossRoot, __ossMirror } from "@jx3box/jx3box-common/data/jx3box.json";
 
 export default {
     name: "Extend",
@@ -148,8 +122,8 @@ export default {
                     message: "内容：" + this.qq,
                     type: "success",
                 });
-            })
-        }
+            });
+        },
     },
     mounted() {
         // 获取成就群
@@ -189,5 +163,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/cj/right_side.less";
+@import "~@/assets/css/cj/right-side.less";
 </style>

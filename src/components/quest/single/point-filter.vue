@@ -60,5 +60,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "~@/assets/css/quest/single/point_filter.less";
+@import "~@/assets/css/quest/single/point-filter.less";
 </style>

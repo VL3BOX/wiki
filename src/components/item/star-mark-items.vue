@@ -129,7 +129,7 @@
 
 <script>
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
-import { get_item_groups_with_price } from "@/service/item_group";
+import { get_item_groups_with_price } from "@/service/item-group";
 import servers_origin from "@jx3box/jx3box-data/data/server/server_origin.json";
 import servers_std from "@jx3box/jx3box-data/data/server/server_std.json";
 import GamePrice from "@jx3box/jx3box-common-ui/src/wiki/GamePrice.vue";
@@ -249,5 +249,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/item/price_slider.less";
+@import "~@/assets/css/item/price-slider.less";
 </style>

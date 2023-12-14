@@ -144,10 +144,10 @@
 
 <script>
 import { getItemsByName } from "@/service/item";
-import { getItemPlanID, updatePlan } from "@/service/item_plan";
+import { getItemPlanID, updatePlan } from "@/service/item-plan";
 // components
 import draggable from "vuedraggable";
-import ItemIcon from "@/components/item/ItemIcon";
+import ItemIcon from "@/components/item/item-icon.vue";
 import ItemSimple from "@jx3box/jx3box-editor/src/ItemSimple";
 export default {
     name: "planEdit",
@@ -304,5 +304,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/item/item_plan.less";
+@import "~@/assets/css/item/item-plan.less";
 </style>

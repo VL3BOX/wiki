@@ -1,5 +1,5 @@
 import { __imgPath } from '@jx3box/jx3box-common/data/jx3box.json'
-import questFont from "@/assets/data/questFont.json";
+import questFont from "@/assets/data/quest-font.json";
 
 export const buildPoints = (quest) => {
     let result = {};

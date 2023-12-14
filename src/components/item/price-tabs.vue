@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import ItemPrices from "@/components/item/Prices.vue";
-import ItemPriceChart from "@/components/item/PriceChart.vue";
+import ItemPrices from "@/components/item/prices.vue";
+import ItemPriceChart from "@/components/item/price-chart.vue";
 import servers_origin from "@jx3box/jx3box-data/data/server/server_origin.json";
 import servers_std from "@jx3box/jx3box-data/data/server/server_std.json";
 export default {

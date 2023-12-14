@@ -79,5 +79,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "~@/assets/css/quest/home/quest_carousel.less";
+@import "~@/assets/css/quest/home/quest-carousel.less";
 </style>

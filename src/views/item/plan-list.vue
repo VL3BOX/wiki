@@ -31,7 +31,7 @@
 </template>
 <script>
 import { __iconPath } from "@jx3box/jx3box-common/data/jx3box.json";
-import { getItemPlans } from "@/service/item_plan.js";
+import { getItemPlans } from "@/service/item-plan.js";
 import { showAvatar, authorLink, ts2str } from "@jx3box/jx3box-common/js/utils";
 export default {
 	name: "PlanList",
@@ -96,5 +96,5 @@ export default {
 };
 </script>
 <style lang="less">
-@import "~@/assets/css/item/plan_list.less";
+@import "~@/assets/css/item/plan-list.less";
 </style>

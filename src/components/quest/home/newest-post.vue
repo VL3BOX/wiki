@@ -13,8 +13,8 @@
                             },
                         }"
                         target="_blank"
-                        v-text="questName(post.title)"
-                    ></router-link>
+                        >{{ questName(post.title) }}</router-link
+                    >
                     <div class="u-quest-level" v-text="'综合难度：' + star(post.level)"></div>
                     <div class="u-post-remark" v-if="post.remark" v-text="'📑 ' + post.remark"></div>
                 </div>
@@ -97,5 +97,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "~@/assets/css/quest/home/newest_post.less";
+@import "~@/assets/css/quest/home/newest-post.less";
 </style>

@@ -33,7 +33,7 @@
 import { getKnowledgeMenus } from "@/service/wiki.js";
 import { map, each } from "lodash";
 import { getAppType } from "@jx3box/jx3box-common/js/utils";
-import buildCalendarNav from "@/utils/buildCalendarNav";
+import buildCalendarNav from "@/utils/build-calendar-nav";
 import { getCalendarCount } from "@/service/calendar";
 
 export default {

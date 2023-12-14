@@ -95,5 +95,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/item/relation_plans.less";
+@import "~@/assets/css/item/relation-plans.less";
 </style>

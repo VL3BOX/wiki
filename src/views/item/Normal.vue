@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import Items from "@/components/item/Items.vue";
-import Search from "@/components/item/Search.vue";
+import Items from "@/components/item/items.vue";
+import Search from "@/components/item/search.vue";
 import { get_menu_items } from "@/service/item";
 
 export default {

@@ -18,7 +18,7 @@ reporter.install(Vue);
 import router from "@/router/knowledge.js";
 import store from "@/store";
 
-import App from "@/views/knowledge/Knowledge.vue";
+import App from "@/views/knowledge/knowledge.vue";
 new Vue({
     router,
     store,

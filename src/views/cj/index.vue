@@ -15,11 +15,11 @@
 </template>
 
 <script>
-import DefaultLayout from "@/layout/DefaultLayout.vue";
-import AchievementCount from "@/components/cj/AchievementCount.vue";
-import Sidebar from "@/components/cj/Sidebar.vue";
-import Search from "@/components/cj/Search.vue";
-import Info from "@/components/cj/Extend.vue";
+import DefaultLayout from "@/layout/default-layout.vue";
+import AchievementCount from "@/components/cj/achievement-count.vue";
+import Sidebar from "@/components/cj/sidebar.vue";
+import Search from "@/components/cj/search.vue";
+import Info from "@/components/cj/extend.vue";
 import { getAppIcon } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "App",

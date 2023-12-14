@@ -69,10 +69,10 @@
 </template>
 
 <script>
-import SearchInput from "@/components/quest/common/search_input.vue";
+import SearchInput from "@/components/quest/common/search-input.vue";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
-import NewestPost from "@/components/quest/home/newest_post.vue";
-import QuestCarousel from "@/components/quest/home/quest_carousel.vue";
+import NewestPost from "@/components/quest/home/newest-post.vue";
+import QuestCarousel from "@/components/quest/home/quest-carousel.vue";
 
 import { getQuests, getNewestQuests, getWaitingRate } from "@/service/quest";
 import { feedback } from "@jx3box/jx3box-common/data/jx3box.json";

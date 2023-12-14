@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import DefaultLayout from '@/layout/DefaultLayout.vue';
-import ItemBreadcrumb from "@/components/item/ItemBreadcrumb.vue";
-import Sidebar from "@/components/item/Sidebar.vue";
-import Extend from "@/components/item/Extend.vue";
+import DefaultLayout from '@/layout/default-layout.vue';
+import ItemBreadcrumb from "@/components/item/item-breadcrumb.vue";
+import Sidebar from "@/components/item/sidebar.vue";
+import Extend from "@/components/item/extend.vue";
 export default {
     name: "ItemIndex",
     components: { DefaultLayout, ItemBreadcrumb, Sidebar, Extend },

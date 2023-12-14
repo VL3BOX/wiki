@@ -20,15 +20,15 @@
 const URI = require("urijs");
 import UA from "@/utils/ua";
 import star from "@/utils/star";
-import WikiContent from "@/components/WikiContent";
+import WikiContent from "@/components/wiki-content";
 import WikiRevisions from "@jx3box/jx3box-common-ui/src/wiki/WikiRevisions";
 import WikiComments from "@jx3box/jx3box-common-ui/src/wiki/WikiComments";
-import Relations from "@/components/Relations.vue";
-import PriceTabs from "@/components/item/PriceTabs.vue";
+import Relations from "@/components/relations.vue";
+import PriceTabs from "@/components/item/price-tabs.vue";
 import { wiki } from "@jx3box/jx3box-common/js/wiki.js";
 import { iconLink } from "@jx3box/jx3box-common/js/utils";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
-import GameLayout from "@/layout/GameLayout.vue";
+import GameLayout from "@/layout/game-layout.vue";
 
 export default {
     name: "Wiki",

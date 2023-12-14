@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { getMyPlans, addMyPlan } from "@/service/item_plan.js";
+import { getMyPlans, addMyPlan } from "@/service/item-plan.js";
 import { __Links } from "@jx3box/jx3box-common/data/jx3box.json";
 import User from "@jx3box/jx3box-common/js/user";
 import { date_format } from "@/filters";

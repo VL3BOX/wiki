@@ -51,8 +51,8 @@
 
 <script>
 import GamePrice from "@jx3box/jx3box-common-ui/src/wiki/GamePrice.vue";
-import ItemIcon from "../common/item_icon.vue";
-import PointReward from "./point_reward.vue";
+import ItemIcon from "../common/item-icon.vue";
+import PointReward from "./point-reward.vue";
 
 export default {
     name: "RewardItem",
@@ -106,6 +106,6 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/quest/single/reward_item.less";
+@import "~@/assets/css/quest/single/reward-item.less";
 @import "~@jx3box/jx3box-editor/assets/css/module/item.less";
 </style>

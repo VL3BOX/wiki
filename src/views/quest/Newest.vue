@@ -23,9 +23,9 @@
 
 <script>
 import { getNewestQuests } from "@/service/quest";
-import SearchInput from "@/components/quest/common/search_input.vue";
-import QuestCard from "@/components/quest/result/quest_card.vue";
-import ListHead from "@/components/quest/result/list_head.vue";
+import SearchInput from "@/components/quest/common/search-input.vue";
+import QuestCard from "@/components/quest/result/quest-card.vue";
+import ListHead from "@/components/quest/result/list-head.vue";
 
 export default {
     name: "QuestNewest",

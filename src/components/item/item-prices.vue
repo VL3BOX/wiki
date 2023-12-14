@@ -100,5 +100,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/item/item_prices.less";
+@import "~@/assets/css/item/item-prices.less";
 </style>

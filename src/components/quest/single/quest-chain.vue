@@ -84,5 +84,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "~@/assets/css/quest/single/quest_chain.less";
+@import "~@/assets/css/quest/single/quest-chain.less";
 </style>

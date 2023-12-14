@@ -186,5 +186,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "~@/assets/css/item/item_price_logs.less";
+@import "~@/assets/css/item/item-price-logs.less";
 </style>

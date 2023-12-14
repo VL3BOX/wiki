@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Achievements from "@/components/cj/Achievements.vue";
+import Achievements from "@/components/cj/achievements.vue";
 import { getMenuAchievements } from "@/service/achievement";
 
 import { get } from "lodash";

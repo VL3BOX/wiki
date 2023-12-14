@@ -8,14 +8,14 @@ VueRouter.prototype.push = function push (to) {
 }
 
 // 组件懒加载
-const Home = () => import("@/views/item/Home.vue");
-const Normal = () => import("@/views/item/Normal.vue");
-const Detail = () => import("@/views/item/Detail.vue");
-const PlanDetail = () => import("@/views/item/PlanDetail.vue");
-const PlanList = () => import("@/views/item/PlanList.vue");
-const PlanEdit = () => import("@/views/item/PlanEdit.vue");
-const Search = () => import("@/views/item/Search.vue");
-const Waiting = () => import("@/views/item/Waiting.vue");
+const Home = () => import("@/views/item/home.vue");
+const Normal = () => import("@/views/item/normal.vue");
+const Detail = () => import("@/views/item/detail.vue");
+const PlanDetail = () => import("@/views/item/plan-detail.vue");
+const PlanList = () => import("@/views/item/plan-list.vue");
+const PlanEdit = () => import("@/views/item/plan-edit.vue");
+const Search = () => import("@/views/item/search.vue");
+const Waiting = () => import("@/views/item/waiting.vue");
 
 const routes = [
     // 主页

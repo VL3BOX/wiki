@@ -15,5 +15,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "~@/assets/css/quest/result/list_head.less";
+@import "~@/assets/css/quest/result/list-head.less";
 </style>

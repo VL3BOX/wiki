@@ -49,8 +49,8 @@
 import { get_item_prices,get_item } from "@/service/item";
 import { iconLink } from "@jx3box/jx3box-common/js/utils";
 import item_color from "@jx3box/jx3box-editor/assets/js/item/color.js";
-import item_price from "@/utils/ItemPrice.js";
-import date_format from "@/utils/DateFormat.js";
+import item_price from "@/utils/item-price.js";
+import date_format from "@/utils/date-format.js";
 
 export default {
     name: "ItemPrices",

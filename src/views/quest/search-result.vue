@@ -39,9 +39,9 @@
 
 <script>
 import { getQuests } from "@/service/quest";
-import QuestCard from "@/components/quest/result/quest_card.vue";
-import SearchInput from "@/components/quest/common/search_input.vue";
-import ListHead from "@/components/quest/result/list_head.vue";
+import QuestCard from "@/components/quest/result/quest-card.vue";
+import SearchInput from "@/components/quest/common/search-input.vue";
+import ListHead from "@/components/quest/result/list-head.vue";
 export default {
     name: "SearchResult",
     components: { QuestCard, SearchInput, ListHead },
@@ -103,5 +103,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "~@/assets/css/quest/result/search_result.less";
+@import "~@/assets/css/quest/result/search-result.less";
 </style>

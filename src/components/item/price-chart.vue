@@ -64,8 +64,8 @@
 <script>
 import { Chart } from "@antv/g2";
 import { get_item_servers_price_logs, } from "@/service/item";
-import GamePrice from "@/components/GamePrice.vue";
-import item_price from "@/utils/ItemPrice.js";
+import GamePrice from "@/components/game-price.vue";
+import item_price from "@/utils/item-price.js";
 
 export default {
     name: "ItemPriceChart",

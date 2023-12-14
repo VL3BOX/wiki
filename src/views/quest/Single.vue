@@ -194,13 +194,13 @@
 </template>
 
 <script>
-import QuestChain from "@/components/quest/single/quest_chain.vue";
-import QuestMap from "@/components/quest/single/quest_map.vue";
-import RewardItem from "@/components/quest/single/reward_item.vue";
-import PointFilter from "@/components/quest/single/point_filter.vue";
-import ItemIcon from "@/components/quest/common/item_icon.vue";
-import SearchInput from "@/components/quest/common/search_input.vue";
-import QuestDialog from "@/components/quest/single/quest_dialog.vue";
+import QuestChain from "@/components/quest/single/quest-chain.vue";
+import QuestMap from "@/components/quest/single/quest-map.vue";
+import RewardItem from "@/components/quest/single/reward-item.vue";
+import PointFilter from "@/components/quest/single/point-filter.vue";
+import ItemIcon from "@/components/quest/common/item-icon.vue";
+import SearchInput from "@/components/quest/common/search-input.vue";
+import QuestDialog from "@/components/quest/single/quest-dialog.vue";
 
 import { postStat } from "@jx3box/jx3box-common/js/stat.js";
 import { wiki } from "@jx3box/jx3box-common/js/wiki.js";

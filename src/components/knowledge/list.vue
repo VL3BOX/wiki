@@ -13,7 +13,7 @@
 	</div>
 </template>
 <script>
-import knowledgeItem from "@/components/knowledge/list_item.vue";
+import knowledgeItem from "@/components/knowledge/list-item.vue";
 export default {
 	name: "list",
 	props: ["list", "pagination"],

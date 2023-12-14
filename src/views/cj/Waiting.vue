@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import Achievements from "@/components/cj/Achievements.vue";
+import Achievements from "@/components/cj/achievements.vue";
 import { getWaitingAchievements } from "@/service/achievement";
 
 import { get } from "lodash";

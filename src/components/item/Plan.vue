@@ -49,7 +49,7 @@
 </template>
 <script>
 import User from "@jx3box/jx3box-common/js/user";
-import { getMyPlans, updatePlan, addMyPlan } from "@/service/item_plan.js";
+import { getMyPlans, updatePlan, addMyPlan } from "@/service/item-plan.js";
 export default {
     name: "plan",
     props: [],

@@ -70,9 +70,9 @@
 	</div>
 </template>
 <script>
-import { getItemPlanID, delItemPlan, searchItemsID } from "@/service/item_plan.js";
-import itemIcon from "@/components/item/ItemIcon.vue";
-import Equip from "@/components/item/Equip.vue";
+import { getItemPlanID, delItemPlan, searchItemsID } from "@/service/item-plan.js";
+import itemIcon from "@/components/item/item-icon.vue";
+import Equip from "@/components/item/equip.vue";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import { iconLink } from "@jx3box/jx3box-common/js/utils";
 import { __Links, default_avatar } from "@jx3box/jx3box-common/data/jx3box.json";
@@ -285,7 +285,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@import "~@/assets/css/item/plan_detail.less";
+@import "~@/assets/css/item/plan-detail.less";
 </style>
 <style lang="less">
 .m-panel-head{

@@ -9,7 +9,7 @@
 
 <script>
 import Nav from "@/components/quest/nav.vue";
-import DefaultLayout from "@/layout/DefaultLayout.vue";
+import DefaultLayout from "@/layout/default-layout.vue";
 
 export default {
     name: "Quest",
