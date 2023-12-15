@@ -2,7 +2,7 @@
     <div class="m-left-side">
         <div class="m-related-roles">
             <div v-if="!isLogin" class="u-tip el-alert el-alert--warning is-light">
-                <i class="el-icon-warning-outline"></i> 可以前往魔盒<a href="/team/role/bind" target="_blank">团队平台</a>绑定你的角色
+                <i class="el-icon-warning-outline"></i> 前往魔盒<a href="/team/role/bind" target="_blank">团队平台</a>绑定你的角色
             </div>
             <el-select v-model="currentRole" value-key="ID" placeholder="请选择当前角色" :disabled="!isLogin" popper-class="m-related-roles-options">
                 <span slot="prefix" class="u-prefix">关联角色</span>

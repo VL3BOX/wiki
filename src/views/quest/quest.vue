@@ -8,7 +8,9 @@
         :crumbEnable="false"
     >
         <template #left>
-            <Nav></Nav>
+            <CommonNav>
+                <QuestNav> </QuestNav>
+            </CommonNav>
         </template>
         <div class="m-search-wrap">
             <Search :placeholder="placeholder" @search="search">
@@ -43,13 +45,14 @@
 
 <script>
 import Search from "@/components/common/search.vue";
-import Nav from "@/components/quest/nav.vue";
+import CommonNav from "@/components/common/nav.vue";
+import QuestNav from "@/components/quest/nav.vue";
 import DefaultLayout from "@/layout/default-layout.vue";
 
 import { getPlayerName } from "@/utils/quest";
 export default {
     name: "Quest",
-    components: { Nav, DefaultLayout, Search },
+    components: { QuestNav, CommonNav, DefaultLayout, Search },
     data() {
         return {
             placeholder: "输入任务关键字（可包括中括号），「回车」进行搜索",

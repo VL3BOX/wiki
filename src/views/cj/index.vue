@@ -11,7 +11,9 @@
             <AchievementCount />
         </template>
         <template #left>
-            <Sidebar :sidebar="$store.state.sidebar" />
+            <CommonNav>
+                <Sidebar :sidebar="$store.state.sidebar" />
+            </CommonNav>
         </template>
         <Search :placeholder="placeholder" @search="search($event)" />
         <router-view />
@@ -28,6 +30,7 @@ import Search from "@/components/common/search.vue";
 import Sidebar from "@/components/cj/sidebar.vue";
 import Info from "@/components/cj/extend.vue";
 import { getAppIcon } from "@jx3box/jx3box-common/js/utils";
+import CommonNav from "@/components/common/nav.vue";
 export default {
     name: "App",
     data() {
@@ -41,6 +44,7 @@ export default {
         Search,
         Info,
         DefaultLayout,
+        CommonNav,
     },
     computed: {
         isSingle() {

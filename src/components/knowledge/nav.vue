@@ -10,9 +10,9 @@
             <template slot-scope="{ data }">
                 <template v-if="data.app == app">
                     <router-link :to="data.path || '/'" class="el-tree-node__label" :class="{ on: isActive(data) }">
-            <span class="u-name" v-text="data.label"></span>
-            <em v-if="data.count" class="u-count" v-text="`( ${data.count} )`"></em>
-        </router-link>
+                        <span class="u-name" v-text="data.label"></span>
+                        <em v-if="data.count" class="u-count" v-text="`( ${data.count} )`"></em>
+                    </router-link>
                 </template>
                 <template v-else>
                     <a

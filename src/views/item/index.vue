@@ -4,7 +4,9 @@
             <ItemBreadcrumb />
         </template>
         <template #left>
-            <Sidebar :sidebar="globalSidebar" />
+            <CommonNav>
+                <Sidebar :sidebar="globalSidebar" />
+            </CommonNav>
         </template>
         <Search :placeholder="placeholder" @search="search($event)" />
         <keep-alive include="PlanList">
@@ -22,9 +24,10 @@ import ItemBreadcrumb from "@/components/item/item-breadcrumb.vue";
 import Sidebar from "@/components/item/sidebar.vue";
 import Extend from "@/components/item/extend.vue";
 import Search from "@/components/common/search.vue";
+import CommonNav from "@/components/common/nav.vue";
 export default {
     name: "ItemIndex",
-    components: { DefaultLayout, ItemBreadcrumb, Sidebar, Extend, Search },
+    components: { DefaultLayout, ItemBreadcrumb, Sidebar, Extend, Search, CommonNav },
     data() {
         return {
             placeholder: "输入物品名称（可适配中括号形式）/物品描述「回车」进行搜索",

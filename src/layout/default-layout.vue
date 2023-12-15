@@ -103,4 +103,7 @@ export default {
 .m-main {
     padding-top: 10px;
 }
+.c-sidebar-left {
+    padding-left: 0;
+}
 </style>
