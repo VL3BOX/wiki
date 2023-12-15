@@ -23,36 +23,44 @@ export default {
     .flex;
     height: 100%;
     width: 100%;
-    @w: 18px;
+    gap:10px;
+    @w: 30px;
     .c-wiki-menu {
+        background-color:#ebeef5;
         position: relative;
         height: 100%;
-        width: calc(@w + 10px);
-        margin-right: 10px;
+        .w(@w);
+        flex-shrink: 0;
         .m-menus {
-            position: fixed;
-            top: 10px;
+            // position: fixed;
+            // top: 10px;
             .flex;
             flex-direction: column;
             gap: 10px;
         }
         .u-menu {
+            box-sizing: border-box;
             padding: 5px;
             border-top-right-radius: 4px;
             border-bottom-right-radius: 4px;
             width: @w;
             text-align: center;
-            background-color: #eee;
+            // background-color: #eee;
             font-size: 12px;
-            color: #000;
+            color: @color;
             cursor: pointer;
             &:hover {
                 background-color: #f5f7fa;
+                color:#000;
             }
             &.is-active {
-                color: #0366d6;
+                color: #fff;
+                background-color:@color;
             }
         }
+    }
+    .c-nav-content{
+        flex:1;
     }
 }
 </style>

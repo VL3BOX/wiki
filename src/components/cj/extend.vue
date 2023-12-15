@@ -159,12 +159,6 @@ export default {
                         priority: item.priority,
                     };
                 });
-                // this.groups = [
-                //     {
-                //         label: "QQ群",
-                //         children: this.convertToTree(newGroups),
-                //     },
-                // ];
                 this.groups = this.convertToTree(newGroups);
             });
         },
