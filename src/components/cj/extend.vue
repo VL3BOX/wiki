@@ -33,7 +33,7 @@
             <div class="m-group-content">
                 <el-tree
                     class="m-group-tree"
-                    default-expand-all
+                    :default-expand-all="false"
                     :data="groups"
                     node-key="uuid"
                     @node-click="clickNode"
