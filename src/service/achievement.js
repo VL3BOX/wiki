@@ -3,18 +3,24 @@ import { $helper, $cms, $node } from "@jx3box/jx3box-common/js/https";
 const $ = $node({ port: 7002, proxy: true });
 
 // 获取成就统计信息
-function get_total_count() {
+export function getTotalCount() {
     return $.get(`api/node/achievement/count`);
 }
 
 // 获取成就列表
-function get_achievements(params) {
+export function get_achievements(params) {
     return $.get(`api/node/achievement/list`, {
         params,
     });
 }
 
-function get_relation_achievements(source_id) {
+// 获取单个成就
+export function get_achievement(achievement_id, params) {
+    if (!achievement_id) return null;
+    return $.get(`api/node/achievement/${achievement_id}`, params);
+}
+
+export function get_relation_achievements(source_id) {
     if (!source_id) return null;
     return $.get(`/api/node/achievement/${source_id}/relations`);
 }
@@ -154,5 +160,3 @@ export function updateRoleAchievements(role_id, list) {
         }
     );
 }
-
-export { get_total_count, get_achievements, get_relation_achievements };

@@ -1,9 +1,5 @@
-import { $helper, $next, $node } from "@jx3box/jx3box-common/js/https";
-const $ = $node();
-/* import axios from "axios";
-const $ = axios.create({
-    baseURL: "http://localhost:7002/",
-}); */
+import { $helper, $next, $node, $cms } from "@jx3box/jx3box-common/js/https";
+const $ = $node({ proxy: true, port: 7002 });
 
 export function getMyFavItems(params) {
     return $helper().get(`api/my/post/favorites`, {
@@ -12,17 +8,17 @@ export function getMyFavItems(params) {
 }
 
 export function getMenus() {
-    return $helper().get(`api/item/menus`);
+    return $.get(`api/node/item/menus`);
 }
 
 export function get_items_count() {
-    return $helper().get(`api/items/count`);
+    return $.get(`api/node/items/count`);
 }
 
 // 获取物品
 export function get_item(item_id) {
     if (!item_id) return;
-    return $helper().get(`api/item/${item_id}`);
+    return $.get(`api/node/item/${item_id}`);
 }
 
 // 相关物品清单
@@ -77,8 +73,8 @@ export function get_items_by_node(params) {
 
 export function getItemsByName(name, params) {
     return $.get(`/item_merged/name/${name}`, {
-        params
-    })
+        params,
+    });
 }
 
 export function get_newest_items(params) {
@@ -118,14 +114,14 @@ export function get_item_posts() {
 
 export function get_waiting(params) {
     params = Object.assign(params, {
-        type: 'item',
+        type: "item",
     });
     return $helper().get(`/api/wiki/posts/waiting`, { params });
 }
 
 export function get_waiting_rate(params) {
     params = Object.assign(params, {
-        type: 'item',
+        type: "item",
     });
     return $helper().get(`/api/wiki/posts/counter`, { params });
 }
