@@ -1,5 +1,5 @@
 import { $helper, $next, $node, $cms } from "@jx3box/jx3box-common/js/https";
-const $ = $node({ proxy: true, port: 7002 });
+const $ = $node();
 
 export function getMyFavItems(params) {
     return $helper().get(`api/my/post/favorites`, {

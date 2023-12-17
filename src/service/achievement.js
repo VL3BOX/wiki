@@ -1,6 +1,6 @@
 import { $helper, $cms, $node } from "@jx3box/jx3box-common/js/https";
 
-const $ = $node({ port: 7002, proxy: true });
+const $ = $node();
 
 // 获取成就统计信息
 export function getTotalCount() {
