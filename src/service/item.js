@@ -12,7 +12,7 @@ export function getMenus() {
 }
 
 export function get_items_count() {
-    return $.get(`api/node/items/count`);
+    return $.get(`api/node/item/count`);
 }
 
 // 获取物品
@@ -86,19 +86,19 @@ export function get_newest_items(params) {
 }
 
 export function get_items(params) {
-    return $helper().get(`api/items`, {
+    return $.get(`api/node/item/list`, {
         params,
     });
 }
 
 export function get_items_search(params) {
-    return $helper().get(`api/item/search`, {
+    return $.get(`api/node/item/search`, {
         params,
     });
 }
 
 export function get_menu_items(params) {
-    return $helper().get(`api/item/menu_list`, {
+    return $.get(`api/node/item/menu_list`, {
         params,
     });
 }
@@ -120,10 +120,8 @@ export function get_waiting(params) {
 }
 
 export function get_waiting_rate(params) {
-    params = Object.assign(params, {
-        type: "item",
-    });
-    return $helper().get(`/api/wiki/posts/counter`, { params });
+    params = { ...params, type: "item" };
+    return $cms().get(`/api/cms/helper/wiki/post/counter`, { params });
 }
 
 // 获取生活技艺产品原料

@@ -1,17 +1,17 @@
 <template>
     <div id="m-item-view">
-        <div v-if="wiki_post.source && JSON.stringify(wiki_post.source) !== '{}'" class="w-item">
+        <div v-if="source && JSON.stringify(source) !== '{}'" class="w-item">
             <div class="m-item-viewer">
                 <div class="w-left">
-                    <jx3-item :item_id="wiki_post.source.id" />
+                    <jx3-item :item_id="source.id" />
                 </div>
                 <div class="w-right">
                     <div class="m-name">
                         <div class="u-title">
-                            <item-icon :item="wiki_post.source" :dishoverable="true" />
-                            <h6 class="u-name" :class="{ white: wiki_post.source.Quality == 1 }"
-                                v-text="wiki_post.source.Name" :style="{
-                                    color: item_color(wiki_post.source.Quality),
+                            <item-icon :item="source" :dishoverable="true" />
+                            <h6 class="u-name" :class="{ white: source.Quality == 1 }"
+                                v-text="source.Name" :style="{
+                                    color: item_color(source.Quality),
                                 }"></h6>
                         </div>
 
@@ -19,7 +19,7 @@
                             <!-- 加入清单 -->
                             <Plan class="u-plan" :itemId="id" />
                             <!-- 收藏按钮 -->
-                            <Fav class="u-collect" post-type="item" :post-id="wiki_post.source.id"
+                            <Fav class="u-collect" post-type="item" :post-id="source.id"
                                 :post-title="fav_title" />
                         </div>
                     </div>
@@ -36,106 +36,106 @@
                     <ul class="m-other-fields">
                         <li class="m-other-field">
                             <span class="u-label">拾取绑定</span>
-                            <span class="u-value">{{ item_bind(wiki_post.source.BindType) }}</span>
+                            <span class="u-value">{{ item_bind(source.BindType) }}</span>
                         </li>
                         <li class="m-other-field">
                             <span class="u-label">可否交易</span>
-                            <span class="u-value">{{ wiki_post.source.CanTrade ? "✔️ 可以" : "❌ 不可以" }}</span>
+                            <span class="u-value">{{ source.CanTrade ? "✔️ 可以" : "❌ 不可以" }}</span>
                         </li>
                         <li>
                             <span class="u-label">回购价格</span>
-                            <GamePrice class="u-value" :price="wiki_post.source.Price" v-if="wiki_post.source.Price" />
+                            <GamePrice class="u-value" :price="source.Price" v-if="source.Price" />
                             <span class="u-value" v-else>-</span>
                         </li>
-                        <!-- <li v-if="wiki_post.source.Level">
+                        <!-- <li v-if="source.Level">
 							<span class="u-label">品质等级</span>
-							<span class="u-value" v-text="wiki_post.source.Level"></span>
+							<span class="u-value" v-text="source.Level"></span>
 						</li> -->
                         <!-- <li class="m-other-field">
 							<span class="u-label">品质</span>
-							<span class="u-value" v-html="`<span style='color:${item_color(wiki_post.source.Quality)}'>${item_quality(wiki_post.source.Quality)}</span>`"></span>
+							<span class="u-value" v-html="`<span style='color:${item_color(source.Quality)}'>${item_quality(source.Quality)}</span>`"></span>
 						</li> -->
 
                         <li class="m-other-field">
                             <span class="u-label">可否堆叠</span>
-                            <span class="u-value">{{ wiki_post.source.CanStack ? "✔️ 可以" : "❌ 不可以" }}</span>
+                            <span class="u-value">{{ source.CanStack ? "✔️ 可以" : "❌ 不可以" }}</span>
                         </li>
-                        <li v-if="wiki_post.source.MaxExistAmount > 0">
+                        <li v-if="source.MaxExistAmount > 0">
                             <span class="u-label">最大拥有数</span>
-                            <span class="u-value">{{ wiki_post.source.MaxExistAmount }}</span>
+                            <span class="u-value">{{ source.MaxExistAmount }}</span>
                         </li>
-                        <li v-if="wiki_post.source.MaxExistTime > 0">
+                        <li v-if="source.MaxExistTime > 0">
                             <span class="u-label">限时有效</span>
-                            <span class="u-value">{{ showDuration(wiki_post.source.MaxExistTime) }}</span>
+                            <span class="u-value">{{ showDuration(source.MaxExistTime) }}</span>
                         </li>
 
-                        <!-- <li v-if="wiki_post.source.BelongSchool">
+                        <!-- <li v-if="source.BelongSchool">
 							<span class="u-label">门派</span>
-							<span class="u-value">{{wiki_post.source.BelongSchool}}</span>
+							<span class="u-value">{{source.BelongSchool}}</span>
 						</li>
-						<li v-if="wiki_post.source.MagicKind">
+						<li v-if="source.MagicKind">
 							<span class="u-label">心法</span>
-							<span class="u-value">{{wiki_post.source.MagicKind}}</span>
+							<span class="u-value">{{source.MagicKind}}</span>
 						</li>
-						<li v-if="wiki_post.source.MagicType">
+						<li v-if="source.MagicType">
 							<span class="u-label">属性</span>
-							<span class="u-value">{{wiki_post.source.MagicType}}</span>
+							<span class="u-value">{{source.MagicType}}</span>
 						</li> -->
-                        <li v-if="wiki_post.source.GetType">
+                        <li v-if="source.GetType">
                             <span class="u-label">获得途径</span>
-                            <span class="u-value">{{ wiki_post.source.GetType }}</span>
+                            <span class="u-value">{{ source.GetType }}</span>
                         </li>
-                        <li v-if="wiki_post.source.CanChangeMagic">
+                        <li v-if="source.CanChangeMagic">
                             <span class="u-label">可否附魔</span>
                             <span class="u-value">✔️ 可以</span>
                         </li>
-                        <li v-if="wiki_post.source.CanExterior">
+                        <li v-if="source.CanExterior">
                             <span class="u-label">可否收集</span>
                             <span class="u-value">✔️ 可以</span>
                         </li>
-                        <li v-if="wiki_post.source.CanSetColor">
+                        <li v-if="source.CanSetColor">
                             <span class="u-label">可否染色</span>
                             <span class="u-value">✔️ 可以</span>
                         </li>
                         <li class="m-other-field">
                             <span class="u-label">可否分解</span>
-                            <span class="u-value">{{ wiki_post.source.CanApart ? "✔️ 可以" : "❌ 不可以" }}</span>
+                            <span class="u-value">{{ source.CanApart ? "✔️ 可以" : "❌ 不可以" }}</span>
                         </li>
                         <li class="m-other-field">
                             <span class="u-label">可否摧毁</span>
                             <span class="u-value">{{
-                                    wiki_post.source.CanDestroy || wiki_post.source.CanDestroy === null
+                                    source.CanDestroy || source.CanDestroy === null
                                         ? "✔️ 可以"
                                         : "❌ 不可以"
                             }}</span>
                         </li>
-                        <!-- <li v-if="wiki_post.source.CanShared">
+                        <!-- <li v-if="source.CanShared">
 							<span class="u-label">可否分享</span>
 							<span class="u-value" v-text="'可以分享'"></span>
 						</li> -->
 
-                        <!-- <li v-if="wiki_post.source.Requires && wiki_post.source.Requires[100]">
-							<span class="u-value" v-text="wiki_post.source.Requires[100]"></span>
+                        <!-- <li v-if="source.Requires && source.Requires[100]">
+							<span class="u-value" v-text="source.Requires[100]"></span>
 						</li> -->
-                        <!--<li v-if="wiki_post.source.Require1Type">
-                            <label class="u-title" v-text="item_require_1_type(wiki_post.source.Require1Type) + '：'"></label>
-                            <span class="u-value" v-text="wiki_post.source.Require1Value"></span>
+                        <!--<li v-if="source.Require1Type">
+                            <label class="u-title" v-text="item_require_1_type(source.Require1Type) + '：'"></label>
+                            <span class="u-value" v-text="source.Require1Value"></span>
                         </li>-->
 
-                        <!-- <li v-if="wiki_post.source.AucGenre >= 1 && wiki_post.source.AucGenre <= 3">
+                        <!-- <li v-if="source.AucGenre >= 1 && source.AucGenre <= 3">
 							<span class="u-label">耐久度</span>
-							<span class="u-value" v-text="`${wiki_post.source.MaxDurability}/${wiki_post.source.MaxDurability}`"></span>
+							<span class="u-value" v-text="`${source.MaxDurability}/${source.MaxDurability}`"></span>
 						</li> -->
                         <!--<li class="m-field">
                             <label class="u-title">磨损率：</label>
-                            <span class="u-value" v-text="wiki_post.source.AbradeRate"></span>
+                            <span class="u-value" v-text="source.AbradeRate"></span>
                         </li>-->
                         <!--<li class="m-other-field">
                             <label class="u-title">修理费：</label>
-                            <span class="u-value" v-text="wiki_post.source.RepairPriceRebate"></span>
+                            <span class="u-value" v-text="source.RepairPriceRebate"></span>
                         </li>-->
 
-                        <!-- <li v-if="wiki_post.source.CanConsume">
+                        <!-- <li v-if="source.CanConsume">
 							<span class="u-label">消耗品</span>
 							<span class="u-value" v-text="'是'"></span>
 						</li> -->
@@ -156,15 +156,15 @@
 
             <el-tabs v-model="activeTab" type="border-card" @tab-click="active_tab_handle" v-loading="loading">
                 <el-tab-pane label="📈 价格波动" name="item-price-chart"
-                    v-if="wiki_post.source && wiki_post.source.BindType != 3">
-                    <item-price-chart ref="item_price_chart" :item_id="wiki_post.source.id" :server="server" />
+                    v-if="source && source.BindType != 3">
+                    <item-price-chart ref="item_price_chart" :item_id="source.id" :server="server" />
                 </el-tab-pane>
                 <el-tab-pane label="💰 近期价格" name="item-prices"
-                    v-if="wiki_post.source && wiki_post.source.BindType != 3" lazy>
-                    <item-prices :item_id="wiki_post.source.id" :server="server" />
+                    v-if="source && source.BindType != 3" lazy>
+                    <item-prices :item_id="source.id" :server="server" />
                 </el-tab-pane>
                 <!-- <el-tab-pane label="📜 相关物品清单" name="relation-plans" lazy>
-                    <relation-plans :item_id="wiki_post.source.id" />
+                    <relation-plans :item_id="source.id" />
                 </el-tab-pane> -->
             </el-tabs>
         </div>
@@ -191,7 +191,7 @@
                         <i class="el-icon-edit"></i>
                         本次修订由 <b>{{ user_name }}</b> 提交于{{ updated_at }}
                     </div>
-                    <Thx class="m-thx" :postId="id" postType="item" :postTitle="wiki_post.source.Name"
+                    <Thx class="m-thx" :postId="id" postType="item" :postTitle="source.Name"
                         :userId="author_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" :authors="authors"
                         mode="wiki" :key="'item-thx-' + id" :client="client" />
                 </template>
@@ -234,6 +234,7 @@ import { item_color, item_quality, item_price, item_bind } from "@/filters";
 import { publishLink, ts2str, showAvatar, iconLink } from "@jx3box/jx3box-common/js/utils";
 import { getManufactureDetail, getItemDetail } from "@/service/item";
 import { getMyInfo } from "@/service/user";
+import {get_item} from "@/service/item"
 
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
@@ -246,6 +247,7 @@ export default {
     props: [],
     data: function () {
         return {
+            source: {},
             wiki_post: {
                 source: {},
                 post: null,
@@ -356,6 +358,9 @@ export default {
         loadData: function () {
             // 获取最新攻略
             if (this.id) {
+                get_item(this.id).then((res) => {
+                    this.source = res?.data?.data?.item;
+                });
                 wiki.mix({ type: "item", id: this.id, client: this.client }, { supply: 1 }).then((res) => {
                     const { post, source, compatible, isEmpty, users } = res;
                     this.wiki_post = {
@@ -449,11 +454,11 @@ export default {
                 this.loadRevision();
             },
         },
-        "wiki_post.source": {
+        source: {
             immediate: true,
             deep: true,
             handler () {
-                let item = this.wiki_post.source;
+                let item = this.source;
                 this.activeTab = item && item.BindType != 3 ? DEFAULT_ACTIVE_TAB : "relation-plans";
                 this.$store.state.sidebar.AucGenre = parseInt(item.AucGenre);
                 this.$store.state.sidebar.AucSubTypeID = parseInt(item.AucSubTypeID);
