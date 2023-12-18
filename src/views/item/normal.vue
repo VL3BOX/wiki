@@ -1,6 +1,5 @@
 <template>
     <div class="m-item-index m-item-normal">
-        <Search />
         <div class="m-items-list">
             <Items :items="items"></Items>
         </div>
@@ -20,7 +19,6 @@
 
 <script>
 import Items from "@/components/item/items.vue";
-import Search from "@/components/item/search.vue";
 import { get_menu_items } from "@/service/item";
 
 export default {
@@ -38,7 +36,6 @@ export default {
     },
     components: {
         Items,
-        Search,
     },
     methods: {
         page_change_handle(page) {

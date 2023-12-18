@@ -96,11 +96,11 @@ export default {
 </script>
 
 <style lang="less">
-.c-main {
-    padding: 0 10px;
-}
-
 .m-main {
-    padding-top: 10px;
+    padding: 15px;
+}
+.c-sidebar-left {
+    padding-left: 0;
+    padding-top: 0;
 }
 </style>

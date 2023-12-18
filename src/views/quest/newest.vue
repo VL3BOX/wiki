@@ -1,7 +1,5 @@
 <template>
     <div class="m-newest-quest">
-        <!-- 搜索框 -->
-        <search-input></search-input>
         <!-- 列表头部 -->
         <list-head></list-head>
         <!-- 任务列表 -->
@@ -23,13 +21,12 @@
 
 <script>
 import { getNewestQuests } from "@/service/quest";
-import SearchInput from "@/components/quest/common/search-input.vue";
 import QuestCard from "@/components/quest/result/quest-card.vue";
 import ListHead from "@/components/quest/result/list-head.vue";
 
 export default {
     name: "QuestNewest",
-    components: { QuestCard, SearchInput, ListHead },
+    components: { QuestCard, ListHead },
     data: () => ({
         data: [],
         total: 0,

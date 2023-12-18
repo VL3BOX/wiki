@@ -1,11 +1,13 @@
 <template>
     <div class="m-left-side">
         <div class="m-related-roles">
-            <div v-if="!isLogin" class="u-tip el-alert el-alert--warning is-light">
-                <i class="el-icon-warning-outline"></i> 可以前往魔盒<a href="/team/role/bind" target="_blank">团队平台</a>绑定你的角色
-            </div>
-            <el-select v-model="currentRole" value-key="ID" placeholder="请选择当前角色" :disabled="!isLogin" popper-class="m-related-roles-options">
-                <span slot="prefix" class="u-prefix">关联角色</span>
+            <!-- <div v-if="!isLogin" class="u-tip el-alert el-alert--info is-light">
+                <i class="el-icon-warning-outline"></i> <a href="/team/role/bind" target="_blank">绑定角色</a>
+            </div> -->
+            <el-select v-if="isLogin" v-model="currentRole" value-key="ID" placeholder="请选择当前角色" :disabled="!isLogin" popper-class="m-related-roles-options">
+                <span slot="prefix" class="u-prefix">
+                    关联角色
+                </span>
                 <el-option v-for="role in roleList" :key="role.ID" :value="role" :label="role.name">
                     <span class="u-role">
                         <span class="u-role-name"><img class="u-role-icon" :src="showSchoolIcon(role.mount)" />{{ role.name }}</span>

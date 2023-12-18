@@ -49,7 +49,7 @@ const routes = [
     // 单页
     { name: "view", path: "/view/:source_id(\\d+)/:post_id(\\d+)?", component: Detail },
     // 搜索
-    { name: "search", path: "/search/:keyword(.+)?", component: Search },
+    { name: "search", path: "/search/:keyword(.*)?", component: Search },
     // 最新成就
     {
         name: "newest",

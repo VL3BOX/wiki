@@ -21,7 +21,7 @@ import Achievements from "@/components/cj/achievements.vue";
 import { searchAchievements } from "@/service/achievement";
 
 export default {
-    name: "Search",
+    name: "SearchPage",
     props: [],
     data() {
         return {

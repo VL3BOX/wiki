@@ -1,12 +1,21 @@
 <template>
-    <DefaultLayout name="成就百科" slug="cj" root="/cj" :publishEnable="true" :feedbackEnable="true" :adminEnable="false">
+    <DefaultLayout
+        name="成就百科"
+        slug="cj"
+        root="/cj"
+        :publishEnable="true"
+        :feedbackEnable="true"
+        :adminEnable="false"
+    >
         <template #breadcrumb>
             <AchievementCount />
         </template>
         <template #left>
-            <Sidebar :sidebar="$store.state.sidebar" />
+            <CommonNav>
+                <Sidebar :sidebar="$store.state.sidebar" />
+            </CommonNav>
         </template>
-        <Search />
+        <Search :placeholder="placeholder" @search="search($event)" />
         <router-view />
         <template #right>
             <Info />
@@ -17,14 +26,17 @@
 <script>
 import DefaultLayout from "@/layout/default-layout.vue";
 import AchievementCount from "@/components/cj/achievement-count.vue";
+import Search from "@/components/common/search.vue";
 import Sidebar from "@/components/cj/sidebar.vue";
-import Search from "@/components/cj/search.vue";
 import Info from "@/components/cj/extend.vue";
 import { getAppIcon } from "@jx3box/jx3box-common/js/utils";
+import CommonNav from "@/components/common/nav.vue";
 export default {
     name: "App",
     data() {
-        return {};
+        return {
+            placeholder: "输入成就名称/成就描述/称号/奖励物品「回车」进行搜索",
+        };
     },
     components: {
         AchievementCount,
@@ -32,6 +44,7 @@ export default {
         Search,
         Info,
         DefaultLayout,
+        CommonNav,
     },
     computed: {
         isSingle() {
@@ -58,6 +71,13 @@ export default {
     },
     methods: {
         getAppIcon,
+        search(keyword) {
+            delete this.$store.state.scroll_tops["search"];
+            this.$router.push({
+                name: "search",
+                params: { keyword: keyword.trim().replace(/(?:^\[)|(?:\]$)/gi, "") },
+            });
+        },
     },
 };
 </script>

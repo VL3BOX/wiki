@@ -35,7 +35,6 @@
                     :key="index"
                     :item_id="item.id"
                     :amount="item.amount"
-                    :onlyIcon="true"
                     :size="28"
                 ></item-icon>
             </div>
@@ -45,7 +44,7 @@
 
 <script>
 import { schoolIcon, questTargetDescFormat } from "@/utils/quest";
-import ItemIcon from "../common/item-icon.vue";
+import ItemIcon from "@/components/common/item-icon.vue";
 
 export default {
     name: "QuestCard",

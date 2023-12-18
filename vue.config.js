@@ -68,6 +68,9 @@ module.exports = {
             "/api/cms": {
                 target: process.env["DEV_SERVER"] == "true" ? "http://localhost:7100" : "https://cms.jx3box.com",
             },
+            "/api/node": {
+                target: process.env["DEV_SERVER"] == "true" ? "http://localhost:7002" : "https://node.jx3box.com",
+            },
             "/api/team": {
                 target: "https://team.api.jx3box.com",
                 onProxyReq: function (request) {

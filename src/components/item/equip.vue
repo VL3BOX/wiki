@@ -2,7 +2,7 @@
 	<div class="m-plan-equip" v-if="plan">
 		<div class="u-plan-equip" :class="'u-equip-' + label" v-for="(item, label) in plan.relation" :key="label">
 			<template v-if="item.length">
-				<itemIcon :item="item[0]" />
+				<ItemIcon :item="item[0]" />
 				<span class="u-name" :class="`quality-${item[0].Quality}`">{{ item[0].Name }}</span>
 			</template>
 		</div>
@@ -31,7 +31,8 @@
 
 <script>
 import QRcode from "@jx3box/jx3box-common-ui/src/interact/QRcode.vue";
-import itemIcon from "@/components/item/item-icon.vue";
+
+import ItemIcon from "@/components/common/item-icon.vue";
 import { authorLink } from "@jx3box/jx3box-common/js/utils";
 import { showTime } from "@jx3box/jx3box-common/js/moment.js";
 import { __Root, default_avatar } from "@jx3box/jx3box-common/data/jx3box.json";
@@ -66,7 +67,7 @@ export default {
 		showTime,
 	},
 	components: {
-		itemIcon,
+		ItemIcon,
 		QRcode,
 	},
 };

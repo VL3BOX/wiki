@@ -1,6 +1,5 @@
 <template>
     <div class="m-cj-index">
-        <search-bar />
         <Items :items="items">
             <template slot="empty-message">
                 <span>👻 暂无记录</span>
@@ -28,12 +27,11 @@
 
 <script>
 import Items from "@/components/item/items.vue";
-import Search from "@/components/item/search.vue";
 
 import { get_items_search } from "@/service/item";
 
 export default {
-    name: "Search",
+    name: "SearchPage",
     props: [],
     data: function () {
         return {
@@ -72,7 +70,6 @@ export default {
     },
     components: {
         Items,
-        "search-bar": Search,
     },
     watch: {
         $route: {

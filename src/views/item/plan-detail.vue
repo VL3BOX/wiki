@@ -41,7 +41,7 @@
 							<div class="u-content">
 								<router-link class="u-item" v-for="(el, key) in item.data" :key="key" :to="{ name: 'view', params: { item_id: el.id } }">
 									<span class="u-img">
-										<itemIcon :item="el" />
+										<ItemIcon :item="el" />
 										<span class="u-count">{{ el.count }}</span>
 									</span>
 									<span class="u-name" :class="`quality-${el.Quality}`"> {{ el.Name }}</span>
@@ -58,7 +58,7 @@
 							<div class="u-item" v-for="(item, key) in list" :key="key">
 								<span class="u-title"> {{ item.label }}</span>
 								<div v-if="item.list.length">
-									<itemIcon class="u-equip" v-for="(eq, i) in item.list" :key="i" :has_title="true" :item="eq" />
+									<ItemIcon class="u-equip" v-for="(eq, i) in item.list" :key="i" :has_title="true" :item="eq" />
 								</div>
 								<div v-else class="u-equip-null">- 暂无物品 -</div>
 							</div>
@@ -71,7 +71,7 @@
 </template>
 <script>
 import { getItemPlanID, delItemPlan, searchItemsID } from "@/service/item-plan.js";
-import itemIcon from "@/components/item/item-icon.vue";
+import ItemIcon from "@/components/common/item-icon.vue";
 import Equip from "@/components/item/equip.vue";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import { iconLink } from "@jx3box/jx3box-common/js/utils";
@@ -83,7 +83,7 @@ import bus from "@/store/bus.js";
 export default {
 	name: "PlanDetail",
 	props: [],
-	components: { WikiPanel, itemIcon, Equip },
+	components: { WikiPanel, ItemIcon, Equip },
 	data: function () {
 		return {
 			loading: false,

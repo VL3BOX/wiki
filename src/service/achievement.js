@@ -1,27 +1,35 @@
-import { $helper } from '@jx3box/jx3box-common/js/https'
+import { $helper, $cms, $node } from "@jx3box/jx3box-common/js/https";
+
+const $ = $node();
 
 // 获取成就统计信息
-function get_total_count() {
-    return $helper().get(`api/achievements/count`)
+export function getTotalCount() {
+    return $.get(`api/node/achievement/count`);
 }
 
 // 获取成就列表
-function get_achievements(params) {
-    return $helper().get(`api/achievements`, {
-        params
-    })
+export function get_achievements(params) {
+    return $.get(`api/node/achievement/list`, {
+        params,
+    });
 }
 
-function get_relation_achievements(source_id) {
+// 获取单个成就
+export function get_achievement(achievement_id, params) {
+    if (!achievement_id) return null;
+    return $.get(`api/node/achievement/${achievement_id}`, params);
+}
+
+export function get_relation_achievements(source_id) {
     if (!source_id) return null;
-    return $helper().get(`api/achievement/${source_id}/relations`)
+    return $.get(`/api/node/achievement/${source_id}/relations`);
 }
 
 const client = location.href.includes("origin") ? "origin" : "std";
 
 // 获取成就统计信息
 export function getAchievementsTotal() {
-    return $helper().get(`/api/achievements/count`, {
+    return $.get(`/api/node/achievement/count`, {
         params: {
             client,
         },
@@ -30,7 +38,7 @@ export function getAchievementsTotal() {
 
 // 侧边栏分组
 export function getMenus(general) {
-    return $helper().get(`/api/achievement/menus`, {
+    return $.get(`/api/node/achievement/menus`, {
         params: {
             general,
             client,
@@ -40,9 +48,9 @@ export function getMenus(general) {
 
 // 获取菜单下成就
 export function getMenuAchievements(sub, detail) {
-    let url = `/api/achievements/${sub}`
-    if (detail) url += `/${detail}`
-    return $helper().get(url, {
+    let url = `/api/cms/helper/achievements/${sub}`;
+    if (detail) url += `/${detail}`;
+    return $cms().get(url, {
         params: {
             client,
         },
@@ -51,19 +59,19 @@ export function getMenuAchievements(sub, detail) {
 
 // 获取成就列表
 export function getAchievements(params) {
-    return $helper().get(`/api/achievements`, {
+    return $.get(`/api/node/achievement/list`, {
         params: Object.assign(params, { client }),
     });
 }
 
 export function searchAchievements(params) {
-    return $helper().get(`/api/achievement/search`, {
+    return $.get(`/api/node/achievement/search`, {
         params: Object.assign(params, { client }),
     });
 }
 
 export function getRelationAchievements(source_id) {
-    return $helper().get(`/api/achievement/${source_id}/relations`, {
+    return $.get(`/api/node/achievement/${source_id}/relations`, {
         params: {
             client,
         },
@@ -71,7 +79,7 @@ export function getRelationAchievements(source_id) {
 }
 
 export function getNewestAchievements(page) {
-    return $helper().get(`/api/achievements/newest`, {
+    return $.get(`/api/node/achievement/newest`, {
         params: {
             page,
             client,
@@ -80,7 +88,7 @@ export function getNewestAchievements(page) {
 }
 
 export function getAdventureAchievements(page) {
-    return $helper().get(`/api/achievements/adventure`, {
+    return $.get(`/api/node/achievement/adventure`, {
         params: {
             page,
             client,
@@ -89,7 +97,7 @@ export function getAdventureAchievements(page) {
 }
 
 export function getWaitingAchievements(page) {
-    return $helper().get(`/api/achievements/waiting`, {
+    return $cms().get(`/api/cms/helper/achievements/waiting`, {
         params: {
             page,
             client,
@@ -99,14 +107,14 @@ export function getWaitingAchievements(page) {
 
 export function getWaitingRate() {
     const params = {
-        type: 'achievement',
-        client
+        type: "achievement",
+        client,
     };
-    return $helper().get(`/api/wiki/posts/counter`, { params });
+    return $cms().get(`/api/cms/helper/wiki/post/counter`, { params });
 }
 
 export function getRareAchievements(page) {
-    return $helper().get(`/api/achievements/rare`, {
+    return $.get(`/api/node/achievement/rare`, {
         params: {
             page,
             client,
@@ -114,6 +122,7 @@ export function getRareAchievements(page) {
     });
 }
 
+// 已废弃
 export function getOutPrintAchievements(page) {
     return $helper().get(`/api/achievements/out_print`, {
         params: {
@@ -123,14 +132,14 @@ export function getOutPrintAchievements(page) {
     });
 }
 
-// 贡献排行榜
+// 贡献排行榜（好像已经没用了）
 export function getAchievementRanking(sub) {
     return $helper().get(`/api/achievement/users/ranking` + (sub ? `?sub=${sub}` : ""));
 }
 
 // 获取角色的成就状态
 export function getRoleAchievements(role_id) {
-    return $helper().get(`/api/achievement/roles/${role_id}`, {
+    return $cms().get(`/api/cms/helper/achievements/roles/${role_id}`, {
         params: {
             client,
         },
@@ -139,13 +148,15 @@ export function getRoleAchievements(role_id) {
 
 // 批量更新角色的成就状态
 export function updateRoleAchievements(role_id, list) {
-    return $helper().post(`api/achievement/roles/${role_id}/done`, {
-        list,
-    }, {
-        params: {
-            client,
+    return $cms().post(
+        `/api/cms/helper/achievements/roles/${role_id}/done`,
+        {
+            list,
         },
-    });
+        {
+            params: {
+                client,
+            },
+        }
+    );
 }
-
-export { get_total_count, get_achievements, get_relation_achievements };

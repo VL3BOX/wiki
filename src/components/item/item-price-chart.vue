@@ -95,7 +95,7 @@ export default {
                         data = data.data;
                         this.today = null;
                         this.yesterday = null;
-                        this.logs = data.data.logs.map((item)=>{
+                        this.logs = (data.data?.logs || []).map((item)=>{
                             return {
                                 server: item.Server,
                                 price: item.AvgPrice,

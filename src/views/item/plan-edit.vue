@@ -105,7 +105,7 @@
                                             :key="key"
                                             class="u-selected u-selected-item u-selected-count"
                                         >
-                                            <itemIcon :item_id="item.id" :has_title="true" />
+                                            <ItemIcon :item_id="item.id" :has_title="true" />
                                             <div class="u-count">
                                                 <span>数量：</span>
                                                 <el-input-number
@@ -147,7 +147,7 @@ import { getItemsByName } from "@/service/item";
 import { getItemPlanID, updatePlan } from "@/service/item-plan";
 // components
 import draggable from "vuedraggable";
-import ItemIcon from "@/components/item/item-icon.vue";
+import ItemIcon from "@/components/common/item-icon.vue";
 import ItemSimple from "@jx3box/jx3box-editor/src/ItemSimple";
 export default {
     name: "planEdit",

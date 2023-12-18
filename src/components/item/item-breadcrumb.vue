@@ -24,8 +24,7 @@ export default {
                 quality_2: "精巧物品数",
                 quality_3: "卓越物品数",
                 quality_4: "珍奇物品数",
-                quality_5: "稀世物品数",
-                posts_total: "收录攻略数",
+                quality_5: "稀世物品数"
             },
         };
     },
