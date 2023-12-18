@@ -1,6 +1,6 @@
 <template>
     <div class="m-waiting-view">
-        <el-alert v-if="old" title="所有成就都已经有了各自的攻略，以下是一些比较老旧的成就攻略" type="success"></el-alert>
+        <el-alert class="u-waiting-alert" v-if="old" title="所有成就都已经有了各自的攻略，以下是一些比较老旧的成就攻略" type="success"></el-alert>
         <span class="u-list-empty" v-if="isEmpty">👻 暂无记录</span>
         <Achievements :achievements="achievements" :fold="true" />
         <el-pagination
@@ -72,9 +72,17 @@ export default {
             handler() {
                 this.page = parseInt(this.$route.query.page);
                 // 获取成就列表
-                this.get_achievements(this.page);
+                this.get_achievements(this.page || 1);
             },
         },
     },
 };
 </script>
+
+<style lang="less">
+.m-waiting-view {
+    .u-waiting-alert {
+        margin-bottom: 20px;
+    }
+}
+</style>

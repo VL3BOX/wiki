@@ -216,7 +216,6 @@ import { getStatRank } from "@jx3box/jx3box-common/js/stat";
 import { wiki } from "@jx3box/jx3box-common/js/wiki_v2";
 import { authorLink, ts2str, iconLink, showAvatar, getLink } from "@jx3box/jx3box-common/js/utils";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
-import { getAchievements, getWaitingRate } from "@/service/achievement";
 import star from "@/utils/star";
 import { ellipsis } from "@/utils/common";
 
@@ -290,8 +289,8 @@ export default {
                 }
             });
 
-            getAchievements({
-                ids: source_ids,
+            wiki.achievements({
+                ids: source_ids.join(","),
                 limit: source_ids.length,
             }).then((res) => {
                 res = res.data;
@@ -301,20 +300,17 @@ export default {
         });
 
         // 获取成就列表
-        getAchievements({ limit: 12 }).then(
+        wiki.achievements({ per: 12 }).then(
             (res) => {
                 res = res.data;
                 // 按照长度分批
                 this.newest_achievements = this.chuck(Object.values(res.data.achievements));
             },
             () => {
-                this.newest_achievements = false;
+                this.newest_achievements = [];
             }
         );
-        getWaitingRate().then((res) => {
-            let { wiki_count: solve, source_count: all } = res.data.data ?? {};
-            this.solveRate = (solve / all) * 100;
-        });
+
         // 获取最新成就攻略列表
         wiki.latest({ type: "achievement" }).then(
             (res) => {
@@ -324,6 +320,12 @@ export default {
                 this.newest_posts = [];
             }
         );
+
+        // 完成率
+        wiki.counter({ type: "achievement" }).then((res) => {
+            let { wiki_count: solve, source_count: all } = res.data.data ?? {};
+            this.solveRate = (solve / all) * 100;
+        });
     },
 };
 </script>

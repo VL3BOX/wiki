@@ -194,7 +194,7 @@
                             </div>
                             <div class="m-user">
                                 <div class="u-author">
-                                    <img class="u-icon" :src="showAvatar(post.user_avatar)" :alt="post.user_nickname" />
+                                    <img class="u-icon" :src="showAvatar(post.user)" :alt="post.user_nickname" />
                                     <a
                                         :href="post.user_id | author_url"
                                         class="u-name"
@@ -214,7 +214,7 @@
                                     name: 'view',
                                     params: { item_id: post.source_id },
                                 }"
-                                ><span v-html="ellipsis(post.excerpt)"></span
+                                ><span v-html="ellipsis(post.content)"></span
                             ></router-link>
                         </div>
                     </div>
@@ -227,13 +227,15 @@
 
 <script>
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
-import { iconLink, getThumbnail } from "@jx3box/jx3box-common/js/utils";
-import { get_item_posts, get_newest_items, get_items_by_node, get_waiting_rate } from "@/service/item.js";
+import { iconLink, showAvatar } from "@jx3box/jx3box-common/js/utils";
+import { get_item_posts, get_newest_items, get_items_by_node } from "@/service/item.js";
 import { getStatRank } from "@jx3box/jx3box-common/js/stat";
 import { __iconPath, feedback, default_avatar } from "@jx3box/jx3box-common/data/jx3box.json";
 import { date_format, star } from "@/filters";
 import GameText from "@jx3box/jx3box-editor/src/GameText.vue";
 import { chunk } from "lodash";
+import { wiki } from "@jx3box/jx3box-common/js/wiki_v2";
+import { ellipsis } from "@/utils/common";
 export default {
     name: "Home",
     data() {
@@ -260,18 +262,12 @@ export default {
         icon_url: function (id) {
             return iconLink(id, this.client);
         },
-        ellipsis(value) {
-            value = value ? value.trim() : "";
-            if (value.length > 100) {
-                return value.slice(0, 100) + "...";
-            }
-            return value;
-        },
+        ellipsis,
         date_format,
         star,
-
-        showAvatar: function (val) {
-            return (val && getThumbnail(val, 20, true)) || getThumbnail(default_avatar, 20, true);
+        showAvatar: function (user) {
+            const val = user?.user_avatar || '';
+            return showAvatar(val);
         },
         showItemTrending: function (item) {
             if (item.sub_days_0_price && item.sub_days_1_price) {
@@ -306,10 +302,15 @@ export default {
         },
     },
     created() {
-        get_item_posts().then((res) => {
-            res = res.data;
-            this.newest_posts = res.data.newest;
-        });
+        // 获取最新成就攻略列表
+        wiki.latest({ type: "item" }).then(
+            (res) => {
+                this.newest_posts = res.data.data?.list ?? [];
+            },
+            () => {
+                this.newest_posts = [];
+            }
+        );
         // 获取最新物品
         get_newest_items({ client: this.client }).then((res) => {
             this.new_plans = chunk(res.data, 3);
@@ -327,7 +328,8 @@ export default {
             .catch((err) => {
                 console.log(err);
             });
-        get_waiting_rate({ client: this.client }).then((res) => {
+        // 完成率
+        wiki.counter({ type: "item" }).then((res) => {
             let { wiki_count: solve, source_count: all } = res.data.data ?? {};
             this.solveRate = (solve / all) * 100;
         });

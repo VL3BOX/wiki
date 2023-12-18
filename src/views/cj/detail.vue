@@ -29,7 +29,7 @@
                     </div>
                     <Thx
                         class="m-thx"
-                        :postId="id"
+                        :postId="~~id"
                         postType="achievement"
                         :postTitle="favTitle"
                         :userId="author_id"
@@ -67,7 +67,7 @@ import WikiComments from "@jx3box/jx3box-common-ui/src/wiki/WikiComments";
 import AchievementSingle from "@/components/cj/achievement-single.vue";
 import Relations from "@/components/relations.vue";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
-import { wiki } from "@jx3box/jx3box-common/js/wiki";
+import { wiki } from "@jx3box/jx3box-common/js/wiki_v2";
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
 import { ts2str } from "@jx3box/jx3box-common/js/utils.js";
 import { reportNow } from "@jx3box/jx3box-common/js/reporter";
@@ -143,7 +143,7 @@ export default {
                 get_achievement(this.id, {client: this.client}).then((res) => {
                     this.source = res?.data?.data?.achievement || '';
                 });
-                wiki.mix({ type: "achievement", id: this.id, client: this.client }, { supply: 1 }).then((res) => {
+                wiki.mix({ type: "achievement", id: this.id, client: this.client }).then((res) => {
                     const { post, source, compatible, isEmpty, users } = res;
                     this.wiki_post = {
                         post: post,
@@ -165,8 +165,11 @@ export default {
         },
         loadRevision: function () {
             // 获取指定攻略
-            wiki.getById(this.post_id, { type: "achievement" }).then((res) => {
-                this.wiki_post = res?.data?.data;
+            wiki.getById(this.post_id).then((res) => {
+                this.wiki_post = {
+                    ...this.wiki_post,
+                    post: res.data.data
+                };
             });
             this.triggerStat();
         },

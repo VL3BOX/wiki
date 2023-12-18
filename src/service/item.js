@@ -104,7 +104,7 @@ export function get_menu_items(params) {
 }
 
 // 获取物品攻略列表
-export function get_item_posts() {
+export function ß() {
     return $helper().get(`api/wiki/posts/newest`, {
         params: {
             type: "item",
@@ -117,11 +117,6 @@ export function get_waiting(params) {
         type: "item",
     });
     return $helper().get(`/api/wiki/posts/waiting`, { params });
-}
-
-export function get_waiting_rate(params) {
-    params = { ...params, type: "item" };
-    return $cms().get(`/api/cms/helper/wiki/post/counter`, { params });
 }
 
 // 获取生活技艺产品原料
