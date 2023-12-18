@@ -180,7 +180,7 @@
                                 <div class="u-author">
                                     <img
                                         class="u-icon"
-                                        :src="post.user_avatar | showAvatar"
+                                        :src="showAvatar(post.user)"
                                         :alt="post.user_nickname"
                                     />
                                     <a
@@ -200,7 +200,7 @@
                                     name: 'view',
                                     params: { source_id: post.source_id },
                                 }"
-                                v-html="ellipsis(post.excerpt)"
+                                v-html="ellipsis(post.content)"
                             ></div>
                         </div>
                     </el-col>
@@ -213,11 +213,12 @@
 <script>
 import { feedback } from "@jx3box/jx3box-common/data/jx3box.json";
 import { getStatRank } from "@jx3box/jx3box-common/js/stat";
-import { wiki } from "@jx3box/jx3box-common/js/wiki";
+import { wiki } from "@jx3box/jx3box-common/js/wiki_v2";
 import { authorLink, ts2str, iconLink, showAvatar, getLink } from "@jx3box/jx3box-common/js/utils";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import { getAchievements, getWaitingRate } from "@/service/achievement";
 import star from "@/utils/star";
+import { ellipsis } from "@/utils/common";
 
 export default {
     name: "Home",
@@ -253,13 +254,7 @@ export default {
         author_url: authorLink,
         ts2str,
         star,
-        ellipsis(value) {
-            value = value ? value.trim() : "";
-            if (value.length > 100) {
-                return value.slice(0, 100) + "...";
-            }
-            return value;
-        },
+        ellipsis,
         chuck(arr, number = 3) {
             let output = [];
             for (let i = 0; i < arr.length; i += number) {
@@ -276,9 +271,8 @@ export default {
                 return "color: #ff3838";
             }
         },
-    },
-    filters: {
-        showAvatar: function (val) {
+        showAvatar: function (user) {
+            const val = user?.user_avatar || '';
             return showAvatar(val);
         },
     },
@@ -322,13 +316,12 @@ export default {
             this.solveRate = (solve / all) * 100;
         });
         // 获取最新成就攻略列表
-        wiki.list({ type: "achievement" }).then(
+        wiki.latest({ type: "achievement" }).then(
             (res) => {
-                res = res.data;
-                this.newest_posts = res.data.newest;
+                this.newest_posts = res.data.data?.list ?? [];
             },
             () => {
-                this.newest_posts = false;
+                this.newest_posts = [];
             }
         );
     },

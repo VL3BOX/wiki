@@ -20,7 +20,7 @@
                 </div>
                 <div class="u-post-user">
                     <div class="u-author">
-                        <img class="u-icon" :src="showAvatar(post.user_avatar)" :alt="post.user_nickname" />
+                        <img class="u-icon" :src="showAvatar(post.user)" :alt="post.user_nickname" />
                         <a
                             :href="post.user_id ? authorLink(post.user_id) : null"
                             class="u-name"
@@ -38,7 +38,7 @@
                         name: 'view',
                         params: { quest_id: post.source_id },
                     }"
-                    v-html="ellipsis(post.excerpt)"
+                    v-html="ellipsis(post.content)"
                 ></div>
             </div>
         </div>
@@ -46,8 +46,9 @@
 </template>
 
 <script>
-import { getNewestPost } from "@/service/quest";
 import { authorLink, ts2str, iconLink, showAvatar, getLink } from "@jx3box/jx3box-common/js/utils";
+import { wiki } from "@jx3box/jx3box-common/js/wiki_v2";
+import { ellipsis } from "@/utils/common";
 
 export default {
     name: "NewestPost",
@@ -68,27 +69,25 @@ export default {
         authorLink,
         ts2str,
         iconLink,
-        showAvatar,
+        showAvatar: function (user) {
+            const val = user?.user_avatar || '';
+            return showAvatar(val);
+        },
         getLink,
         async getData() {
-            const res = await getNewestPost(this.client);
-            let data = res.data;
-            if (data.code != 200) {
-                this.$message.error(data.msg);
-                return;
-            }
-            this.data = data.data.newest;
+            wiki.latest({ type: "quest" }).then(
+                (res) => {
+                    this.data = res.data.data?.list ?? [];
+                },
+                () => {
+                    this.data = [];
+                }
+            );
         },
         star(level) {
             return "⭐️".repeat(level ? level : 1);
         },
-        ellipsis(value) {
-            value = value ? value.trim() : "";
-            if (value.length > 100) {
-                return value.slice(0, 100) + "...";
-            }
-            return value;
-        },
+        ellipsis,
         questName(name) {
             return name || "未知任务";
         },
