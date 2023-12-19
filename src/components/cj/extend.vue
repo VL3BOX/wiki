@@ -7,21 +7,17 @@
                 <img class="u-icon" svg-inline src="@/assets/img/cj/rank.svg" />
                 <span class="u-text">贡献榜</span>
             </h2>
-            <el-tabs v-model="active_rank_type">
-                <el-tab-pane v-for="(type, key) in rank_types" :key="key" :label="type.name" :name="type.sub">
-                    <ul class="u-list">
-                        <li v-for="(rank, k) in ranks" :key="k">
-                            <a class="u-contributor" :href="rank.user_id ? author_url(rank.user_id) : null">
-                                <i class="u-avatar">
-                                    <img :src="rank.user_avatar | resolveAvatarPath" :alt="rank.user_nickname" />
-                                </i>
-                                <span class="u-name" v-text="rank.user_nickname"></span>
-                                <em class="u-count">+ {{ rank.total_score }}</em>
-                            </a>
-                        </li>
-                    </ul>
-                </el-tab-pane>
-            </el-tabs>
+            <ul class="u-list">
+                <li v-for="(rank, k) in ranks" :key="k">
+                    <a class="u-contributor" :href="rank.user_id ? author_url(rank.user_id) : null">
+                        <i class="u-avatar">
+                            <img :src="showAvatar(rank.avatar)" :alt="rank.nickname" />
+                        </i>
+                        <span class="u-name" v-text="rank.nickname"></span>
+                        <em class="u-count">+ {{ rank.count }}</em>
+                    </a>
+                </li>
+            </ul>
         </div>
 
         <div class="m-group">
@@ -39,36 +35,13 @@
                     @node-click="clickNode"
                 />
             </div>
-            <!-- <el-collapse accordion>
-                <el-collapse-item v-for="(server, key) in groups" :title="key" :key="key" :name="key">
-                    <ul class="u-groups">
-                        <li v-for="(group, k) in server" :key="k">
-                            <el-tag class="u-platform" v-if="group.platform == 'QQ'" size="mini">
-                                {{ group.platform }}群
-                            </el-tag>
-                            <el-tag class="u-platform" v-if="group.platform == 'YY'" size="mini" type="info">
-                                {{ group.platform }}群
-                            </el-tag>
-                            <el-button
-                                class="u-number"
-                                size="mini"
-                                v-clipboard:copy="group.number"
-                                v-clipboard:success="copy_success"
-                                v-clipboard:error="copy_error"
-                            >
-                                {{ group.number }}
-                            </el-button>
-                        </li>
-                    </ul>
-                </el-collapse-item>
-            </el-collapse> -->
         </div>
     </div>
 </template>
 
 <script>
-import { authorLink } from "@jx3box/jx3box-common/js/utils";
-import { get_groups, getMenuGroup } from "@/service/group";
+import { authorLink, showAvatar } from "@jx3box/jx3box-common/js/utils";
+import { getMenuGroup } from "@/service/group";
 import { getAchievementRanking } from "@/service/achievement";
 import { __ossRoot, __ossMirror } from "@jx3box/jx3box-common/data/jx3box.json";
 import SideMsg from "@/components/common/side-msg.vue";
@@ -76,32 +49,31 @@ import { v4 as uuid } from "uuid";
 
 export default {
     name: "Extend",
+    props: {
+        type: {
+            type: String,
+            default: "achievement",
+        }
+    },
     components: {
         SideMsg,
     },
     data() {
         return {
-            active_rank_type: "11",
-            rank_types: [
-                { sub: "11", name: "秘境" },
-                { sub: "7", name: "任务" },
-                { sub: "10", name: "声望" },
-                { sub: "40", name: "家园" },
-                { sub: "5", name: "技艺" },
-                { sub: "9", name: "战斗" },
-                { sub: "6", name: "阅读" },
-                { sub: "16", name: "活动" },
-                { sub: "8", name: "足迹" },
-                { sub: "15", name: "节日" },
-            ],
-            ranks: null,
+            ranks: [],
             groups: [],
             isHome: true,
 
             qq: "614370825",
         };
     },
+    computed: {
+        client() {
+            return this.$store.state.client;
+        },
+    },
     methods: {
+        showAvatar,
         clickNode(data) {
             if (!data.children) {
                 const val = data.label;
@@ -124,17 +96,14 @@ export default {
         copy_error() {
             this.$notify({ title: "浏览器不支持", type: "error" });
         },
-        get_users_ranks(sub) {
-            let that = this;
-            getAchievementRanking(sub).then(
-                (data) => {
-                    data = data.data;
-                    that.ranks = data.data.ranking;
-                },
-                () => {
-                    that.ranks = false;
-                }
-            );
+        loadRank() {
+            const params = {
+                type: this.type,
+                client: this.client,
+            }
+            getAchievementRanking(params).then((res) => {
+                this.ranks = res.data?.data || [];
+            });
         },
         checkIsHome: function () {
             this.isHome = this.$route.name == "home" || !this.$route.name;
@@ -197,37 +166,12 @@ export default {
     mounted() {
         // 获取成就群
         this.loadGroups();
-
-        // get_groups("achievement", {
-        //     order_by: "server",
-        //     group_by: "server",
-        // }).then(
-        //     (data) => {
-        //         data = data.data;
-        //         if (data.code === 200) {
-        //             this.groups = data.data.groups;
-        //         }
-        //     },
-        //     () => {
-        //         this.groups = false;
-        //     }
-        // );
         this.checkIsHome();
+        this.loadRank();
     },
     watch: {
-        active_rank_type: {
-            immediate: true,
-            handler() {
-                this.get_users_ranks(this.active_rank_type);
-            },
-        },
         "$route.name": function () {
             this.checkIsHome();
-        },
-    },
-    filters: {
-        resolveAvatarPath: function (val) {
-            return val.replace(__ossRoot, __ossMirror);
         },
     },
 };

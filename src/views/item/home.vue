@@ -227,15 +227,16 @@
 
 <script>
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
-import { iconLink, showAvatar } from "@jx3box/jx3box-common/js/utils";
-import { get_item_posts, get_newest_items, get_items_by_node } from "@/service/item.js";
-import { getStatRank } from "@jx3box/jx3box-common/js/stat";
-import { __iconPath, feedback, default_avatar } from "@jx3box/jx3box-common/data/jx3box.json";
-import { date_format, star } from "@/filters";
 import GameText from "@jx3box/jx3box-editor/src/GameText.vue";
-import { chunk } from "lodash";
+
+import { iconLink, showAvatar } from "@jx3box/jx3box-common/js/utils";
+import { getStatRank } from "@jx3box/jx3box-common/js/stat";
+import { __iconPath, feedback } from "@jx3box/jx3box-common/data/jx3box.json";
 import { wiki } from "@jx3box/jx3box-common/js/wiki_v2";
+import { get_newest_items, get_items_by_node } from "@/service/item.js";
+import { date_format, star } from "@/filters";
 import { ellipsis } from "@/utils/common";
+import { chunk } from "lodash";
 export default {
     name: "Home",
     data() {

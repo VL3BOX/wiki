@@ -226,7 +226,7 @@ import GamePrice from "@jx3box/jx3box-common-ui/src/wiki/GamePrice.vue";
 import User from "@jx3box/jx3box-common/js/user";
 
 import { postStat } from "@jx3box/jx3box-common/js/stat";
-import { wiki } from "@jx3box/jx3box-common/js/wiki.js";
+import { wiki } from "@jx3box/jx3box-common/js/wiki_v2.js";
 import { __Links } from "@jx3box/jx3box-common/data/jx3box.json";
 import std_servers from "@jx3box/jx3box-data/data/server/server_std.json";
 import origin_servers from "@jx3box/jx3box-data/data/server/server_origin.json";

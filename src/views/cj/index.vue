@@ -18,7 +18,7 @@
         <Search :placeholder="placeholder" @search="search($event)" />
         <router-view />
         <template #right>
-            <Info />
+            <Info type="achievement" />
         </template>
     </DefaultLayout>
 </template>

@@ -105,13 +105,6 @@ export function getWaitingAchievements(page) {
     });
 }
 
-export function getWaitingRate() {
-    const params = {
-        type: "achievement",
-        client,
-    };
-    return $cms().get(`/api/cms/helper/wiki/post/counter`, { params });
-}
 
 export function getRareAchievements(page) {
     return $.get(`/api/node/achievement/rare`, {
@@ -132,9 +125,11 @@ export function getOutPrintAchievements(page) {
     });
 }
 
-// 贡献排行榜（好像已经没用了）
-export function getAchievementRanking(sub) {
-    return $helper().get(`/api/achievement/users/ranking` + (sub ? `?sub=${sub}` : ""));
+// 贡献排行榜
+export function getAchievementRanking(params) {
+    return $cms().get(`/api/cms/wiki/post/rank`, {
+        params
+    });
 }
 
 // 获取角色的成就状态
