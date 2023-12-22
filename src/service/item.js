@@ -1,10 +1,10 @@
 import { $helper, $next, $node, $cms } from "@jx3box/jx3box-common/js/https";
 const $ = $node();
 
-export function getMyFavItems(params) {
-    return $helper().get(`api/my/post/favorites`, {
-        params,
-    });
+export function getMyFav(params) {
+    return $next().get(`api/article/favorites/my`, {
+        params
+    })
 }
 
 export function getMenus() {
@@ -53,13 +53,6 @@ export function get_item_servers_price_logs(item_id, params) {
     });
 }
 
-// 热搜物品列表
-export function get_items_search_hottest(params) {
-    return $helper().get(`api/items/search_hottest`, {
-        params,
-    });
-}
-
 // 通过node的接口获取物品
 export function get_items_by_node(params) {
     let ids = params.ids instanceof Array ? params.ids.join(",") : params.ids;
@@ -103,15 +96,6 @@ export function get_menu_items(params) {
     });
 }
 
-// 获取物品攻略列表
-export function ß() {
-    return $helper().get(`api/wiki/posts/newest`, {
-        params: {
-            type: "item",
-        },
-    });
-}
-
 export function get_waiting(params) {
     params = Object.assign(params, {
         type: "item",
@@ -133,9 +117,3 @@ export function getItemDetail(params) {
     });
 }
 
-// 获取物品详情
-export function getItemPrediction(params) {
-    return $helper().get(`api/item/prediction`, {
-        params,
-    });
-}

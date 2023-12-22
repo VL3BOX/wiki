@@ -24,7 +24,7 @@
 import User from "@jx3box/jx3box-common/js/user";
 import ItemIcon from "@/components/common/item-icon.vue";
 import { getStatRank } from "@jx3box/jx3box-common/js/stat";
-import { get_items, getMyFavItems } from "@/service/item.js";
+import { get_items, getMyFavItems, getMyFav } from "@/service/item.js";
 import { get } from "lodash";
 export default {
     name: "",
@@ -40,7 +40,7 @@ export default {
     computed: {},
     methods: {
         loadItems: function(ids, limit) {
-            return get_items({ ids: ids, limit: limit });
+            return get_items({ ids: ids.join(','), limit: limit });
         },
         loadHotItems: function() {
             // 获取热门物品
@@ -66,8 +66,8 @@ export default {
         },
         loadMyItems: function() {
             // 我收藏的物品
-            getMyFavItems({ type: "item", limit: this.length }).then((res) => {
-                let list = res.data.data.data;
+            getMyFav({ post_type: "item", pageSize: this.length, pageIndex: 1 }).then((res) => {
+                let list = res.data.data.list;
                 let ids = [];
                 if (list) {
                     list.forEach((item) => {
