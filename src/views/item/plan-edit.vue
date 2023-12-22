@@ -195,7 +195,7 @@ export default {
     },
     mounted() {
         this.id && this.loadData();
-        this.loadItems();
+        // this.loadItems();
     },
     methods: {
         loadItems() {

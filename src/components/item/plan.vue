@@ -1,6 +1,6 @@
 <template>
-    <el-popover popper-class="w-plans" placement="bottom" trigger="click" v-model="visible">
-        <el-input class="m-input" v-model.lazy="search" placeholder="请输入清单关键字"></el-input>
+    <el-popover popper-class="w-plans" placement="bottom" trigger="click" v-model="visible" width="300">
+        <el-input class="m-input" v-model.lazy="search" placeholder="请输入清单关键字" size="large" prefix-icon="el-icon-search"></el-input>
         <div class="m-list" v-if="list && list.length">
             <div class="u-list" v-for="(item, index) in list" :key="index">
                 <div class="u-title" @click="showRelation(item, index)">
@@ -50,6 +50,8 @@
 <script>
 import User from "@jx3box/jx3box-common/js/user";
 import { getMyPlans, updatePlan, addMyPlan } from "@/service/item-plan.js";
+import { pick } from "lodash";
+import { description } from '@/filters';
 export default {
     name: "plan",
     props: [],
@@ -137,12 +139,12 @@ export default {
                 id: this.item_id,
                 count: 1,
             });
-            console.log(item.id);
             this.postPlan(item.id, item);
         },
         // 提交清单
         postPlan(id, data) {
-            updatePlan(id, data)
+            const _data = pick(data, ['title', 'type', 'public', 'relation', 'description'])
+            updatePlan(id, _data)
                 .then(() => {
                     this.$message({
                         message: "添加成功",

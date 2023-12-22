@@ -361,7 +361,7 @@ export default {
                 get_item(this.id).then((res) => {
                     this.source = res?.data?.data?.item;
                 });
-                wiki.mix({ type: "item", id: this.id, client: this.client }, { supply: 1 }).then((res) => {
+                wiki.mix({ type: "item", id: this.id, client: this.client }).then((res) => {
                     const { post, source, compatible, isEmpty, users } = res;
                     this.wiki_post = {
                         post: post,

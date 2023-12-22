@@ -205,21 +205,6 @@ export default {
         cursor: pointer;
         overflow: hidden;
     }
-    .quality-1 {
-        color: grey;
-    }
-    .quality-2 {
-        color: #00d24b;
-    }
-    .quality-3 {
-        color: #007eff;
-    }
-    .quality-4 {
-        color: #ff2dff;
-    }
-    .quality-5 {
-        color: #ffa500;
-    }
 }
 .u-item-icon {
     .pr;

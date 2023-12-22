@@ -1,5 +1,5 @@
 <template>
-    <DefaultLayout name="物品百科" slug="item" :publishEnable="true" :feedbackEnable="true" :adminEnable="false">
+    <DefaultLayout name="物品百科" slug="item" root="/item" :publishEnable="true" :feedbackEnable="true" :adminEnable="false">
         <template #breadcrumb>
             <ItemBreadcrumb />
         </template>
@@ -90,3 +90,7 @@ export default {
     },
 };
 </script>
+
+<style lang="less">
+@import "~@/assets/css/app.less";
+</style>

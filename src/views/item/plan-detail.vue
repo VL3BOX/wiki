@@ -41,7 +41,7 @@
 							<div class="u-content">
 								<router-link class="u-item" v-for="(el, key) in item.data" :key="key" :to="{ name: 'view', params: { item_id: el.id } }">
 									<span class="u-img">
-										<ItemIcon :item="el" />
+										<ItemIcon :item="el" :size="48" />
 										<span class="u-count">{{ el.count }}</span>
 									</span>
 									<span class="u-name" :class="`quality-${el.Quality}`"> {{ el.Name }}</span>
