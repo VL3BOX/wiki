@@ -51,7 +51,6 @@
 import User from "@jx3box/jx3box-common/js/user";
 import { getMyPlans, updatePlan, addMyPlan } from "@/service/item-plan.js";
 import { pick } from "lodash";
-import { description } from '@/filters';
 export default {
     name: "plan",
     props: [],

@@ -21,7 +21,7 @@ export function get_item(item_id) {
     return $.get(`api/node/item/${item_id}`);
 }
 
-// 相关物品清单
+// 相关物品清单(已废弃)
 export function get_item_relation_plans(item_id, params) {
     if (!item_id) return;
     return $helper().get(`api/item/${item_id}/relation_plans`, {
@@ -97,10 +97,7 @@ export function get_menu_items(params) {
 }
 
 export function get_waiting(params) {
-    params = Object.assign(params, {
-        type: "item",
-    });
-    return $helper().get(`/api/wiki/posts/waiting`, { params });
+    return $cms().get(`/api/cms/wiki/post/waiting`, { params });
 }
 
 // 获取生活技艺产品原料

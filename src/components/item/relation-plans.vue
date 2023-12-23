@@ -52,6 +52,7 @@
 </template>
 
 <script>
+// 已弃用该文件
 import { get_item_relation_plans } from "@/service/item";
 import { date_format, author_url } from "@/filters/";
 import { __iconPath } from "@jx3box/jx3box-common/data/jx3box.json";

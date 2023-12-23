@@ -43,6 +43,8 @@ export default {
             let params = {
                 page,
                 client: this.client,
+                per: 15,
+                type: 'item'
             };
             let res = (await get_waiting(params)).data;
             this.total = res.data.total;
