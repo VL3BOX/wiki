@@ -377,7 +377,7 @@ export default {
         loadRevision: function () {
             // 获取指定攻略
             wiki.getById(this.post_id, { type: "item" }).then((res) => {
-                this.wiki_post = res?.data?.data;
+                this.wiki_post = res.data.data?.post;
             });
             this.triggerStat();
         },

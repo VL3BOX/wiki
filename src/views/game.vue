@@ -110,8 +110,7 @@ export default {
                 if (this.$route.query.post_id) {
                     wiki.getById(this.$route.query.post_id, { client: this.client })
                     .then((res) => {
-                        res = res.data;
-                        this.wikiPost = res.data;
+                        this.wikiPost = res.data.data?.post;
                     });
                 }
             },

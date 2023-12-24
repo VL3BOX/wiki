@@ -180,7 +180,7 @@ export default {
             wiki.getById(this.post_id).then((res) => {
                 this.wiki_post = {
                     ...this.wiki_post,
-                    post: res.data.data,
+                    post: res.data.data?.post,
                 };
             });
             this.triggerStat();
