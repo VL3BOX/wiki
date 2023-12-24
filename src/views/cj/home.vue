@@ -5,9 +5,9 @@
                 <i class="el-icon-location-information"></i>
                 <span>便捷入口</span>
             </template>
-            <template slot="head-actions">
+            <!-- <template slot="head-actions">
                 <a class="other" target="_blank" :href="feedback">反馈建议 &raquo;</a>
-            </template>
+            </template> -->
             <template slot="body">
                 <ul class="u-qlinks">
                     <li class="u-qlink">
@@ -17,11 +17,7 @@
                         </a>
                     </li>
                     <li class="u-qlink">
-                        <router-link :to="{ name: 'waiting' }">
-                            <i class="el-icon-edit-outline"></i>
-                            <span>待攻略成就</span>
-                            <span class="u-waiting" :style="waitingColorStyle()">（{{ solveRate.toFixed(2) }}%）</span>
-                        </router-link>
+                        <Counter></Counter>
                     </li>
                     <li class="u-qlink">
                         <a target="_blank" :href="hiddenAchievementsPostLink">
@@ -57,8 +53,9 @@
                             <el-row :gutter="20">
                                 <template v-for="(item, k) in items">
                                     <el-col :md="8" v-if="item" :key="k">
-                                        <router-link
-                                            class="u-item"
+                                        <AchievementItem :class="`u-item-${k}`" :item="item"></AchievementItem>
+                                        <!--  <router-link
+                                            class="u-item u-item-new"
                                             :class="`u-item-${k}`"
                                             :to="{
                                                 name: 'view',
@@ -93,7 +90,7 @@
                                                     <span v-text="`三十天 - ${views[item.ID]['30days']}`"></span>
                                                 </span>
                                             </div>
-                                        </router-link>
+                                        </router-link> -->
                                     </el-col>
                                 </template>
                             </el-row>
@@ -116,28 +113,7 @@
                     <el-carousel-item v-for="(items, key) in newest_achievements" :key="key" class="m-carousel">
                         <el-row :gutter="20">
                             <el-col :md="8" v-for="(item, k) in items" :key="k">
-                                <router-link
-                                    class="u-item u-item-new"
-                                    :class="`u-item-${k}`"
-                                    :to="{
-                                        name: 'view',
-                                        params: { source_id: item.ID },
-                                    }"
-                                >
-                                    <div class="u-icon">
-                                        <img :src="icon_url(item.IconID)" />
-                                    </div>
-                                    <div class="m-carousel-content">
-                                        <span class="u-title">
-                                            <i class="el-icon-medal"></i>
-                                            <span v-text="` ${item.Name}`"></span>
-                                        </span>
-                                        <span class="u-desc">
-                                            <i class="el-icon-mic"></i>
-                                            <span v-html="` ${item.Desc}`"></span>
-                                        </span>
-                                    </div>
-                                </router-link>
+                                <AchievementItem :class="`u-item-${k}`" :item="item"></AchievementItem>
                             </el-col>
                         </el-row>
                     </el-carousel-item>
@@ -145,68 +121,8 @@
             </template>
         </WikiPanel>
 
-        <WikiPanel :border-none="true">
-            <template slot="head-title">
-                <i class="el-icon-collection"></i>
-                <span>最近攻略</span>
-            </template>
-            <template slot="body">
-                <el-row class="m-posts">
-                    <el-col class="m-post" v-for="(post, key) in newest_posts" :key="key">
-                        <div class="m-head">
-                            <div class="m-achievement">
-                                <div class="u-achievement">
-                                    <img
-                                        class="u-icon"
-                                        :src="icon_url(post.source_icon_id)"
-                                        @error.once="$event.target.src = icon_url('')"
-                                    />
-                                    <router-link
-                                        class="u-name"
-                                        :to="{
-                                            name: 'view',
-                                            params: {
-                                                source_id: post.source_id,
-                                            },
-                                        }"
-                                        target="_blank"
-                                        >{{ post.title }}</router-link
-                                    >
-                                </div>
-                                <div class="u-level" v-text="'综合难度：' + star(post.level)"></div>
-                                <div class="u-remark" v-if="post.remark" v-text="'📑 ' + post.remark"></div>
-                            </div>
-                            <div class="m-user">
-                                <div class="u-author">
-                                    <img
-                                        class="u-icon"
-                                        :src="showAvatar(post.user)"
-                                        :alt="post.user_nickname"
-                                    />
-                                    <a
-                                        :href="post.user_id ? author_url(post.user_id) : null"
-                                        class="u-name"
-                                        v-text="post.user_nickname"
-                                        target="_blank"
-                                    ></a>
-                                </div>
-                                <div class="u-updated" v-text="ts2str(post.updated)"></div>
-                            </div>
-                        </div>
-                        <div class="m-body">
-                            <div
-                                class="u-excerpt"
-                                :to="{
-                                    name: 'view',
-                                    params: { source_id: post.source_id },
-                                }"
-                                v-html="ellipsis(post.content)"
-                            ></div>
-                        </div>
-                    </el-col>
-                </el-row>
-            </template>
-        </WikiPanel>
+        <!-- 最近攻略 -->
+        <PostList></PostList>
     </div>
 </template>
 
@@ -214,21 +130,26 @@
 import { feedback } from "@jx3box/jx3box-common/data/jx3box.json";
 import { getStatRank } from "@jx3box/jx3box-common/js/stat";
 import { wiki } from "@jx3box/jx3box-common/js/wiki_v2";
-import { authorLink, ts2str, iconLink, showAvatar, getLink } from "@jx3box/jx3box-common/js/utils";
+import { iconLink, showAvatar, getLink } from "@jx3box/jx3box-common/js/utils";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
-import star from "@/utils/star";
-import { ellipsis } from "@/utils/common";
+import AchievementItem from "@/components/cj/achievement-item.vue";
+import Counter from "@/components/common/counter.vue";
+import PostList from "@/components/common/post-list.vue";
 
 export default {
     name: "Home",
+    components: {
+        WikiPanel,
+        PostList,
+        AchievementItem,
+        Counter,
+    },
     data() {
         return {
             views: {},
             hot_achievements: null,
             newest_achievements: null,
-            newest_posts: null,
             feedback,
-            solveRate: 0,
         };
     },
     computed: {
@@ -243,17 +164,10 @@ export default {
             return getLink("bbs", id);
         },
     },
-    components: {
-        WikiPanel,
-    },
     methods: {
         icon_url: function (id) {
             return iconLink(id, this.client);
         },
-        author_url: authorLink,
-        ts2str,
-        star,
-        ellipsis,
         chuck(arr, number = 3) {
             let output = [];
             for (let i = 0; i < arr.length; i += number) {
@@ -261,17 +175,8 @@ export default {
             }
             return output;
         },
-        waitingColorStyle() {
-            if (this.solveRate > 95) {
-                return "color: #8dfa58";
-            } else if (this.solveRate > 60) {
-                return "color: #e2d849";
-            } else {
-                return "color: #ff3838";
-            }
-        },
         showAvatar: function (user) {
-            const val = user?.user_avatar || '';
+            const val = user?.user_avatar || "";
             return showAvatar(val);
         },
     },
@@ -310,22 +215,6 @@ export default {
                 this.newest_achievements = [];
             }
         );
-
-        // 获取最新成就攻略列表
-        wiki.latest({ type: "achievement" }).then(
-            (res) => {
-                this.newest_posts = res.data.data?.list ?? [];
-            },
-            () => {
-                this.newest_posts = [];
-            }
-        );
-
-        // 完成率
-        wiki.counter({ type: "achievement" }).then((res) => {
-            let { wiki_count: solve, source_count: all } = res.data.data ?? {};
-            this.solveRate = (solve / all) * 100;
-        });
     },
 };
 </script>

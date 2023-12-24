@@ -17,11 +17,7 @@
                         </a>
                     </li>
                     <li class="qlink">
-                        <router-link :to="{ name: 'waiting' }">
-                            <i class="el-icon-edit-outline"></i>
-                            <span>待攻略物品</span>
-                            <span class="u-waiting" :style="waitingColorStyle()">（{{ solveRate.toFixed(2) }}%）</span>
-                        </router-link>
+                        <Counter type="item"></Counter>
                     </li>
                     <!-- <li class="qlink">
                         <router-link :to="{ name: 'plan_list' }">
@@ -237,8 +233,15 @@ import { get_newest_items, get_items_by_node } from "@/service/item.js";
 import { date_format, star } from "@/filters";
 import { ellipsis } from "@/utils/common";
 import { chunk } from "lodash";
+
+import Counter from "@/components/common/counter.vue";
 export default {
     name: "Home",
+    components: {
+        WikiPanel,
+        GameText,
+        Counter,
+    },
     data() {
         return {
             newest_posts: [],
@@ -247,17 +250,12 @@ export default {
             feedback: feedback,
             plan_2_icon: __iconPath + "icon/2410.png",
             plan_1_icon: __iconPath + "icon/3089.png",
-            solveRate: 0,
         };
     },
     computed: {
         client: function () {
             return this.$store.state.client;
         },
-    },
-    components: {
-        WikiPanel,
-        GameText,
     },
     methods: {
         icon_url: function (id) {
@@ -267,7 +265,7 @@ export default {
         date_format,
         star,
         showAvatar: function (user) {
-            const val = user?.user_avatar || '';
+            const val = user?.user_avatar || "";
             return showAvatar(val);
         },
         showItemTrending: function (item) {
@@ -290,15 +288,6 @@ export default {
                 } else {
                     return "keep";
                 }
-            }
-        },
-        waitingColorStyle() {
-            if (this.solveRate > 95) {
-                return "color: #8dfa58";
-            } else if (this.solveRate > 60) {
-                return "color: #e2d849";
-            } else {
-                return "color: #ff3838";
             }
         },
     },
@@ -329,11 +318,6 @@ export default {
             .catch((err) => {
                 console.log(err);
             });
-        // 完成率
-        wiki.counter({ type: "item" }).then((res) => {
-            let { wiki_count: solve, source_count: all } = res.data.data ?? {};
-            this.solveRate = (solve / all) * 100;
-        });
     },
 };
 </script>

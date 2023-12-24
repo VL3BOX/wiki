@@ -27,19 +27,6 @@
                         <i class="el-icon-edit"></i>
                         本次修订由 <b>{{ user_name }}</b> 提交于{{ updated_at }}
                     </div>
-                    <Thx
-                        class="m-thx"
-                        :postId="~~id"
-                        postType="achievement"
-                        :postTitle="favTitle"
-                        :userId="author_id"
-                        :adminBoxcoinEnable="true"
-                        :userBoxcoinEnable="true"
-                        mode="wiki"
-                        :authors="authors"
-                        :key="'achievement-thx-' + id"
-                        :client="client"
-                    />
                 </template>
             </WikiPanel>
 
@@ -47,6 +34,31 @@
 
             <!-- 历史版本 -->
             <WikiRevisions type="achievement" :source-id="id" />
+
+            <!-- 打赏 -->
+            <div class="m-wiki-thx-panel">
+                <WikiPanel>
+                    <template slot="head-title">
+                        <img class="u-icon" svg-inline src="@/assets/img/thx.svg" />
+                        <span class="u-txt">参与打赏</span>
+                    </template>
+                    <template slot="body">
+                        <Thx
+                            class="m-thx"
+                            :postId="~~id"
+                            postType="achievement"
+                            :postTitle="favTitle"
+                            :userId="author_id"
+                            :adminBoxcoinEnable="true"
+                            :userBoxcoinEnable="true"
+                            mode="wiki"
+                            :authors="authors"
+                            :key="'achievement-thx-' + id"
+                            :client="client"
+                        />
+                    </template>
+                </WikiPanel>
+            </div>
 
             <!-- 百科评论 -->
             <WikiComments type="achievement" :source-id="id" />
@@ -140,8 +152,8 @@ export default {
         loadData: function () {
             // 获取最新攻略
             if (this.id) {
-                get_achievement(this.id, {client: this.client}).then((res) => {
-                    this.source = res?.data?.data?.achievement || '';
+                get_achievement(this.id, { client: this.client }).then((res) => {
+                    this.source = res?.data?.data?.achievement || "";
                 });
                 wiki.mix({ type: "achievement", id: this.id, client: this.client }).then((res) => {
                     const { post, source, compatible, isEmpty, users } = res;
@@ -168,7 +180,7 @@ export default {
             wiki.getById(this.post_id).then((res) => {
                 this.wiki_post = {
                     ...this.wiki_post,
-                    post: res.data.data
+                    post: res.data.data,
                 };
             });
             this.triggerStat();
