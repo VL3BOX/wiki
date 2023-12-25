@@ -30,10 +30,9 @@
 </template>
 
 <script>
-import { getKnowledgeMenus } from "@/service/wiki.js";
+import { getKnowledgeMenus, getKnowledgeCount } from "@/service/knowledge.js";
 import { map, each } from "lodash";
 import { getAppType } from "@jx3box/jx3box-common/js/utils";
-import buildCalendarNav from "@/utils/build-calendar-nav";
 import { getCalendarCount } from "@/service/calendar";
 
 export default {
@@ -82,17 +81,19 @@ export default {
             // 通识
             this.loadKnowledge();
         },
-        loadKnowledge: function () {
+        loadKnowledge: async function () {
             // 加载通识子类统计
+            const data = await getKnowledgeCount();
             getKnowledgeMenus().then((res) => {
-                let knowledgeMenus = res?.data?.data?.menus;
+                let knowledgeMenus = res?.data?.data;
                 let knowledgeTree = [];
                 each(knowledgeMenus, (item, key) => {
+                    const _item = data.data.data?.find((i) => i.type == item.name);
                     knowledgeTree.push({
-                        key: key,
-                        path: "/type/" + key,
+                        key: item.name,
+                        path: "/type/" + item.name,
                         label: item.label,
-                        count: item.count,
+                        count: _item.count,
                         app: "knowledge",
                     });
                 });

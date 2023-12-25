@@ -12,7 +12,7 @@
     </div>
 </template>
 <script>
-import { getKnowledgeSearch } from "@/service/knowledge.js";
+import { getKnowledgeList } from "@/service/knowledge.js";
 export default {
     name: "Jargon",
     props: [],
@@ -25,11 +25,11 @@ export default {
     watch: {},
     methods: {
         getJargon: function () {
-            getKnowledgeSearch({
-                knowledge_type: "jargon",
-                limit: 48,
+            getKnowledgeList({
+                type: "jargon",
+                per: 48,
             }).then((res) => {
-                this.list = res.data;
+                this.list = res.data.data?.list || [];
             });
         },
     },

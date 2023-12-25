@@ -10,7 +10,7 @@
 <script>
 import Search from "@/components/common/search.vue";
 import knowledgeList from "@/components/knowledge/list.vue";
-import { getKnowledgeList, getKnowledgeSearch } from "@/service/knowledge.js";
+import { getKnowledgeList } from "@/service/knowledge.js";
 
 export default {
     name: "KnowledgeList",
@@ -33,12 +33,12 @@ export default {
         },
         params() {
             let params = {
-                limit: this.per,
+                per: this.per,
                 page: this.page,
-                knowledge_type: this.type,
+                type: this.type,
             };
             if (this.search) {
-                params.keyword = this.search;
+                params._search = this.search;
             }
             return params;
         },
@@ -51,29 +51,13 @@ export default {
         },
     },
     methods: {
-        // 获取数据
-        getData() {
-            this.search ? this.getSearchData(this.params) : this.getListData(this.params);
-        },
         // 按类别获取数据
-        getListData(params) {
+        getListData() {
             this.loading = true;
-            getKnowledgeList(params)
+            getKnowledgeList(this.params)
                 .then((res) => {
-                    this.total = res.total;
-                    this.list = res.data;
-                })
-                .finally(() => {
-                    this.loading = false;
-                });
-        },
-        // 搜索获取数据
-        getSearchData(params) {
-            this.loading = true;
-            getKnowledgeSearch(params)
-                .then((res) => {
-                    this.list = res.data;
-                    this.total = res.total;
+                    this.total = res.data.data.total || 0;
+                    this.list = res.data.data.list || []
                 })
                 .finally(() => {
                     this.loading = false;
@@ -92,14 +76,14 @@ export default {
     },
     watch: {
         params() {
-            this.getData();
+            this.getListData();
         },
         type() {
             this.page = 1;
         },
     },
     created: function () {
-        this.getData();
+        this.getListData();
     },
 };
 </script>

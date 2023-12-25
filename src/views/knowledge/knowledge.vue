@@ -1,5 +1,5 @@
 <template>
-    <DefaultLayout name="通识百科" slug="knowledge" without-right :publishEnable="true" :feedbackEnable="true">
+    <DefaultLayout name="通识百科" slug="knowledge" root="/knowledge" without-right :publishEnable="true" :feedbackEnable="true">
         <template #left>
             <CommonNav>
                 <KnowledgeNav> </KnowledgeNav>

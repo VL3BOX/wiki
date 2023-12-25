@@ -6,7 +6,7 @@
 		</div>
 		<div class="u-tags" v-if="hasTag(data.post)">
 			<i class="el-icon-price-tag"></i>
-			<span v-for="item in data.post.tags" :key="item">{{ item }}</span>
+			<span v-for="item in formatTags(data.post.tags)" :key="item">{{ item }}</span>
 		</div>
 		<span class="u-remark" v-if="data.post"> <i class="el-icon-edit"></i>最后修订：{{ data.post.remark }}@{{ data.post.user_nickname }} </span>
 		<div class="u-updated" v-if="data.updated">
@@ -32,8 +32,13 @@ export default {
 	methods: {
 		// 是否有标签
 		hasTag(data) {
-			return data && data.tags?.filter(Boolean).length ? true : false;
+			return data && data.tags
 		},
+        formatTags(val) {
+            return val.split(",").map((item) => {
+                return item.trim();
+            });
+        }
 	},
 	created: function () {},
 };

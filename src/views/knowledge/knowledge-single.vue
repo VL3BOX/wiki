@@ -41,12 +41,13 @@
 </template>
 
 <script>
-import { getKnowledgeDetail, getKnowledgePost, removeKnowledge } from "@/service/knowledge.js";
+import { removeKnowledge } from "@/service/knowledge.js";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import WikiRevisions from "@jx3box/jx3box-common-ui/src/wiki/WikiRevisions";
 import User from "@jx3box/jx3box-common/js/user";
+import { wiki } from "@jx3box/jx3box-common/js/wiki_v2";
 
 import Article from "@jx3box/jx3box-editor/src/Article.vue";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
@@ -107,9 +108,9 @@ export default {
     methods: {
         getData() {
             this.loading = true;
-            getKnowledgeDetail(this.id)
+            wiki.get({ type: 'knowledge', id: this.id })
                 .then((res) => {
-                    this.data = res;
+                    this.data = res.data.data;
                     if (this.data.source) this.data.source.post = this.data.post;
                 })
                 .finally(() => {
@@ -119,10 +120,10 @@ export default {
         },
         getPostData() {
             this.loading = true;
-            getKnowledgePost(this.$route.params.post_id)
+            wiki.getById(this.$route.params.post_id)
                 .then((res) => {
-                    this.data = res;
-                    if (this.data.source) this.data.source.post = this.data.post;
+                    const data = res.data.data
+                    if (data.source) this.data.source.post = data.post;
                 })
                 .finally(() => {
                     this.loading = false;

@@ -27,7 +27,7 @@ import wikiGuide from "@/components/knowledge/guide.vue"; // 玩法指南
 // import wikiHot from "@/components/knowledge/hot.vue"; // 热门剧情
 import wikiJargon from "@/components/knowledge/jargon.vue"; // 术语大全
 import wikiRecent from "@/components/knowledge/recent.vue"; // 最新更新
-import { getKnowledgeSearch } from "@/service/knowledge.js";
+import { getKnowledgeList } from "@/service/knowledge.js";
 
 export default {
 	name: "KnowledgeIndex",
@@ -55,9 +55,9 @@ export default {
 	computed: {
 		params() {
 			let params = {
-				limit: this.per,
+				per: this.per,
 				page: this.page,
-				keyword: this.search,
+				_search: this.search,
 			};
 			return params;
 		},
@@ -73,10 +73,10 @@ export default {
 		// 获取搜索的数据
 		getSearchData() {
 			this.loading = true;
-			getKnowledgeSearch(this.params)
+			getKnowledgeList(this.params)
 				.then((res) => {
-					this.list = res.data;
-					this.total = res.total;
+					this.list = res.data.data.list || [];
+					this.total = res.data.data.total;
 				})
 				.finally(() => {
 					this.loading = false;
