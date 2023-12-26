@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
+import WikiPanel from "@/components/wiki-panel.vue";
 import PostItem from "@/components/common/post-item.vue";
 import { wiki } from "@jx3box/jx3box-common/js/wiki_v2";
 export default {

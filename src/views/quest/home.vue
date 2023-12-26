@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
+import WikiPanel from "@/components/wiki-panel.vue";
 import NewestPost from "@/components/quest/home/newest-post.vue";
 import QuestCarousel from "@/components/quest/home/quest-carousel.vue";
 

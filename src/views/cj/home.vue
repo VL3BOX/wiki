@@ -1,5 +1,6 @@
 <template>
     <div class="m-home-view">
+        <Notice></Notice>
         <WikiPanel :border-none="true">
             <template slot="head-title">
                 <i class="el-icon-location-information"></i>
@@ -131,10 +132,11 @@ import { feedback } from "@jx3box/jx3box-common/data/jx3box.json";
 import { getStatRank } from "@jx3box/jx3box-common/js/stat";
 import { wiki } from "@jx3box/jx3box-common/js/wiki_v2";
 import { iconLink, showAvatar, getLink } from "@jx3box/jx3box-common/js/utils";
-import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
+import WikiPanel from "@/components/wiki-panel.vue";
 import AchievementItem from "@/components/cj/achievement-item.vue";
 import Counter from "@/components/common/counter.vue";
 import PostList from "@/components/common/post-list.vue";
+import Notice from "@/components/common/notice.vue";
 
 export default {
     name: "Home",
@@ -143,6 +145,7 @@ export default {
         PostList,
         AchievementItem,
         Counter,
+        Notice,
     },
     data() {
         return {

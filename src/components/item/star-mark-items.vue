@@ -128,7 +128,7 @@
 </template>
 
 <script>
-import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
+import WikiPanel from "@/components/wiki-panel.vue";
 import { get_item_groups_with_price } from "@/service/item-group";
 import servers_origin from "@jx3box/jx3box-data/data/server/server_origin.json";
 import servers_std from "@jx3box/jx3box-data/data/server/server_std.json";

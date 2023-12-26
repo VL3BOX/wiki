@@ -222,7 +222,7 @@
 </template>
 
 <script>
-import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
+import WikiPanel from "@/components/wiki-panel.vue";
 import GameText from "@jx3box/jx3box-editor/src/GameText.vue";
 
 import { iconLink, showAvatar } from "@jx3box/jx3box-common/js/utils";

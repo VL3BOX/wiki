@@ -123,7 +123,7 @@
 </template>
 
 <script>
-import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
+import WikiPanel from "@/components/wiki-panel.vue";
 import { get_relation_achievements } from "@/service/achievement";
 import { iconLink } from "@jx3box/jx3box-common/js/utils";
 import { getBossInfo } from "@/service/relations";

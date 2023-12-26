@@ -205,9 +205,9 @@ import { wiki } from "@jx3box/jx3box-common/js/wiki.js";
 import { getAppIcon } from "@jx3box/jx3box-common/js/utils";
 
 import { publishLink, ts2str } from "@jx3box/jx3box-common/js/utils";
-import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
-import WikiRevisions from "@jx3box/jx3box-common-ui/src/wiki/WikiRevisions";
-import WikiComments from "@jx3box/jx3box-common-ui/src/wiki/WikiComments";
+import WikiPanel from "@/components/wiki-panel.vue";
+import WikiRevisions from "@/components/wiki-revisions.vue";
+import WikiComments from "@/components/wiki-comments.vue";
 import Article from "@jx3box/jx3box-editor/src/Article.vue";
 
 import { getQuest } from "@/service/quest";

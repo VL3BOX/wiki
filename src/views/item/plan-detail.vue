@@ -73,7 +73,7 @@
 import { getItemPlanID, delItemPlan, searchItemsID } from "@/service/item-plan.js";
 import ItemIcon from "@/components/common/item-icon.vue";
 import Equip from "@/components/item/equip.vue";
-import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
+import WikiPanel from "@/components/wiki-panel.vue";
 import { iconLink } from "@jx3box/jx3box-common/js/utils";
 import { __Links, default_avatar } from "@jx3box/jx3box-common/data/jx3box.json";
 import { showAvatar, authorLink, ts2str } from "@jx3box/jx3box-common/js/utils";

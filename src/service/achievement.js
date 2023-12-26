@@ -1,6 +1,14 @@
 import { $helper, $cms, $node } from "@jx3box/jx3box-common/js/https";
 
 const $ = $node();
+// 获取成就公告
+export function getBreadcrumb(key = "wiki_cj_ac") {
+    return $cms()
+        .get(`/api/cms/breadcrumb/${key}`)
+        .then((res) => {
+            return res.data.data.html || "";
+        });
+}
 
 // 获取成就统计信息
 export function getTotalCount() {
@@ -105,7 +113,6 @@ export function getWaitingAchievements(page) {
     });
 }
 
-
 export function getRareAchievements(page) {
     return $.get(`/api/node/achievement/rare`, {
         params: {
@@ -128,7 +135,7 @@ export function getOutPrintAchievements(page) {
 // 贡献排行榜
 export function getAchievementRanking(params) {
     return $cms().get(`/api/cms/wiki/post/rank`, {
-        params
+        params,
     });
 }
 

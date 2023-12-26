@@ -29,7 +29,7 @@
                     </div>
                 </template>
             </WikiPanel>
-
+            
             <Relations :source-id="id" />
 
             <!-- 历史版本 -->
@@ -73,9 +73,9 @@
 
 <script>
 import Article from "@jx3box/jx3box-editor/src/Article.vue";
-import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
-import WikiRevisions from "@jx3box/jx3box-common-ui/src/wiki/WikiRevisions";
-import WikiComments from "@jx3box/jx3box-common-ui/src/wiki/WikiComments";
+import WikiPanel from "@/components/wiki-panel.vue";
+import WikiRevisions from "@/components/wiki-revisions.vue";
+import WikiComments from "@/components/wiki-comments.vue";
 import AchievementSingle from "@/components/cj/achievement-single.vue";
 import Relations from "@/components/relations.vue";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
@@ -87,6 +87,14 @@ import { reportNow } from "@jx3box/jx3box-common/js/reporter";
 import { get_achievement } from "@/service/achievement";
 export default {
     name: "Detail",
+    components: {
+        AchievementSingle,
+        WikiPanel,
+        WikiRevisions,
+        WikiComments,
+        Relations,
+        Article,
+    },
     data() {
         return {
             source: "",
@@ -186,14 +194,6 @@ export default {
             this.triggerStat();
         },
         ts2str,
-    },
-    components: {
-        AchievementSingle,
-        WikiPanel,
-        WikiRevisions,
-        WikiComments,
-        Relations,
-        Article,
     },
     watch: {
         id: {
