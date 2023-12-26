@@ -23,7 +23,13 @@
                             <!-- 加入清单 -->
                             <Plan class="u-plan" :itemId="id" />
                             <!-- 收藏按钮 -->
-                            <Fav class="u-collect" post-type="item" :post-id="source.id" :post-title="fav_title" />
+                            <Fav
+                                ref="fav"
+                                class="u-collect"
+                                post-type="item"
+                                :post-id="source.id"
+                                :post-title="fav_title"
+                            />
                         </div>
                     </div>
                     <!-- 原料 -->
@@ -340,6 +346,9 @@ export default {
             }
             return "";
         },
+        favList() {
+            return this.$store.state.myFavorites;
+        },
     },
     components: {
         "jx3-item": Item,
@@ -488,6 +497,14 @@ export default {
                 this.$store.state.sidebar.AucSubTypeID = parseInt(item.AucSubTypeID);
 
                 this.loadItemDetail();
+            },
+        },
+        favList: {
+            deep: true,
+            handler(list) {
+                if (!list.find((item) => item.id === this.source.id)) {
+                    this.$refs.fav.favorite = false;
+                }
             },
         },
     },

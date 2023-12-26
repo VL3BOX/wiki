@@ -10,16 +10,17 @@ let store = {
             AucSubTypeID: null,
         },
         my_item_plans: null,
-        client : location.href.includes('origin') ? 'origin' : 'std',
+        client: location.href.includes("origin") ? "origin" : "std",
+        myFavorites: [],
     },
     mutations: {
         SET_STATE: (state, { key, value }) => {
-            state[key] = value
-        }
+            state[key] = value;
+        },
     },
     getters: {},
     actions: {},
-    modules: {}
+    modules: {},
 };
 
 export default new Vuex.Store(store);

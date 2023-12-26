@@ -11,7 +11,7 @@ export function delMyFav(id) {
     return $next().delete(`api/article/favorites/my/${id}`);
 }
 
-export function addMyFav(id, type = 'item') {
+export function addMyFav(id, type = "item") {
     return $next().post(`api/article/favorites/add/${id}/${type}`);
 }
 
