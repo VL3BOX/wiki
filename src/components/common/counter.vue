@@ -2,7 +2,7 @@
     <router-link :to="{ name: 'waiting' }">
         <i class="el-icon-edit-outline"></i>
         <span>待攻略{{ name }}</span>
-        <span class="u-waiting" :style="waitingColorStyle()">（{{ solveRate.toFixed(2) }}%）</span>
+        <span v-if="showCounter" class="u-waiting" :style="waitingColorStyle()">（{{ solveRate.toFixed(2) }}%）</span>
     </router-link>
 </template>
 
@@ -16,6 +16,10 @@ export default {
         type: {
             type: String,
             default: "achievement",
+        },
+        showCounter: {
+            type: Boolean,
+            default: true,
         },
     },
     data() {

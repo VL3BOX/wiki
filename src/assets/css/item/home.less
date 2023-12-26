@@ -1,4 +1,3 @@
-
 .m-home-view {
     .m-qlinks {
         margin: 0;
@@ -55,23 +54,6 @@
                     &.keep {
                         color: #aaa;
                     }
-                }
-            }
-        }
-        .m-carousel-hot {
-            .u-item {
-                height: 86px;
-                .u-name{
-                    .fz(13px);
-                    .bold;
-                }
-                .u-content {
-                    gap: 0;
-                }
-                .u-desc{
-                    .break(2);
-                    .fz(12px);
-                    color:#999;
                 }
             }
         }
@@ -187,7 +169,7 @@
         @m-hot-icon-radius: 6px;
 
         .u-icon {
-            .pr;
+            position: relative;
             .fl;
             width: 48px;
             margin-left: 7px;
@@ -196,9 +178,9 @@
 
             &:before {
                 content: "";
-                .pa;
-                .w(100%);
-                .h(100%);
+                position: absolute;
+                width: 100%;
+                height: 100%;
                 border: 4px solid #24292e;
                 border-radius: @m-hot-icon-radius;
                 z-index: 10;
@@ -206,22 +188,22 @@
             }
 
             img {
-                .dbi;
+                display: inline-block;
                 border-radius: @m-hot-icon-radius;
             }
         }
 
         .m-carousel-content {
-            .ml(65px);
-            .mr(10px);
+            margin-left: 65px;
+            margin-right: 10px;
 
             & > span {
-                .db;
+                display: block;
             }
 
             .u-title {
                 font-size: 14px;
-                line-height: 24px;
+                line-height: 16px;
             }
 
             .u-desc,
@@ -264,10 +246,11 @@
         }
 
         .u-item {
-            .pr;
+            position: relative;
+            // display: inline-block;
             .db;
             .w(100%);
-            padding: 8px 5px;
+            padding: 5px;
             box-sizing: border-box;
             border: 1px solid #d7dae1;
             border-left: none;
@@ -286,6 +269,15 @@
                 border-left: 5px solid #3a97eb;
             }
         }
+
+        .u-item-new {
+            padding-top: 8px;
+
+            .u-title {
+                .lh(24px);
+            }
+        }
+
     }
 }
 .m-panel-title {

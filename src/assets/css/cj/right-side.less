@@ -10,64 +10,6 @@
         border-bottom: 1px solid #ebeef5;
     }
 
-    .m-rank {
-        padding: 15px;
-
-        .u-icon {
-            .h(24px);
-            .y(top);
-            fill: @bg-black;
-            .mr(5px);
-        }
-
-        .u-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-
-            max-height: 360px;
-            overflow: hidden auto;
-            padding-right: 5px;
-            .scrollbar();
-        }
-
-        .u-contributor {
-            .db;
-            padding: 5px 0;
-
-            &:hover {
-                background-color: @bg-light;
-            }
-        }
-
-        @h: 24px;
-
-        .u-avatar {
-            .db;
-            .fl;
-            .size(@h);
-            .mr(15px);
-
-            img {
-                .db;
-                .full;
-            }
-        }
-
-        .u-name {
-            .fz(13px);
-            .lh(@h);
-            color: #555;
-        }
-
-        .u-count {
-            .fz(12px, @h);
-            color: @primary;
-            .fr;
-            .mr(2px);
-        }
-    }
-
     .m-group {
         padding: 15px;
 
@@ -168,13 +110,11 @@
             .mt(0);
         }
 
-        .m-rank,
         .m-group {
             .none;
         }
 
         &.isHome {
-            .m-rank,
             .m-group {
                 .db;
             }

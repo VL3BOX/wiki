@@ -9,25 +9,33 @@
                     <div class="m-name">
                         <div class="u-title">
                             <item-icon :item="source" :dishoverable="true" />
-                            <h6 class="u-name" :class="{ white: source.Quality == 1 }"
-                                v-text="source.Name" :style="{
+                            <h6
+                                class="u-name"
+                                :class="{ white: source.Quality == 1 }"
+                                v-text="source.Name"
+                                :style="{
                                     color: item_color(source.Quality),
-                                }"></h6>
+                                }"
+                            ></h6>
                         </div>
 
                         <div class="m-buttons fr">
                             <!-- 加入清单 -->
                             <Plan class="u-plan" :itemId="id" />
                             <!-- 收藏按钮 -->
-                            <Fav class="u-collect" post-type="item" :post-id="source.id"
-                                :post-title="fav_title" />
+                            <Fav class="u-collect" post-type="item" :post-id="source.id" :post-title="fav_title" />
                         </div>
                     </div>
                     <!-- 原料 -->
                     <div class="m-item-required" v-if="requiredList.length">
                         <span class="u-label">制作原料</span>
-                        <router-link class="u-item" v-for="item in requiredList" :key="item.ID" target="_blank"
-                            :to="`/view/5_${item.ID}`">
+                        <router-link
+                            class="u-item"
+                            v-for="item in requiredList"
+                            :key="item.ID"
+                            target="_blank"
+                            :to="`/view/5_${item.ID}`"
+                        >
                             <img class="u-icon" :src="iconLink(item)" :alt="item.Name" :title="item.Name" />
                             <span class="u-count">{{ item._count }}</span>
                         </router-link>
@@ -104,9 +112,7 @@
                         <li class="m-other-field">
                             <span class="u-label">可否摧毁</span>
                             <span class="u-value">{{
-                                    source.CanDestroy || source.CanDestroy === null
-                                        ? "✔️ 可以"
-                                        : "❌ 不可以"
+                                source.CanDestroy || source.CanDestroy === null ? "✔️ 可以" : "❌ 不可以"
                             }}</span>
                         </li>
                         <!-- <li v-if="source.CanShared">
@@ -147,20 +153,24 @@
         <div class="m-tabs">
             <div class="m-price-server">
                 <i class="el-icon-s-shop"></i> 全服价格
-                <el-select v-if="activeTab === 'item-price-chart' || activeTab === 'item-prices'" class="u-server"
-                    v-model="server" placeholder="请选择服务器" size="mini">
+                <el-select
+                    v-if="activeTab === 'item-price-chart' || activeTab === 'item-prices'"
+                    filterable
+                    class="u-server"
+                    v-model="server"
+                    placeholder="请选择服务器"
+                    size="mini"
+                >
                     <el-option key label="前五低价区服" value v-if="isStdClient"></el-option>
                     <el-option v-for="serve in servers" :key="serve" :label="serve" :value="serve"></el-option>
                 </el-select>
             </div>
 
             <el-tabs v-model="activeTab" type="border-card" @tab-click="active_tab_handle" v-loading="loading">
-                <el-tab-pane label="📈 价格波动" name="item-price-chart"
-                    v-if="source && source.BindType != 3">
+                <el-tab-pane label="📈 价格波动" name="item-price-chart" v-if="source && source.BindType != 3">
                     <item-price-chart ref="item_price_chart" :item_id="source.id" :server="server" />
                 </el-tab-pane>
-                <el-tab-pane label="💰 近期价格" name="item-prices"
-                    v-if="source && source.BindType != 3" lazy>
+                <el-tab-pane label="💰 近期价格" name="item-prices" v-if="source && source.BindType != 3" lazy>
                     <item-prices :item_id="source.id" :server="server" />
                 </el-tab-pane>
                 <!-- <el-tab-pane label="📜 相关物品清单" name="relation-plans" lazy>
@@ -183,17 +193,30 @@
                 </template>
                 <template slot="body">
                     <div class="m-wiki-compatible" v-if="compatible">
-                        <i class="el-icon-warning-outline"></i> 暂无缘起攻略，以下为重制攻略，仅作参考，<a class="s-link"
-                            :href="publish_url(`item/${id}`)">参与修订</a>。
+                        <i class="el-icon-warning-outline"></i> 暂无缘起攻略，以下为重制攻略，仅作参考，<a
+                            class="s-link"
+                            :href="publish_url(`item/${id}`)"
+                            >参与修订</a
+                        >。
                     </div>
                     <Article :content="wiki_post.post.content" />
                     <div class="m-wiki-signature">
                         <i class="el-icon-edit"></i>
                         本次修订由 <b>{{ user_name }}</b> 提交于{{ updated_at }}
                     </div>
-                    <Thx class="m-thx" :postId="id" postType="item" :postTitle="source.Name"
-                        :userId="author_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" :authors="authors"
-                        mode="wiki" :key="'item-thx-' + id" :client="client" />
+                    <Thx
+                        class="m-thx"
+                        :postId="id"
+                        postType="item"
+                        :postTitle="source.Name"
+                        :userId="author_id"
+                        :adminBoxcoinEnable="true"
+                        :userBoxcoinEnable="true"
+                        :authors="authors"
+                        mode="wiki"
+                        :key="'item-thx-' + id"
+                        :client="client"
+                    />
                 </template>
             </WikiPanel>
 
@@ -234,7 +257,7 @@ import { item_color, item_quality, item_price, item_bind } from "@/filters";
 import { publishLink, ts2str, showAvatar, iconLink } from "@jx3box/jx3box-common/js/utils";
 import { getManufactureDetail, getItemDetail } from "@/service/item";
 import { getMyInfo } from "@/service/user";
-import {get_item} from "@/service/item"
+import { get_item } from "@/service/item";
 
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
@@ -311,11 +334,11 @@ export default {
             }
             return [];
         },
-        firstServer: function(){
-            for(let i of (this.servers || [])){
+        firstServer: function () {
+            for (let i of this.servers || []) {
                 return i;
             }
-            return '';
+            return "";
         },
     },
     components: {
@@ -332,14 +355,14 @@ export default {
         GamePrice,
     },
     methods: {
-        active_tab_handle (tab) {
+        active_tab_handle(tab) {
             if (tab.name === "item-price-chart") {
                 this.$nextTick(() => {
                     this.$refs.item_price_chart.render();
                 });
             }
         },
-        go_to_comment () {
+        go_to_comment() {
             let target = document.querySelector("#m-reply-form");
             target.scrollIntoView(true);
         },
@@ -349,8 +372,8 @@ export default {
         item_price,
         item_bind,
         ts2str,
-        iconLink (item) {
-            return iconLink(item.item_info[0]?.IconID || item.item_info?.IconID)
+        iconLink(item) {
+            return iconLink(item.item_info[0]?.IconID || item.item_info?.IconID);
         },
         showAvatar: function (url) {
             return showAvatar(url, 32);
@@ -429,35 +452,36 @@ export default {
             val = Number(val);
             return val && dayjs.duration(val).asDays().toFixed(0) + "天";
         },
-        loadUserDefaultServer(){
-            User.isLogin() && getMyInfo().then((data) => {
-                let userServer = data?.jx3_server;
-                this.$nextTick(() => {
-                    if (userServer && this.servers.includes(userServer)) {
-                        this.server = userServer
-                    } else {
-                        this.server = this.firstServer
-                    }
-                    this.$refs.item_price_chart.render();
-                })
-            })
-        }
+        loadUserDefaultServer() {
+            User.isLogin() &&
+                getMyInfo().then((data) => {
+                    let userServer = data?.jx3_server;
+                    this.$nextTick(() => {
+                        if (userServer && this.servers.includes(userServer)) {
+                            this.server = userServer;
+                        } else {
+                            this.server = this.firstServer;
+                        }
+                        this.$refs.item_price_chart.render();
+                    });
+                });
+        },
     },
     watch: {
         id: {
-            handler () {
+            handler() {
                 this.loadData();
             },
         },
         post_id: {
-            handler () {
+            handler() {
                 this.loadRevision();
             },
         },
         source: {
             immediate: true,
             deep: true,
-            handler () {
+            handler() {
                 let item = this.source;
                 this.activeTab = item && item.BindType != 3 ? DEFAULT_ACTIVE_TAB : "relation-plans";
                 this.$store.state.sidebar.AucGenre = parseInt(item.AucGenre);
@@ -473,15 +497,15 @@ export default {
         } else {
             this.loadData();
         }
-        this.loadUserDefaultServer()
+        this.loadUserDefaultServer();
     },
-    created () {
+    created() {
         if (this.$store.state.client == "origin") {
             this.server = "缘起稻香";
         }
-        if (sessionStorage.getItem('server_name')) {
-            this.server = sessionStorage.getItem('server_name')
-            sessionStorage.removeItem('server_name')
+        if (sessionStorage.getItem("server_name")) {
+            this.server = sessionStorage.getItem("server_name");
+            sessionStorage.removeItem("server_name");
         }
     },
 };

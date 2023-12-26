@@ -3,8 +3,16 @@ const $ = $node();
 
 export function getMyFav(params) {
     return $next().get(`api/article/favorites/my`, {
-        params
-    })
+        params,
+    });
+}
+
+export function delMyFav(id) {
+    return $next().delete(`api/article/favorites/my/${id}`);
+}
+
+export function addMyFav(id, type = 'item') {
+    return $next().post(`api/article/favorites/add/${id}/${type}`);
 }
 
 export function getMenus() {
@@ -113,4 +121,3 @@ export function getItemDetail(params) {
         params,
     });
 }
-

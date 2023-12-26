@@ -54,7 +54,7 @@
                             <el-row :gutter="20">
                                 <template v-for="(item, k) in items">
                                     <el-col :md="8" v-if="item" :key="k">
-                                        <AchievementItem :class="`u-item-${k}`" :item="item"></AchievementItem>
+                                        <WikiItem :class="`u-item-${k}`" :item="item"></WikiItem>
                                         <!--  <router-link
                                             class="u-item u-item-new"
                                             :class="`u-item-${k}`"
@@ -114,7 +114,7 @@
                     <el-carousel-item v-for="(items, key) in newest_achievements" :key="key" class="m-carousel">
                         <el-row :gutter="20">
                             <el-col :md="8" v-for="(item, k) in items" :key="k">
-                                <AchievementItem :class="`u-item-${k}`" :item="item"></AchievementItem>
+                                <WikiItem :class="`u-item-${k}`" :item="item"></WikiItem>
                             </el-col>
                         </el-row>
                     </el-carousel-item>
@@ -133,7 +133,7 @@ import { getStatRank } from "@jx3box/jx3box-common/js/stat";
 import { wiki } from "@jx3box/jx3box-common/js/wiki_v2";
 import { iconLink, showAvatar, getLink } from "@jx3box/jx3box-common/js/utils";
 import WikiPanel from "@/components/wiki-panel.vue";
-import AchievementItem from "@/components/cj/achievement-item.vue";
+import WikiItem from "@/components/common/wiki-item.vue";
 import Counter from "@/components/common/counter.vue";
 import PostList from "@/components/common/post-list.vue";
 import Notice from "@/components/common/notice.vue";
@@ -143,7 +143,7 @@ export default {
     components: {
         WikiPanel,
         PostList,
-        AchievementItem,
+        WikiItem,
         Counter,
         Notice,
     },

@@ -1,24 +1,8 @@
 <template>
     <div class="m-right-side" :class="{ isHome: isHome }">
         <SideMsg></SideMsg>
-
-        <div class="m-rank">
-            <h2 class="m-title">
-                <img class="u-icon" svg-inline src="@/assets/img/cj/rank.svg" />
-                <span class="u-text">贡献榜</span>
-            </h2>
-            <ul class="u-list">
-                <li v-for="(rank, k) in ranks" :key="k">
-                    <a class="u-contributor" :href="rank.user_id ? author_url(rank.user_id) : null">
-                        <i class="u-avatar">
-                            <img :src="showAvatar(rank.avatar)" :alt="rank.nickname" />
-                        </i>
-                        <span class="u-name" v-text="rank.nickname"></span>
-                        <em class="u-count">+ {{ rank.count }}</em>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <!-- 贡献排行榜 -->
+        <Rank></Rank>
 
         <div class="m-group">
             <h2 class="m-title">
@@ -40,23 +24,23 @@
 </template>
 
 <script>
-import { authorLink, showAvatar } from "@jx3box/jx3box-common/js/utils";
 import { getMenuGroup } from "@/service/group";
-import { getAchievementRanking } from "@/service/achievement";
 import { __ossRoot, __ossMirror } from "@jx3box/jx3box-common/data/jx3box.json";
 import SideMsg from "@/components/common/side-msg.vue";
+import Rank from "@/components/common/rank.vue";
 import { v4 as uuid } from "uuid";
 
 export default {
     name: "Extend",
+    components: {
+        SideMsg,
+        Rank,
+    },
     props: {
         type: {
             type: String,
             default: "achievement",
-        }
-    },
-    components: {
-        SideMsg,
+        },
     },
     data() {
         return {
@@ -73,7 +57,6 @@ export default {
         },
     },
     methods: {
-        showAvatar,
         clickNode(data) {
             if (!data.children) {
                 const val = data.label;
@@ -89,21 +72,11 @@ export default {
                 });
             });
         },
-        author_url: authorLink,
         copy_success() {
             this.$notify({ title: "复制成功", type: "success" });
         },
         copy_error() {
             this.$notify({ title: "浏览器不支持", type: "error" });
-        },
-        loadRank() {
-            const params = {
-                type: this.type,
-                client: this.client,
-            }
-            getAchievementRanking(params).then((res) => {
-                this.ranks = res.data?.data || [];
-            });
         },
         checkIsHome: function () {
             this.isHome = this.$route.name == "home" || !this.$route.name;
@@ -167,7 +140,6 @@ export default {
         // 获取成就群
         this.loadGroups();
         this.checkIsHome();
-        this.loadRank();
     },
     watch: {
         "$route.name": function () {

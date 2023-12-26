@@ -17,7 +17,7 @@
                         </a>
                     </li>
                     <li class="qlink">
-                        <Counter type="item"></Counter>
+                        <Counter type="item" :showCounter="false"></Counter>
                     </li>
                     <!-- <li class="qlink">
                         <router-link :to="{ name: 'plan_list' }">
@@ -44,7 +44,7 @@
                             <span>技艺助手</span>
                         </a>
                     </li>
-                    <li class="qlink">
+                    <!-- <li class="qlink">
                         <a target="_blank" href="/pvg/price">
                             <i class="el-icon-orange"></i>
                             <span>金价走势</span>
@@ -55,7 +55,7 @@
                             <i class="el-icon-orange"></i>
                             <span>物价大全</span>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </template>
         </WikiPanel>
@@ -69,22 +69,18 @@
                 <a href="pvg/item_price" target="_blank" class="u-more">查看更多 &raquo;</a>
             </template> -->
             <template slot="body">
-                <div class="m-plan-list">
-                    <el-carousel
-                        height="86px"
-                        direction="vertical"
-                        indicator-position="none"
-                        v-if="new_plans && new_plans.length"
-                    >
-                        <el-carousel-item
-                            v-for="(items, key) in new_plans"
-                            :key="key"
-                            class="m-carousel m-carousel-hot"
-                        >
-                            <el-row :gutter="20">
-                                <template v-for="(item, k) in items">
-                                    <el-col :md="8" v-if="item" :key="k">
-                                        <router-link class="u-item" :class="`u-item-${k}`" :to="'/view/' + item.id">
+                <el-carousel
+                    height="66px"
+                    direction="vertical"
+                    indicator-position="none"
+                    v-if="new_plans && new_plans.length"
+                >
+                    <el-carousel-item v-for="(items, key) in new_plans" :key="key" class="m-carousel m-hot">
+                        <el-row :gutter="20">
+                            <template v-for="(item, k) in items">
+                                <el-col :md="8" v-if="item" :key="k">
+                                    <WikiItem :class="`u-item-${k}`" :item="item" type="item"></WikiItem>
+                                    <!-- <router-link class="u-item" :class="`u-item-${k}`" :to="'/view/' + item.id">
                                             <div class="u-icon">
                                                 <img :src="icon_url(item.IconID)" />
                                             </div>
@@ -98,14 +94,13 @@
                                                     :client="client"
                                                 ></game-text>
                                             </div>
-                                        </router-link>
-                                    </el-col>
-                                </template>
-                            </el-row>
-                        </el-carousel-item>
-                    </el-carousel>
-                    <div v-else style="text-align: center">😂 暂无物品清单</div>
-                </div>
+                                        </router-link> -->
+                                </el-col>
+                            </template>
+                        </el-row>
+                    </el-carousel-item>
+                </el-carousel>
+                <div v-else style="text-align: center">😂 暂无物品清单</div>
             </template>
         </WikiPanel>
 
@@ -118,43 +113,38 @@
                 <router-link :to="{ name: 'plan_list' }" class="u-more">查看更多 &raquo;</router-link>
             </template> -->
             <template slot="body">
-                <div class="m-plan-list">
-                    <el-carousel
-                        height="86px"
-                        direction="vertical"
-                        indicator-position="none"
-                        v-if="hot_plans && hot_plans.length"
-                    >
-                        <el-carousel-item
-                            v-for="(items, key) in hot_plans"
-                            :key="key"
-                            class="m-carousel m-carousel-hot"
-                        >
-                            <el-row :gutter="20">
-                                <template v-for="(item, k) in items">
-                                    <el-col :md="8" v-if="item" :key="k">
-                                        <router-link class="u-item" :class="`u-item-${k}`" :to="'/view/' + item.id">
-                                            <div class="u-icon">
-                                                <img :src="icon_url(item.IconID)" />
-                                            </div>
-                                            <div class="u-content">
-                                                <span class="u-name">
-                                                    <span v-text="item.Name"></span>
-                                                </span>
-                                                <game-text
-                                                    class="u-desc"
-                                                    :text="item.Desc ? item.Desc : '该物品没有描述'"
-                                                    :client="client"
-                                                ></game-text>
-                                            </div>
-                                        </router-link>
-                                    </el-col>
-                                </template>
-                            </el-row>
-                        </el-carousel-item>
-                    </el-carousel>
-                    <div v-else style="text-align: center">😂 暂无物品清单</div>
-                </div>
+                <el-carousel
+                    height="66px"
+                    direction="vertical"
+                    indicator-position="none"
+                    v-if="hot_plans && hot_plans.length"
+                >
+                    <el-carousel-item v-for="(items, key) in hot_plans" :key="key" class="m-carousel m-carousel-hot">
+                        <el-row :gutter="20">
+                            <template v-for="(item, k) in items">
+                                <el-col :md="8" v-if="item" :key="k">
+                                    <WikiItem :class="`u-item-${k}`" :item="item" type="item"></WikiItem>
+                                    <!-- <router-link class="u-item" :class="`u-item-${k}`" :to="'/view/' + item.id">
+                                        <div class="u-icon">
+                                            <img :src="icon_url(item.IconID)" />
+                                        </div>
+                                        <div class="u-content">
+                                            <span class="u-name">
+                                                <span v-text="item.Name"></span>
+                                            </span>
+                                            <game-text
+                                                class="u-desc"
+                                                :text="item.Desc ? item.Desc : '该物品没有描述'"
+                                                :client="client"
+                                            ></game-text>
+                                        </div>
+                                    </router-link> -->
+                                </el-col>
+                            </template>
+                        </el-row>
+                    </el-carousel-item>
+                </el-carousel>
+                <div v-else style="text-align: center">😂 暂无物品清单</div>
             </template>
         </WikiPanel>
 
@@ -223,7 +213,8 @@
 
 <script>
 import WikiPanel from "@/components/wiki-panel.vue";
-import GameText from "@jx3box/jx3box-editor/src/GameText.vue";
+import WikiItem from "@/components/common/wiki-item.vue";
+// import GameText from "@jx3box/jx3box-editor/src/GameText.vue";
 
 import { iconLink, showAvatar } from "@jx3box/jx3box-common/js/utils";
 import { getStatRank } from "@jx3box/jx3box-common/js/stat";
@@ -239,8 +230,9 @@ export default {
     name: "Home",
     components: {
         WikiPanel,
-        GameText,
+        // GameText,
         Counter,
+        WikiItem,
     },
     data() {
         return {
