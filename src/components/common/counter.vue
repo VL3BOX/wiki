@@ -49,23 +49,13 @@ export default {
                 return "color: #ff3838";
             }
         },
-        async getWaiting() {
-            getWaitingRate({ client: this.client }).then((res) => {
-                let { wiki_count: solve, source_count: all } = res.data.data ?? {};
-                this.solveRate = (solve / all) * 100;
-            });
-        },
     },
     mounted() {
         // 完成率
-        if (this.type === "quest") {
-            this.getWaiting();
-        } else {
-            wiki.counter({ type: this.type }).then((res) => {
-                let { wiki_count: solve, source_count: all } = res.data.data ?? {};
-                this.solveRate = (solve / all) * 100;
-            });
-        }
+        wiki.counter({ type: this.type }).then((res) => {
+            let { wiki_count: solve, source_count: all } = res.data.data ?? {};
+            this.solveRate = (solve / all) * 100;
+        });
     },
 };
 </script>

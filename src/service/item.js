@@ -1,4 +1,4 @@
-import { $helper, $next, $node, $cms } from "@jx3box/jx3box-common/js/https";
+import { $next, $node, $cms } from "@jx3box/jx3box-common/js/https";
 const $ = $node();
 
 export function getMyFav(params) {
@@ -27,14 +27,6 @@ export function get_items_count() {
 export function get_item(item_id) {
     if (!item_id) return;
     return $.get(`api/node/item/${item_id}`);
-}
-
-// 相关物品清单(已废弃)
-export function get_item_relation_plans(item_id, params) {
-    if (!item_id) return;
-    return $helper().get(`api/item/${item_id}/relation_plans`, {
-        params,
-    });
 }
 
 // 物品价格
