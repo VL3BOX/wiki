@@ -23,11 +23,12 @@ export default {
     .flex;
     height: 100%;
     width: 100%;
-    gap:10px;
+    gap: 10px;
     @w: 30px;
     .c-wiki-menu {
-        background-color:#ebeef5;
-        position: relative;
+        position: fixed;
+        top: 0;
+        background-color: #ebeef5;
         height: 100%;
         .w(@w);
         flex-shrink: 0;
@@ -51,16 +52,17 @@ export default {
             cursor: pointer;
             &:hover {
                 background-color: #f5f7fa;
-                color:#000;
+                color: #000;
             }
             &.is-active {
                 color: #fff;
-                background-color:@color;
+                background-color: @color;
             }
         }
     }
-    .c-nav-content{
-        flex:1;
+    .c-nav-content {
+        padding: 10px 0 10px 40px;
+        flex: 1;
     }
 }
 </style>
