@@ -1,24 +1,24 @@
 <template>
-    <div class="v-knowledge-list" v-loading="loading">
-        <!-- 搜索 -->
-        <!-- <Search @search="onSearchKey"></Search> -->
+    <div class="m-search-view">
+        <span class="u-list-empty" v-if="isEmpty">👻 暂无记录</span>
         <!-- 搜索结果 & list列表 -->
         <knowledgeList v-if="list" :list="list" :total="total" :pagination="pagination" @onPageKey="onPageKey" />
     </div>
 </template>
 
 <script>
-// import Search from "@/components/common/search.vue";
 import knowledgeList from "@/components/knowledge/list.vue";
 import { getKnowledgeList } from "@/service/knowledge.js";
 
 export default {
-    name: "KnowledgeList",
-    components: { knowledgeList },
-    data: function () {
+    name: "SearchPage",
+    components: {
+        knowledgeList,
+    },
+    props: [],
+    data() {
         return {
             loading: false,
-            search: "",
             list: "",
 
             page: 1,
@@ -28,6 +28,12 @@ export default {
         };
     },
     computed: {
+        search() {
+            return this.$route.params.keyword;
+        },
+        isEmpty() {
+            return !this.list?.length;
+        },
         type() {
             return this.$route.params.knowledge_type;
         },
@@ -57,7 +63,7 @@ export default {
             getKnowledgeList(this.params)
                 .then((res) => {
                     this.total = res.data.data.total || 0;
-                    this.list = res.data.data.list || []
+                    this.list = res.data.data.list || [];
                 })
                 .finally(() => {
                     this.loading = false;
@@ -87,3 +93,11 @@ export default {
     },
 };
 </script>
+<style lang="less">
+.u-list-empty {
+    .db;
+    .u-msg-yellow;
+    .mt(5px);
+    text-align: center;
+}
+</style>

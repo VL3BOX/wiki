@@ -6,7 +6,8 @@
         </div>
         <div class="m-panel m-jargon">
             <div v-for="(item, index) in list" :key="index" class="u-jargon">
-                <i class="el-icon-collection-tag"></i><router-link class="u-name" :to="'/view/' + item.id">{{ item.name }}</router-link>
+                <i class="el-icon-collection-tag"></i
+                ><router-link class="u-name" :to="'/view/' + item.id">{{ item.name }}</router-link>
             </div>
         </div>
     </div>
@@ -43,12 +44,13 @@ export default {
     // .flex;
     .r(5px);
     .fz(14px);
+    .mb(10px);
     // flex-wrap: wrap;
     background-color: #fafbfc;
     padding: 10px 20px 0 20px;
     border: 1px solid #eee;
     display: grid;
-    grid-template-columns: repeat(8,1fr);
+    grid-template-columns: repeat(8, 1fr);
     overflow: hidden;
     .u-jargon {
         .flex;
@@ -65,9 +67,9 @@ export default {
         }
     }
 }
-@media screen and (max-width:@phone){
-    .m-jargon{
-        grid-template-columns: repeat(3,1fr);
+@media screen and (max-width: @phone) {
+    .m-jargon {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 </style>

@@ -1,11 +1,5 @@
 <template>
     <div class="v-knowledge-single" v-loading="loading">
-        <div class="m-navigation">
-            <el-button class="u-goback" size="medium" icon="el-icon-arrow-left" @click="goBack" plain>返回列表</el-button>
-            <!-- <Fav class="u-collect" post-type="knowledge" :post-id="id" /> -->
-            <el-button v-if="isEditor" size="medium" icon="el-icon-delete" plain type="danger" @click="del">删除</el-button>
-        </div>
-
         <div class="m-wiki" v-if="data && data.post">
             <WikiPanel class="m-knowledge-panel" :wiki-post="data">
                 <template slot="head-title">
@@ -20,16 +14,32 @@
                 </template>
                 <template slot="body">
                     <Article :content="content" />
-                    <Thx class="m-thx" :postId="id" postType="knowledge" :postTitle="title" :userId="author_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" mode="wiki" :authors="authors" :key="'item-thx-' + id" />
+                    <Thx
+                        class="m-thx"
+                        :postId="id"
+                        postType="knowledge"
+                        :postTitle="title"
+                        :userId="author_id"
+                        :adminBoxcoinEnable="true"
+                        :userBoxcoinEnable="true"
+                        mode="wiki"
+                        :authors="authors"
+                        :key="'item-thx-' + id"
+                    />
                 </template>
             </WikiPanel>
 
             <WikiRevisions v-if="id" type="knowledge" :source-id="id" style="margin-bottom: 35px" />
 
-            <template v-if="id">
-                <el-divider content-position="left">讨论</el-divider>
-                <Comment :id="id" category="knowledge" />
-            </template>
+            <WikiPanel v-if="id" class="m-knowledge-panel">
+                <template slot="head-title">
+                    <i class="el-icon-chat-line-round"></i>
+                    <span class="u-title">讨论</span>
+                </template>
+                <template slot="body">
+                    <Comment :id="id" category="knowledge" />
+                </template>
+            </WikiPanel>
         </div>
 
         <div v-else class="m-wiki-null">
@@ -41,7 +51,7 @@
 </template>
 
 <script>
-import { removeKnowledge } from "@/service/knowledge.js";
+// import { removeKnowledge } from "@/service/knowledge.js";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
 import WikiPanel from "@/components/wiki-panel.vue";
@@ -101,14 +111,17 @@ export default {
             }
             return [];
         },
-        isEditor: function (){
+        isEditor: function () {
             return User.isEditor();
-        }
+        },
     },
     methods: {
+        onSearchKey(val) {
+            this.$router.push({ path: "/", query: { search: val } });
+        },
         getData() {
             this.loading = true;
-            wiki.get({ type: 'knowledge', id: this.id })
+            wiki.get({ type: "knowledge", id: this.id })
                 .then((res) => {
                     this.data = res.data.data;
                     if (this.data.source) this.data.source.post = this.data.post;
@@ -122,7 +135,7 @@ export default {
             this.loading = true;
             wiki.getById(this.$route.params.post_id)
                 .then((res) => {
-                    const data = res.data.data
+                    const data = res.data.data;
                     if (data.source) this.data.source.post = data.post;
                 })
                 .finally(() => {
@@ -139,29 +152,29 @@ export default {
         },
         publishLink,
         // 删除
-        del() {
-            this.$confirm("此操作将永久删除该百科通识, 是否继续?", "提示", {
-                confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                type: "warning",
-            })
-                .then(() => {
-                    removeKnowledge(this.id)
-                        .then((res) => {
-                            this.$message({
-                                type: "success",
-                                message: "删除成功!",
-                            });
-                            this.goBack();
-                        })
-                        .catch((err) => {
-                            this.$message({
-                                type: "error",
-                                message: "删除失败!",
-                            });
-                        });
-                })
-        }
+        // del() {
+        //     this.$confirm("此操作将永久删除该百科通识, 是否继续?", "提示", {
+        //         confirmButtonText: "确定",
+        //         cancelButtonText: "取消",
+        //         type: "warning",
+        //     })
+        //         .then(() => {
+        //             removeKnowledge(this.id)
+        //                 .then((res) => {
+        //                     this.$message({
+        //                         type: "success",
+        //                         message: "删除成功!",
+        //                     });
+        //                     this.goBack();
+        //                 })
+        //                 .catch((err) => {
+        //                     this.$message({
+        //                         type: "error",
+        //                         message: "删除失败!",
+        //                     });
+        //                 });
+        //         })
+        // }
     },
     created: function () {
         this.getData(this.id);
@@ -181,31 +194,49 @@ export default {
 </script>
 
 <style lang="less">
-    .m-wiki,
-    .m-wiki-null {
-        .mt(20px);
-    }
-    .m-wiki-null {
-        .x;
-        .r(5px);
-        .fz(15px);
-        padding: 20px;
-        background-color: #fafbfc;
-        border: 1px solid #eee;
+.m-wiki,
+.m-wiki-null {
+    .mt(20px);
+}
+.m-wiki-null {
+    .x;
+    .r(5px);
+    .fz(15px);
+    padding: 20px;
+    background-color: #fafbfc;
+    border: 1px solid #eee;
 
-        a:hover {
-            box-shadow: 0 1px 0 @primary;
-        }
+    a:hover {
+        box-shadow: 0 1px 0 @primary;
     }
-    .m-navigation {
+}
+.m-navigation {
+    .flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.w-boxcoin-records-list {
+    background-color: #fff;
+}
+.m-thx {
+    .mt(20px);
+}
+.m-knowledge-panel {
+    .m-panel-title {
         .flex;
-        justify-content: space-between;
         align-items: center;
     }
-    .w-boxcoin-records-list {
-        background-color: #fff;
+    .el-icon-chat-line-round {
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        color: #0366d6;
+        fill: #0366d6;
+        font-size: 22px;
     }
-    .m-thx {
-        .mt(20px);
+    .u-title {
+        font-size: 17px;
+        font-weight: 300;
     }
+}
 </style>

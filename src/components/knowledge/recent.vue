@@ -1,6 +1,6 @@
 <template>
     <div class="m-knowledge-panel">
-        <div class="m-title">
+        <div class="m-title m-recent-title">
             <span class="u-title-left"><i class="el-icon-time"></i><span> 最新更新</span></span>
         </div>
         <div class="m-recent m-panel">
@@ -78,11 +78,14 @@ export default {
 };
 </script>
 <style scoped lang="less">
+.m-knowledge-panel .m-recent-title {
+    margin-bottom: 0;
+}
 .m-recent {
     .m-post {
         .fz(12px);
         .clip;
-        padding: 15px 10px;
+        padding: 10px;
         border-bottom: 1px solid #ccc;
         &:last-child {
             border-bottom: none;
@@ -109,12 +112,12 @@ export default {
         .u-updated,
         .u-source,
         .u-remark {
-            .mr(25px);
+            .mr(15px);
             display: inline-block;
             vertical-align: middle;
         }
         .m-user {
-            .x(right);
+            .x(left);
         }
         .u-updated {
             // .fr;
@@ -122,11 +125,13 @@ export default {
             opacity: 0.75;
         }
         .u-remark {
-            margin: 5px 0;
+            margin-top: 0;
+            margin-bottom: 0;
         }
         .u-excerpt {
             .db;
             .mt(6px);
+            .mb(6px);
             .lh(1.6);
             color: #999;
         }
