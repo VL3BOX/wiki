@@ -1,6 +1,5 @@
 <template>
     <div class="m-home-view">
-        <Notice></Notice>
         <WikiPanel :border-none="true">
             <template slot="head-title">
                 <i class="el-icon-location-information"></i>
@@ -136,7 +135,6 @@ import WikiPanel from "@/components/wiki-panel.vue";
 import WikiItem from "@/components/common/wiki-item.vue";
 import Counter from "@/components/common/counter.vue";
 import PostList from "@/components/common/post-list.vue";
-import Notice from "@/components/common/notice.vue";
 
 export default {
     name: "Home",
@@ -145,7 +143,6 @@ export default {
         PostList,
         WikiItem,
         Counter,
-        Notice,
     },
     data() {
         return {

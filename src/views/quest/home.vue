@@ -15,7 +15,7 @@
                 <span>便捷入口</span>
             </template>
             <template slot="head-actions">
-                <a class="other" target="_blank" :href="feedback">反馈建议 &raquo;</a>
+                <!-- <a class="other" target="_blank" :href="feedback">反馈建议 &raquo;</a> -->
             </template>
             <template slot="body">
                 <ul class="u-qlinks">

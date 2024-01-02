@@ -47,14 +47,15 @@ export default {
     .mb(10px);
     // flex-wrap: wrap;
     background-color: #fafbfc;
-    padding: 10px 20px 0 20px;
+    padding: 10px 20px;
     border: 1px solid #eee;
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     overflow: hidden;
     .u-jargon {
         .flex;
-        .mb(10px);
+        padding:5px;
+        // .mb(10px);
         flex-shrink: 0;
         align-items: center;
         .u-name {

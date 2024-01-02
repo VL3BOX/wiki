@@ -15,6 +15,7 @@
                     </a>
                 </template>
                 <template slot="body">
+                    <!-- <Notice></Notice> -->
                     <div class="m-wiki-compatible" v-if="compatible">
                         <i class="el-icon-warning-outline"></i> 暂无缘起攻略，以下为重制攻略，仅作参考，<a
                             class="s-link"
@@ -29,7 +30,7 @@
                     </div>
                 </template>
             </WikiPanel>
-            
+
             <Relations :source-id="id" />
 
             <!-- 历史版本 -->
@@ -39,7 +40,7 @@
             <div class="m-wiki-thx-panel">
                 <WikiPanel>
                     <template slot="head-title">
-                        <img class="u-icon" svg-inline src="@/assets/img/thx.svg" />
+                        <i class="el-icon-coin"></i>
                         <span class="u-txt">参与打赏</span>
                     </template>
                     <template slot="body">
@@ -78,6 +79,7 @@ import WikiRevisions from "@/components/wiki-revisions.vue";
 import WikiComments from "@/components/wiki-comments.vue";
 import AchievementSingle from "@/components/cj/achievement-single.vue";
 import Relations from "@/components/relations.vue";
+// import Notice from "@/components/common/notice.vue";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
 import { wiki } from "@jx3box/jx3box-common/js/wiki_v2";
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
@@ -94,6 +96,7 @@ export default {
         WikiComments,
         Relations,
         Article,
+        // Notice,
     },
     data() {
         return {

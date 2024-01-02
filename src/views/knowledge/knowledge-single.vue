@@ -196,7 +196,7 @@ export default {
 <style lang="less">
 .m-wiki,
 .m-wiki-null {
-    .mt(20px);
+    .mt(10px);
 }
 .m-wiki-null {
     .x;

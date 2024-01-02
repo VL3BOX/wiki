@@ -6,7 +6,7 @@
                 <span>便捷入口</span>
             </template>
             <template slot="head-actions">
-                <a class="u-more" target="_blank" :href="feedback">反馈建议 &raquo;</a>
+                <!-- <a class="u-more" target="_blank" :href="feedback">反馈建议 &raquo;</a> -->
             </template>
             <template slot="body">
                 <ul class="m-qlinks">
