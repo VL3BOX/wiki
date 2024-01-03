@@ -44,6 +44,12 @@
                             <span>技艺助手</span>
                         </a>
                     </li>
+                    <li class="qlink">
+                        <a target="_blank" href="/item/plan_list">
+                            <i class="el-icon-orange"></i>
+                            <span>物品清单</span>
+                        </a>
+                    </li>
                     <!-- <li class="qlink">
                         <a target="_blank" href="/pvg/price">
                             <i class="el-icon-orange"></i>

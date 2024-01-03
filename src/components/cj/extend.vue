@@ -11,13 +11,33 @@
                 <a class="u-show-message" target="_blank" href="https://www.jx3box.com/tool/13659/">申请展示 »</a>
             </h2>
             <div class="m-group-content">
-                <el-tree
+                <!-- <el-tree
                     class="m-group-tree"
                     :default-expand-all="false"
                     :data="groups"
                     node-key="uuid"
                     @node-click="clickNode"
-                />
+                /> -->
+                <el-collapse v-model="activeName" accordion>
+                    <el-collapse-item
+                        :title="group.label"
+                        :name="group.label"
+                        v-for="group in groups"
+                        :key="group.uuid"
+                    >
+                        <div class="u-zones" v-for="zone in group.children" :key="zone.uuid">
+                            <el-tag class="u-zone" size="mini">{{ zone.label }}</el-tag>
+                            <span
+                                size="mini"
+                                class="u-qq"
+                                v-for="qq in zone.children"
+                                :key="qq.uuid"
+                                @click="copy(qq.label)"
+                                >{{ qq.label }}</span
+                            >
+                        </div>
+                    </el-collapse-item>
+                </el-collapse>
             </div>
         </div>
     </div>

@@ -46,7 +46,7 @@ export default {
         active_tab_handle(tab) {
             if (tab.name === "item-price-chart") {
                 this.$nextTick(() => {
-                    this.$refs.item_price_chart.render();
+                    this.$refs.item_price_chart?.render();
                 });
             }
         },

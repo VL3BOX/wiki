@@ -2,19 +2,24 @@
     <div class="m-wiki-rank">
         <h2 class="m-title">
             <img class="u-icon" svg-inline src="@/assets/img/cj/rank.svg" />
-            <span class="u-text">贡献榜</span>
+            <span class="u-text">排行榜</span>
         </h2>
-        <ul class="u-list">
-            <li v-for="(rank, k) in ranks" :key="k">
-                <a class="u-contributor" :href="rank.user_id ? authorLink(rank.user_id) : null">
-                    <i class="u-avatar">
-                        <img :src="showAvatar(rank.avatar)" :alt="rank.nickname" />
-                    </i>
-                    <span class="u-name" v-text="rank.nickname"></span>
-                    <em class="u-count">+ {{ rank.count }}</em>
-                </a>
-            </li>
-        </ul>
+        <el-tabs v-model="activeTab">
+            <el-tab-pane :label="tab.label" :name="tab.name" v-for="tab in tabs" :key="tab.name">
+                <ul class="u-list">
+                    <li v-for="(rank, k) in ranks" :key="k">
+                        <a class="u-contributor" :href="rank.user_id ? authorLink(rank.user_id) : null">
+                            <span class="u-left">
+                                <span class="u-order" :class="k < 3 && `t${k + 1}`">{{ k + 1 }}</span>
+                                <img class="u-avatar" :src="showAvatar(rank.avatar)" :alt="rank.nickname" />
+                                <span class="u-name" v-text="rank.nickname"></span>
+                            </span>
+                            <em class="u-count">+ {{ rank.count }}</em>
+                        </a>
+                    </li>
+                </ul>
+            </el-tab-pane>
+        </el-tabs>
     </div>
 </template>
 
@@ -32,11 +37,39 @@ export default {
     data() {
         return {
             ranks: [],
+            activeTab: "achievement",
+            tabs: [
+                {
+                    name: "achievement",
+                    label: "成就",
+                },
+                {
+                    name: "item",
+                    label: "物品",
+                },
+                {
+                    name: "quest",
+                    label: "任务",
+                },
+                {
+                    name: "knowledge",
+                    label: "通识",
+                },
+                {
+                    name: "skill",
+                    label: "技能",
+                },
+            ],
         };
     },
     computed: {
         client() {
             return this.$store.state.client;
+        },
+    },
+    watch: {
+        activeTab() {
+            this.loadData();
         },
     },
     mounted() {
@@ -47,11 +80,11 @@ export default {
         authorLink,
         loadData() {
             const params = {
-                type: this.type,
+                type: this.activeTab,
                 client: this.client,
             };
             getWikiRanking(params).then((res) => {
-                this.ranks = res.data?.data || [];
+                this.ranks = (res.data?.data || []).slice(0, 10);
             });
         },
     },
@@ -87,7 +120,9 @@ export default {
     }
 
     .u-contributor {
-        .db;
+        .flex;
+        justify-content: space-between;
+        align-items: center;
         padding: 5px 0;
 
         &:hover {
@@ -96,21 +131,44 @@ export default {
     }
 
     @h: 24px;
-
-    .u-avatar {
-        .db;
-        .fl;
-        .size(@h);
-        .mr(15px);
-
-        img {
-            .db;
-            .full;
+    .u-left {
+        .flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .u-order {
+        background-color: #f6f8fa;
+        display: inline-block;
+        border-radius: 3px;
+        font-size: 12px;
+        line-height: 16px;
+        width: 16px;
+        height: 16px;
+        color: #888;
+        vertical-align: middle;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        text-align: center;
+        &.t1 {
+            color: #fff;
+            background-color: #fc3c3c;
         }
+        &.t2 {
+            color: #fff;
+            background-color: #fba524;
+        }
+        &.t3 {
+            color: #fff;
+            background-color: #0366d6;
+        }
+    }
+    .u-avatar {
+        .size(14px);
+        .r(50%);
     }
 
     .u-name {
-        .fz(13px);
+        .fz(12px);
         .lh(@h);
         color: #555;
     }

@@ -16,13 +16,6 @@
                         <div class="u-remark" v-if="post.remark" v-text="'📑 ' + post.remark"></div>
                     </div>
                 </div>
-                <div class="m-body">
-                    <div
-                        class="u-excerpt"
-                        :to="{ name: 'view', params: { source_id: post.source_id } }"
-                        v-html="ellipsis(post.content)"
-                    ></div>
-                </div>
                 <div class="m-user">
                     <div class="u-author">
                         <img class="u-icon" :src="showAvatar(post.user)" :alt="post.user_nickname" />
@@ -33,6 +26,13 @@
                         ></a>
                     </div>
                     <div class="u-updated" v-text="ts2str(post.updated)"></div>
+                </div>
+                <div class="m-body">
+                    <div
+                        class="u-excerpt"
+                        :to="{ name: 'view', params: { source_id: post.source_id } }"
+                        v-html="ellipsis(post.content)"
+                    ></div>
                 </div>
             </div>
         </div>
@@ -85,8 +85,11 @@ export default {
     .m-post {
         .fz(12px);
         .clip;
-        padding: 10px;
+        padding: 15px 10px;
         border-bottom: 1px solid #ccc;
+        .m-head {
+            margin-top: 5px;
+        }
         &:last-child {
             border-bottom: none;
         }
@@ -118,6 +121,7 @@ export default {
         }
         .m-user {
             .x(left);
+            padding-bottom: 5px;
         }
         .u-updated {
             // .fr;
@@ -125,13 +129,13 @@ export default {
             opacity: 0.75;
         }
         .u-remark {
-            margin-top: 0;
-            margin-bottom: 0;
+            margin-top: 5px;
+            margin-bottom: 5px;
         }
         .u-excerpt {
+            margin-top: 5px;
+            margin-bottom: 5px;
             .db;
-            .mt(6px);
-            .mb(6px);
             .lh(1.6);
             color: #999;
         }

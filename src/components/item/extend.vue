@@ -2,7 +2,7 @@
     <div class="m-extend" :class="{ isHome: isHome }">
         <SideMsg></SideMsg>
         <!-- 贡献排行榜 -->
-        <Rank type="item"></Rank>
+        <!-- <Rank type="item"></Rank> -->
 
         <MyItems />
         <MyPlans />
@@ -15,14 +15,14 @@ import User from "@jx3box/jx3box-common/js/user.js";
 import MyPlans from "@/components/item/my-plans.vue";
 import MyItems from "@/components/item/my-items.vue";
 import SideMsg from "@/components/common/side-msg.vue";
-import Rank from "@/components/common/rank.vue";
+// import Rank from "@/components/common/rank.vue";
 export default {
     name: "Extend",
     components: {
         MyPlans,
         MyItems,
         SideMsg,
-        Rank,
+        // Rank,
     },
     props: [],
     data: function () {

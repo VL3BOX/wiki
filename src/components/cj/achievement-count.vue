@@ -21,7 +21,7 @@ export default {
                 general_point: "常规资历数",
                 armor: "五甲成就数",
                 armor_point: "五甲资历数",
-                post_count: "收录攻略数",
+                // post_count: "收录攻略数",
             },
         };
     },

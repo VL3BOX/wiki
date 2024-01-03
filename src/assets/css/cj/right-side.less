@@ -103,6 +103,37 @@
             overflow-y: auto;
             .scrollbar();
         }
+        .u-zones {
+            padding: 5px 0;
+            .flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 5px;
+            .u-zone {
+                .w(60px);
+                text-align: center;
+            }
+            .u-qq {
+                height: 20px;
+                padding: 0 5px;
+                line-height: 19px;
+                font-size: 12px;
+                border-width: 1px;
+                border-style: solid;
+                border-radius: 4px;
+                display: inline-block;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                white-space: nowrap;
+                border-color: transparent;
+                cursor: pointer;
+                &:hover {
+                    background-color: #e6f0fb;
+                    border-color: #cde0f7;
+                    color: #0366d6;
+                }
+            }
+        }
     }
 
     @media screen and (max-width: @ipad) {
