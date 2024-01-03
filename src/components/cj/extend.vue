@@ -68,6 +68,7 @@ export default {
             groups: [],
             isHome: true,
 
+            activeName: "",
             qq: "614370825",
         };
     },
