@@ -14,22 +14,34 @@
                 </template>
                 <template slot="body">
                     <Article :content="content" />
-                    <Thx
-                        class="m-thx"
-                        :postId="id"
-                        postType="knowledge"
-                        :postTitle="title"
-                        :userId="author_id"
-                        :adminBoxcoinEnable="true"
-                        :userBoxcoinEnable="true"
-                        mode="wiki"
-                        :authors="authors"
-                        :key="'item-thx-' + id"
-                    />
                 </template>
             </WikiPanel>
 
             <WikiRevisions v-if="id" type="knowledge" :source-id="id" style="margin-bottom: 35px" />
+
+            <!-- 打赏 -->
+            <div class="m-wiki-thx-panel">
+                <WikiPanel>
+                    <template slot="head-title">
+                        <i class="el-icon-coin"></i>
+                        <span class="u-txt">参与打赏</span>
+                    </template>
+                    <template slot="body">
+                        <Thx
+                            class="m-thx"
+                            :postId="id"
+                            postType="knowledge"
+                            :postTitle="title"
+                            :userId="author_id"
+                            :adminBoxcoinEnable="true"
+                            :userBoxcoinEnable="true"
+                            mode="wiki"
+                            :authors="authors"
+                            :key="'item-thx-' + id"
+                        />
+                    </template>
+                </WikiPanel>
+            </div>
 
             <WikiPanel v-if="id" class="m-knowledge-panel">
                 <template slot="head-title">
@@ -218,9 +230,6 @@ export default {
 .w-boxcoin-records-list {
     background-color: #fff;
 }
-.m-thx {
-    .mt(20px);
-}
 .m-knowledge-panel {
     .m-panel-title {
         .flex;
@@ -237,6 +246,31 @@ export default {
     .u-title {
         font-size: 17px;
         font-weight: 300;
+    }
+}
+.m-wiki-thx-panel {
+    .m-panel-title {
+        .flex;
+        align-items: center;
+        svg,
+        i {
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            color: #0366d6;
+            fill: #0366d6;
+            font-size: 22px;
+        }
+        span {
+            font-size: 17px;
+            font-weight: 300;
+        }
+    }
+    .m-thx {
+        margin-top: 20px;
+        .w-boxcoin-records-list {
+            background-color: #fff;
+        }
     }
 }
 </style>

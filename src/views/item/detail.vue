@@ -156,7 +156,7 @@
             </div>
         </div>
 
-        <div class="m-tabs">
+        <div class="m-tabs" v-if="showPrice">
             <div class="m-price-server">
                 <i class="el-icon-s-shop"></i> 全服价格
                 <el-select
@@ -177,7 +177,7 @@
                     <item-price-chart ref="item_price_chart" :item_id="source.id" :server="server" />
                 </el-tab-pane>
                 <el-tab-pane label="💰 近期价格" name="item-prices" v-if="source && source.BindType != 3" lazy>
-                    <item-prices :item_id="source.id" :server="server" />
+                    <item-prices ref="item_prices" :item_id="source.id" :server="server" />
                 </el-tab-pane>
                 <!-- <el-tab-pane label="📜 相关物品清单" name="relation-plans" lazy>
                     <relation-plans :item_id="source.id" />
@@ -210,24 +210,36 @@
                         <i class="el-icon-edit"></i>
                         本次修订由 <b>{{ user_name }}</b> 提交于{{ updated_at }}
                     </div>
-                    <Thx
-                        class="m-thx"
-                        :postId="id"
-                        postType="item"
-                        :postTitle="source.Name"
-                        :userId="author_id"
-                        :adminBoxcoinEnable="true"
-                        :userBoxcoinEnable="true"
-                        :authors="authors"
-                        mode="wiki"
-                        :key="'item-thx-' + id"
-                        :client="client"
-                    />
                 </template>
             </WikiPanel>
 
             <!-- 历史版本 -->
             <WikiRevisions type="item" :source-id="id" />
+
+            <!-- 打赏 -->
+            <div class="m-wiki-thx-panel">
+                <WikiPanel>
+                    <template slot="head-title">
+                        <i class="el-icon-coin"></i>
+                        <span class="u-txt">参与打赏</span>
+                    </template>
+                    <template slot="body">
+                        <Thx
+                            class="m-thx"
+                            :postId="id"
+                            postType="item"
+                            :postTitle="source.Name"
+                            :userId="author_id"
+                            :adminBoxcoinEnable="true"
+                            :userBoxcoinEnable="true"
+                            :authors="authors"
+                            mode="wiki"
+                            :key="'item-thx-' + id"
+                            :client="client"
+                        />
+                    </template>
+                </WikiPanel>
+            </div>
 
             <!-- 百科评论 -->
             <WikiComments type="item" :source-id="id" />
@@ -263,7 +275,7 @@ import { item_color, item_quality, item_price, item_bind } from "@/filters";
 import { publishLink, ts2str, showAvatar, iconLink } from "@jx3box/jx3box-common/js/utils";
 import { getManufactureDetail, getItemDetail } from "@/service/item";
 import { getMyInfo } from "@/service/user";
-import { get_item } from "@/service/item";
+import { get_item, get_item_prices } from "@/service/item";
 
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
@@ -288,6 +300,7 @@ export default {
             activeTab: DEFAULT_ACTIVE_TAB,
             loading: false,
             requiredList: [], // 原料列表
+            showPrice: false,
         };
     },
     computed: {
@@ -364,6 +377,19 @@ export default {
         GamePrice,
     },
     methods: {
+        get_data() {
+            const item_id = this.source.id;
+            if (item_id) {
+                get_item_prices(item_id, {
+                    server: this.server,
+                    limit: 15,
+                }).then((data) => {
+                    data = data.data;
+                    const prices = data.data.prices.sort((a, b) => a.created + b.created) || [];
+                    this.showPrice = !!prices.length;
+                });
+            }
+        },
         active_tab_handle(tab) {
             if (tab.name === "item-price-chart") {
                 this.$nextTick(() => {
@@ -496,6 +522,7 @@ export default {
                 this.$store.state.sidebar.AucGenre = parseInt(item.AucGenre);
                 this.$store.state.sidebar.AucSubTypeID = parseInt(item.AucSubTypeID);
 
+                this.get_data();
                 this.loadItemDetail();
             },
         },
