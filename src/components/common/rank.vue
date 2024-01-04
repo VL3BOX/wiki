@@ -8,7 +8,7 @@
             <el-tab-pane :label="tab.label" :name="tab.name" v-for="tab in tabs" :key="tab.name">
                 <ul class="u-list">
                     <li v-for="(rank, k) in ranks" :key="k">
-                        <a class="u-contributor" :href="rank.user_id ? authorLink(rank.user_id) : null">
+                        <a class="u-contributor" :href="rank.id ? authorLink(rank.id) : null">
                             <span class="u-left">
                                 <span class="u-order" :class="k < 3 && `t${k + 1}`">{{ k + 1 }}</span>
                                 <img class="u-avatar" :src="showAvatar(rank.avatar)" :alt="rank.nickname" />
@@ -117,6 +117,13 @@ export default {
         overflow: hidden auto;
         padding-right: 5px;
         .scrollbar();
+
+        li{
+            border-bottom: 1px dotted #eee;
+        }
+        a:hover .u-name{
+            color:@color-link;
+        }
     }
 
     .u-contributor {

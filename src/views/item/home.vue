@@ -45,7 +45,7 @@
                         </a>
                     </li>
                     <li class="qlink">
-                        <a target="_blank" href="/item/plan_list">
+                        <a href="/item/plan_list">
                             <i class="el-icon-orange"></i>
                             <span>物品清单</span>
                         </a>
