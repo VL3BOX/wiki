@@ -3,13 +3,14 @@
     .fz(14px, 28px);
     .h(28px);
     user-select: none;
+    color: #0366d6;
 }
 
 //子级节点
 .is-leaf + .el-tree-node__label {
     &:before {
-        // content: '⇨ ';
-        // color: #d0d4dd;
+        content: "» ";
+        color: #3d454d;
         .mr(5px);
     }
 }
@@ -22,20 +23,19 @@
 
 .el-tree-node__label {
     .w(100%);
-    padding-left:10px;
     box-sizing: border-box;
     line-height: 14px;
     text-wrap: wrap;
 
     .u-count {
-        font-size: 12px;
+        font-size: 13px;
         color: #888;
-        margin-left: 0;
+        margin-left: 5px;
         font-style: normal;
     }
 }
 
-.el-tree-node__expand-icon.is-leaf{
+.el-tree-node__expand-icon.is-leaf {
     .none;
 }
 
@@ -58,15 +58,4 @@
     .m-menus {
         background-color: transparent;
     }
-
-    .router-link-exact-active{
-        background-color:@color-link;
-        color:#fff;
-        .r(3px);
-        .u-count{
-            color:#eee;
-        }
-    }
-
-
 }

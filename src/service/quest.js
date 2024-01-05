@@ -1,11 +1,10 @@
 import { $node, $cms } from "@jx3box/jx3box-common/js/https";
-const $ = $node()
+const $ = $node();
 
 /* import axios from 'axios'
 const $ = axios.create({
     baseURL: 'http://localhost:7002/',
 }) */
-
 
 export function getCategory(params) {
     return $.get(`/quest/category`, { params });
@@ -25,7 +24,11 @@ export function getNewestQuests(params) {
 
 export function getWaiting(params) {
     params = Object.assign(params, {
-        type: 'quest',
+        type: "quest",
     });
     return $cms().get(`/api/cms/wiki/post/waiting`, { params });
+}
+
+export function getQuestMaps() {
+    return $.get(`/quest/maps`);
 }

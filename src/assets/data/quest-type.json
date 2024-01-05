@@ -1,0 +1,17 @@
+{
+    "BIRTH": "新手村",
+    "SCHOOL": "门派",
+    "TEST": "测试",
+    "CITY": "主城",
+    "OLD_CITY": "老主城",
+    "VILLAGE": "野外",
+    "OLD_VILLAGE": "老野外",
+    "DUNGEON": "小队秘境",
+    "CAMP": "阵营",
+    "BATTLE_FIELD": "战场",
+    "RAID": "团队秘境",
+    "ARENA": "竞技场",
+    "OTHER": "其他",
+    "TONG": "帮会",
+    "TONG_BATTLE_FIELD": "帮会战场"
+}

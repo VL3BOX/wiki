@@ -1,67 +1,93 @@
 <template>
     <nav class="m-nav">
-        <el-input class="u-keyword" v-model="keyword" placeholder="输入分类关键字">
-            <el-select @change="getMenus" style="width: 82px" v-model="by" slot="prepend" placeholder="分类依据">
-                <el-option label="地图" value="map"></el-option>
-                <el-option label="分类" value="class"></el-option>
-            </el-select>
-        </el-input>
+        <el-input class="u-keyword" v-model="keyword" placeholder="输入关键字"> </el-input>
         <div class="m-menus-panel">
-            <el-tree class="m-menus" :data="search_menus" node-key="id" ref="tree">
-                <router-link
-                    v-if="data.name.indexOf(keyword) >= 0"
-                    class="el-tree-node__label"
-                    slot-scope="{ node, data }"
-                    :to="menuLink(data, node)"
-                >
-                    <span class="u-name" v-text="'【 ' + data.name + ' 】'"></span>
-                    <em v-if="data.total" class="u-count" v-text="`(${data.total})`"></em>
-                </router-link>
+            <el-tree
+                :data="maps"
+                :props="defaultProps"
+                :filter-node-method="filterNode"
+                node-key="id"
+                @node-click="clickNode"
+                ref="tree"
+            >
+                <template slot-scope="{ node, data }">
+                    <span v-if="!node.isLeaf" class="el-tree-node__label">
+                        <span class="u-name" v-text="data.name"></span>
+                        <em v-if="data.count" class="u-count" v-text="`(${data.count})`"></em>
+                    </span>
+                    <router-link v-else class="el-tree-node__label" :to="menuLink(data, node)">
+                        <span class="u-name" v-text="data.name"></span>
+                        <em v-if="data.count" class="u-count" v-text="`(${data.count})`"></em>
+                    </router-link>
+                </template>
             </el-tree>
         </div>
     </nav>
 </template>
 
 <script>
-import { getCategory } from "@/service/quest";
+import { getQuestMaps } from "@/service/quest";
+const questType = require("@/assets/data/quest-type.json");
+import Bus from "@jx3box/jx3box-common-ui/service/bus";
 
 export default {
     name: "Nav",
     data: () => ({
         keyword: "",
-        by: "map",
-        menus: [],
+        maps: [],
+        questType,
+        defaultProps: {
+            children: "children",
+            label: "name",
+        },
     }),
     computed: {
-        search_menus() {
-            if (!this.keyword) return this.menus;
-            return this.menus.filter((menu) => {
-                return menu.name.indexOf(this.keyword) >= 0;
-            });
-        },
         client() {
             return this.$store.state.client;
         },
     },
-    methods: {
-        menuLink(menu, node) {
-            if (this.by == "class") {
-                return { name: "result", query: menu.id ? { class_id: menu.id } : {} };
-            } else {
-                return { name: "result", query: menu.id ? { map_id: menu.id } : {} };
-            }
+    watch: {
+        keyword(val) {
+            this.$refs.tree.filter(val);
         },
-        getMenus() {
-            getCategory({
-                by: this.by,
-                client: this.client,
-            }).then((res) => {
-                this.menus = res.data;
+    },
+    methods: {
+        filterNode(value, data) {
+            if (!value) return true;
+            return data.name.indexOf(value) !== -1;
+        },
+        menuLink(menu, node) {
+            return { name: "result", query: menu.id ? { map_id: menu.id } : {} };
+        },
+        loadMaps() {
+            getQuestMaps().then((res) => {
+                const mapObj = res.data?.data || {};
+                const maps = [];
+                for (let key in mapObj) {
+                    console.log(questType[key]);
+                    if (questType[key]) {
+                        maps.push({
+                            id: key,
+                            name: questType[key],
+                            children: mapObj[key],
+                            count: mapObj[key].map((item) => item.count).reduce((a, b) => a + b),
+                        });
+                    }
+                }
+                this.maps = maps;
             });
+        },
+        clickNode(data, node) {
+            // 移动端收起边栏
+            if (window.innerWidth < 1024) {
+                if (node.isLeaf) {
+                    Bus.$emit("toggleLeftSide", false);
+                }
+            }
         },
     },
     mounted() {
-        this.getMenus();
+        this.loadMaps();
     },
 };
 </script>
