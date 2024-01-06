@@ -1,4 +1,5 @@
 .m-quest-view {
+    padding:0 10px;
     @media screen and (min-width: 768px) {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -11,8 +12,6 @@
 
     .w-quest {
         .u-title__warpper {
-            padding: 5px 0;
-
             .u-title {
                 display: inline-flex;
                 justify-content: center;
@@ -55,15 +54,17 @@
                 border-color: #ac9d84;
             }
 
-            .mb(10px);
+            .mb(5px);
         }
 
         .u-endpoint__warpper {
             border-bottom: 1px dashed #ddd;
             padding-bottom: 10px;
+            .fz(14px);
         }
 
         .u-endpoint {
+            padding:2px 0;
             .flex;
             align-items: center;
 
@@ -101,12 +102,16 @@
                 .flex;
                 color: gray;
                 margin: 0.25rem 0;
-                padding-left: 2.3rem;
+                padding-left: 32px;
                 align-items: center;
                 font-size: 15px;
 
                 & > span {
                     margin-right: 8px;
+                }
+
+                .u-name.quality-1 {
+                    color: #909399 !important;
                 }
             }
 
@@ -117,7 +122,8 @@
 
         .u-desc {
             white-space: pre-line;
-            line-height: 1.8rem;
+            line-height: 1.8;
+            font-size: 15px;
             .mt(20px);
         }
 
@@ -144,15 +150,38 @@
         }
 
         .u-reward-list {
+            margin-top:10px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             padding-left: 30px;
+            .fz(14px);
         }
     }
 
     .u-subtitle {
         .bold;
-        padding: 5px 0;
+        padding: 3px 0;
+        color:#ac9d84;
+        border-bottom: 1px dotted lighten(#ac9d84, 20%);
+        .fz(13px,1.8);
+        margin-bottom: 12px;
+    }
+
+    .u-subtitle2 {
+        .bold;
+        padding: 3px 0;
+        color:#ac9d84;
+        .fz(13px,1.8);
+        margin-bottom: 12px;
+
+        span{
+            background-color:#ac9d84;
+            color:#fff;
+            padding:5px 7px;
+            font-weight: normal;
+            .fz(12px);
+            .r(2px);
+        }
     }
 
     .m-wiki-post-panel,
