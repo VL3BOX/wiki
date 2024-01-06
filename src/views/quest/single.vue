@@ -205,7 +205,7 @@ import QuestDialog from "@/components/quest/single/quest-dialog.vue";
 import Notice from "@/components/quest/single/notice.vue";
 
 import { postStat } from "@jx3box/jx3box-common/js/stat.js";
-import { wiki } from "@jx3box/jx3box-common/js/wiki.js";
+import { wiki } from "@jx3box/jx3box-common/js/wiki_v2.js";
 import { getAppIcon } from "@jx3box/jx3box-common/js/utils";
 
 import { publishLink, ts2str } from "@jx3box/jx3box-common/js/utils";
@@ -310,6 +310,7 @@ export default {
             if (this.id) {
                 wiki.mix({ type: "quest", id: this.id, client: this.client }, { supply: 1 }).then((res) => {
                     const { post, source, compatible, isEmpty, users } = res;
+                    console.log(res)
                     this.wiki_post = {
                         post: post,
                         source: source,
@@ -324,7 +325,7 @@ export default {
         loadRevision: function () {
             // 获取指定攻略
             wiki.getById(this.post_id, { type: "quest" }).then((res) => {
-                this.wiki_post = res.data.data?.post;
+                this.wiki_post = res.data.data;
             });
             this.triggerStat();
         },
