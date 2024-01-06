@@ -32,3 +32,12 @@ export function getWaiting(params) {
 export function getQuestMaps() {
     return $.get(`/quest/maps`);
 }
+
+// 获取任务公告
+export function getBreadcrumb(key = "wiki_quest_ac") {
+    return $cms()
+        .get(`/api/cms/breadcrumb/${key}`)
+        .then((res) => {
+            return res.data.data.html || "";
+        });
+}

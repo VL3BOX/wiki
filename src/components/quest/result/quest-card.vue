@@ -59,7 +59,7 @@ export default {
     },
     methods: {
         go(id) {
-            this.$router.push({ name: "single", params: { quest_id: id } });
+            this.$router.push({ name: "view", params: { quest_id: id } });
         },
         schoolIcon,
         moneyFormat(price) {

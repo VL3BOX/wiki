@@ -79,7 +79,7 @@ import WikiRevisions from "@/components/wiki-revisions.vue";
 import WikiComments from "@/components/wiki-comments.vue";
 import AchievementSingle from "@/components/cj/achievement-single.vue";
 import Relations from "@/components/relations.vue";
-// import Notice from "@/components/common/notice.vue";
+// import Notice from "@/components/cj/notice.vue";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
 import { wiki } from "@jx3box/jx3box-common/js/wiki_v2";
 import { publishLink } from "@jx3box/jx3box-common/js/utils";

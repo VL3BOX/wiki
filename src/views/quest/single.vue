@@ -124,19 +124,22 @@
             </div>
             <quest-chain :current="id" :data="quest.chain"></quest-chain>
         </div>
-        <el-tabs v-model="activeTab" @tab-click="handleTabClick">
-            <el-tab-pane label="任务文案" v-if="showDialog" name="dialog">
-                <div class="u-quest-dialog">
-                    <quest-dialog :desc="quest.desc"></quest-dialog>
-                </div>
-            </el-tab-pane>
-            <el-tab-pane label="任务地图" v-if="showMap" name="map">
-                <div class="u-quest-map">
-                    <quest-map ref="map" :points="points" :filter="point_filter" :questType="quest.questType">
-                    </quest-map>
-                </div>
-            </el-tab-pane>
-        </el-tabs>
+        <div>
+            <Notice></Notice>
+            <el-tabs v-model="activeTab" @tab-click="handleTabClick">
+                <el-tab-pane label="任务文案" v-if="showDialog" name="dialog">
+                    <div class="u-quest-dialog">
+                        <quest-dialog :desc="quest.desc"></quest-dialog>
+                    </div>
+                </el-tab-pane>
+                <el-tab-pane label="任务地图" v-if="showMap" name="map">
+                    <div class="u-quest-map">
+                        <quest-map ref="map" :points="points" :filter="point_filter" :questType="quest.questType">
+                        </quest-map>
+                    </div>
+                </el-tab-pane>
+            </el-tabs>
+        </div>
         <div class="m-wiki-post-panel" v-if="wiki_post && wiki_post.post">
             <WikiPanel :wiki-post="wiki_post">
                 <template slot="head-title">
@@ -199,6 +202,7 @@ import RewardItem from "@/components/quest/single/reward-item.vue";
 import PointFilter from "@/components/quest/single/point-filter.vue";
 import ItemIcon from "@/components/common/item-icon.vue";
 import QuestDialog from "@/components/quest/single/quest-dialog.vue";
+import Notice from "@/components/quest/single/notice.vue";
 
 import { postStat } from "@jx3box/jx3box-common/js/stat.js";
 import { wiki } from "@jx3box/jx3box-common/js/wiki.js";
@@ -227,6 +231,7 @@ export default {
         WikiPanel,
         WikiRevisions,
         WikiComments,
+        Notice,
     },
     data() {
         return {

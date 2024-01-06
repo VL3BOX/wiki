@@ -20,13 +20,13 @@
             <template slot="body">
                 <ul class="u-qlinks">
                     <li class="u-qlink">
-                        <a style="background-color: #fe7979" target="_blank" href="/tool/9126/">
+                        <a style="background-color: #fe7979" target="_blank" href="/tool/1428">
                             <i class="el-icon-trophy"></i>
                             <span>游戏内看百科</span>
                         </a>
                     </li>
                     <li class="u-qlink">
-                        <Counter type="quest"></Counter>
+                        <Counter type="quest" :showCounter="false"></Counter>
                     </li>
                 </ul>
             </template>

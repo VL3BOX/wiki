@@ -1,4 +1,4 @@
-import { __imgPath } from '@jx3box/jx3box-common/data/jx3box.json'
+import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import questFont from "@/assets/data/quest-font.json";
 
 export const buildPoints = (quest) => {
@@ -62,7 +62,7 @@ export const buildPoints = (quest) => {
                         ObjectName: guide.name,
                         ObjectID: guide.id,
                         ObjectType: guide.type,
-                    }
+                    };
                     if (guide.coordinates) {
                         for (let coordinate of guide.coordinates)
                             pushPoint(guide.map, {
@@ -75,7 +75,6 @@ export const buildPoints = (quest) => {
                             Coordinates: guide.coordinate,
                         });
                     }
-
                 }
             }
         }
@@ -90,7 +89,7 @@ export const buildPoints = (quest) => {
                         ObjectName: guide.name,
                         ObjectID: guide.id,
                         ObjectType: guide.type,
-                    }
+                    };
                     if (guide.coordinates) {
                         for (let coordinate of guide.coordinates)
                             pushPoint(guide.map, {
@@ -117,7 +116,7 @@ export const buildPoints = (quest) => {
                         ObjectName: guide.name,
                         ObjectID: guide.id,
                         ObjectType: guide.type,
-                    }
+                    };
                     if (guide.coordinates) {
                         for (let coordinate of guide.coordinates)
                             pushPoint(guide.map, {
@@ -135,17 +134,17 @@ export const buildPoints = (quest) => {
         }
     }
     return result;
-}
+};
 
 export const schoolIcon = (school) => {
     let filenameMap = {
-        北天药宗: '药宗',
-        凌雪阁: '凌雪',
-        衍天宗: '衍天'
-    }
-    if (filenameMap[school]) return school = filenameMap[school];
+        北天药宗: "药宗",
+        凌雪阁: "凌雪",
+        衍天宗: "衍天",
+    };
+    if (filenameMap[school]) return (school = filenameMap[school]);
     return `${__imgPath}/image/school/${school}.png`;
-}
+};
 
 export const questDescFormat = (desc) => {
     const { playerName, playerBody } = getPlayerName();
@@ -155,9 +154,15 @@ export const questDescFormat = (desc) => {
             .replace(/\<G\>/g, "&emsp;&emsp;")
             .replace(/\<N\>/g, playerName)
             .replace(/\<C\>/g, playerBody)
-            .replace(/\<CMD NPC_NAME (.+?)\>/g, `<strong class="u-dialog-name">$1</strong><br />`)
-            .replace(/\<CMD PLAYER_NAME >/g, `<strong class="u-dialog-name">${playerName}</strong><br />`)
-            .replace(/\<H(\d+)\>/g, '<div style="height: calc($1px - 1.5rem)"></div>');
+            .replace(
+                /\<CMD NPC_NAME (.+?)\>/g,
+                `<strong class="u-dialog-name">$1</strong><br /><div class="u-dialog-desc">`
+            )
+            .replace(
+                /\<CMD PLAYER_NAME >/g,
+                `<strong class="u-dialog-name">${playerName}</strong><br /></div class="u-dialog-desc">`
+            )
+            .replace(/\<H(\d+)\>/g, '<div style="height: calc($1px - 1.5rem)"></div></div>');
         while (true) {
             let match = /\<F(\d+) (.+?)\>/.exec(result);
             if (match) {
@@ -168,8 +173,9 @@ export const questDescFormat = (desc) => {
             }
         }
         return result;
-    } return "";
-}
+    }
+    return "";
+};
 
 export const questTargetDescFormat = (target) => {
     if (target)
@@ -179,10 +185,10 @@ export const questTargetDescFormat = (target) => {
             .replace(/\<C\>/g, "侠士")
             .replace(/\<N\>/g, "侠士");
     else return "";
-}
+};
 
 export const getPlayerName = () => {
     const playerName = localStorage.getItem("QuestWiki:playerName") || "侠士";
     const playerBody = localStorage.getItem("QuestWiki:playerBody") || "少侠";
     return { playerName, playerBody };
-}
+};

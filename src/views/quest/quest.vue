@@ -2,6 +2,7 @@
     <DefaultLayout
         name="任务百科"
         slug="quest"
+        root="/quest"
         without-right
         :publishEnable="true"
         :feedbackEnable="true"

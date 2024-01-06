@@ -8,10 +8,10 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
-const VueRouterPush = VueRouter.prototype.push
+const VueRouterPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(to) {
-    return VueRouterPush.call(this, to).catch(err => err)
-}
+    return VueRouterPush.call(this, to).catch((err) => err);
+};
 
 const routes = [
     {
@@ -28,7 +28,7 @@ const routes = [
         component: () => import("@/views/quest/search-result.vue"),
     },
     {
-        name: "single",
+        name: "view",
         path: "/view/:quest_id([_\\d]+)/:post_id(\\d+)?",
         component: () => import("@/views/quest/single.vue"),
     },
@@ -41,7 +41,7 @@ const routes = [
         name: "newest",
         path: "/newest",
         component: () => import("@/views/quest/newest.vue"),
-    }
+    },
 ];
 
 const router = new VueRouter({
@@ -51,10 +51,10 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    if (to.fullPath.includes('/#')) {
-        next(to.fullPath.replace('/#', ''));
+    if (to.fullPath.includes("/#")) {
+        next(to.fullPath.replace("/#", ""));
     }
-    next()
+    next();
 });
 
 export default router;

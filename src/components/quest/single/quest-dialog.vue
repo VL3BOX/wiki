@@ -61,13 +61,17 @@ export default {
 <style lang="less">
 .m-quest-dialog {
     .u-dialog {
-        margin-bottom: 16px;
+        margin-bottom: 10px;
     }
     .u-dialog-content {
+        padding: 5px 0;
         padding-left: 16px;
     }
     .u-dialog-name {
         color: #8a6d3b;
+    }
+    .u-dialog-desc {
+        padding: 5px 0;
     }
 }
 </style>

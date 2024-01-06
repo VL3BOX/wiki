@@ -14,7 +14,7 @@
                         「<router-link
                             class="u-chain-link"
                             :class="{ current: current == b.id }"
-                            :to="{ name: 'single', params: { quest_id: b.id } }"
+                            :to="{ name: 'view', params: { quest_id: b.id } }"
                             >{{ b.name }}</router-link
                         >」
                     </span>
@@ -23,7 +23,7 @@
                     「<router-link
                         class="u-chain-link"
                         :class="{ current: current == item.id }"
-                        :to="{ name: 'single', params: { quest_id: item.id } }"
+                        :to="{ name: 'view', params: { quest_id: item.id } }"
                         >{{ item.name }}</router-link
                     >」
                 </span>
@@ -33,7 +33,7 @@
         <div class="branch" v-if="showBranch">
             <el-divider><i class="el-icon-rank"></i> 任务分支</el-divider>
             <span class="u-chain-name" v-for="item in display_data.branch" :key="item.id">
-                「<router-link class="u-chain-link" :to="{ name: 'single', params: { quest_id: item.id } }">{{
+                「<router-link class="u-chain-link" :to="{ name: 'view', params: { quest_id: item.id } }">{{
                     item.name
                 }}</router-link
                 >」

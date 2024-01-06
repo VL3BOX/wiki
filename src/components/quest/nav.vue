@@ -9,6 +9,7 @@
                 node-key="id"
                 @node-click="clickNode"
                 ref="tree"
+                :indent="42"
             >
                 <template slot-scope="{ node, data }">
                     <span v-if="!node.isLeaf" class="el-tree-node__label">
@@ -64,7 +65,6 @@ export default {
                 const mapObj = res.data?.data || {};
                 const maps = [];
                 for (let key in mapObj) {
-                    console.log(questType[key]);
                     if (questType[key]) {
                         maps.push({
                             id: key,

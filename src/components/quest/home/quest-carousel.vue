@@ -9,14 +9,15 @@
             >
                 <el-row :gutter="20">
                     <el-col :md="8" v-for="(item, k) in items" :key="k">
-                        <router-link
+                        <WikiItem type="quest" :class="`u-item-${k}`" :item="item" />
+                        <!-- <router-link
                             class="u-item"
                             :class="{
                                 [`u-item-${k}`]: true,
                                 'u-item-new': !hot,
                             }"
                             :to="{
-                                name: 'single',
+                                name: 'view',
                                 params: { quest_id: item.id },
                             }"
                         >
@@ -38,7 +39,7 @@
                                     <span v-text="`三十天 - ${views[item.id]['30days']}`"></span>
                                 </span>
                             </div>
-                        </router-link>
+                        </router-link> -->
                     </el-col>
                 </el-row>
             </el-carousel-item>
@@ -48,8 +49,12 @@
 
 <script>
 import { chunk } from "lodash";
+import WikiItem from "@/components/common/wiki-item.vue";
 export default {
     name: "QuestCarousel",
+    components: {
+        WikiItem,
+    },
     props: {
         quests: {
             type: Array,

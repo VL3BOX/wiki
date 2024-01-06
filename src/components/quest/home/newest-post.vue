@@ -6,7 +6,7 @@
                     <router-link
                         class="u-quest-name"
                         :to="{
-                            name: 'single',
+                            name: 'view',
                             params: {
                                 quest_id: post.source_id,
                                 post_id: post.id,

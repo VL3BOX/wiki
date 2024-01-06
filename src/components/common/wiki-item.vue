@@ -6,18 +6,18 @@
             params: getViewParams(),
         }"
     >
-        <div class="u-icon">
+        <div v-if="type !== 'quest'" class="u-icon">
             <img :src="iconUrl(item.IconID)" />
         </div>
         <div class="m-carousel-content">
-            <span class="u-title">
+            <div class="u-title">
                 <i class="el-icon-medal"></i>
-                <span v-text="` ${item.Name}`"></span>
-            </span>
-            <span class="u-desc">
+                <span v-text="` ${type === 'quest' ? item.name : item.Name}`"></span>
+            </div>
+            <div class="u-desc">
                 <i class="el-icon-mic"></i>
-                <span v-html="` ${parseDesc(item.Desc)}`"></span>
-            </span>
+                <span v-html="` ${type === 'quest' ? item.target : parseDesc(item.Desc)}`"></span>
+            </div>
         </div>
     </router-link>
 </template>
@@ -54,6 +54,11 @@ export default {
                     item_id: this.item.id,
                 };
             }
+            if (this.type === "quest") {
+                params = {
+                    quest_id: this.item.id,
+                };
+            }
             return params;
         },
         parseDesc(desc) {
@@ -67,3 +72,10 @@ export default {
     },
 };
 </script>
+<style lang="less">
+.m-carousel-content {
+    .u-desc {
+        margin-top: 3px;
+    }
+}
+</style>
