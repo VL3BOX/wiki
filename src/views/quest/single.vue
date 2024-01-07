@@ -308,9 +308,8 @@ export default {
         loadData: function () {
             // 获取最新攻略
             if (this.id) {
-                wiki.mix({ type: "quest", id: this.id, client: this.client }, { supply: 1 }).then((res) => {
+                wiki.mix({ type: "quest", id: this.id, client: this.client }).then((res) => {
                     const { post, source, compatible, isEmpty, users } = res;
-                    console.log(res)
                     this.wiki_post = {
                         post: post,
                         source: source,

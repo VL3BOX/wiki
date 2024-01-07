@@ -84,5 +84,38 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "~@/assets/css/quest/home/quest-carousel.less";
+.m-quest-carousel {
+    .u-item {
+        position: relative;
+        .db;
+        .w(100%);
+        padding-left: 15px;
+        padding-right: 10px;
+        box-sizing: border-box;
+        border: 1px solid #d7dae1;
+        border-left: none;
+        background-color: #f5f7fa;
+        border-radius: 5px;
+        color: #3d454d;
+        overflow: hidden;
+        .h(66px);
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            border-left: 5px solid #3a97eb;
+        }
+    }
+
+    .u-item-new {
+        padding-top: 8px;
+
+        .u-title {
+            .lh(24px);
+        }
+    }
+}
 </style>
