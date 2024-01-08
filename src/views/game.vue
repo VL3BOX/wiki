@@ -1,18 +1,29 @@
 <template>
     <GameLayout>
         <div class="m-wiki-view" v-if="wikiPost">
-            <!-- Warning -->
             <div class="m-warning" :class="{ none: !warning }">❌ 您的浏览器版本太低,将无法正常使用本应用</div>
+            <!-- 公告 -->
             <Notice class="m-game-notice" v-if="type === 'achievement'"></Notice>
+            <!-- 百科 -->
             <WikiContent v-if="type !== 'price'" :wiki-post="wikiPost" :compatible="compatible" />
+            <!-- 物品价格 -->
             <PriceTabs
                 v-if="type == 'item' && wikiPost && wikiPost.source && wikiPost.source.BindType != 3"
                 :source-id="source_id"
             />
+            <!-- 单纯价格 -->
             <Price v-if="type === 'price'" :source-id="source_id"></Price>
-            <!-- <Relations :source-id="source_id" v-if="type == 'achievement'" /> -->
-            <WikiRevisions v-if="wikiPost && wikiPost.post" :type="source_type" :source-id="source_id" :isGame="true" />
-            <WikiComments v-if="wikiPost && wikiPost.post" :type="source_type" :source-id="source_id" />
+            <template v-else>
+                <!-- 历史版本 -->
+                <WikiRevisions
+                    v-if="wikiPost && wikiPost.post"
+                    :type="source_type"
+                    :source-id="source_id"
+                    :isGame="true"
+                />
+                <!-- 评论 -->
+                <WikiComments v-if="wikiPost && wikiPost.post" :type="source_type" :source-id="source_id" />
+            </template>
         </div>
     </GameLayout>
 </template>

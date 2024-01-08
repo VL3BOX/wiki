@@ -75,7 +75,7 @@ export default {
         padding: 10px;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
-        font-size: 17px;
+        font-size: 15px;
         font-weight: 300;
         .m-server {
             .flex;
@@ -94,6 +94,9 @@ export default {
         margin-bottom: 30px;
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
+    }
+    .m-item-prices{
+        .fz(12px);
     }
 }
 </style>
