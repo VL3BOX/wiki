@@ -107,7 +107,7 @@ export default {
                 // fix source_type
                 if (this.type == "cj") {
                     this.source_type = source_type = "achievement";
-                } else if (this.type == "pet" || this.type == "horse") {
+                } else if (this.type == "pet" || this.type == "horse" || this.type == "price") {
                     this.source_type = "item";
                     source_type = this.type == "pet" ? "pet" : "item";
                 } else {
