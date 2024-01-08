@@ -6,11 +6,6 @@ Vue.use(VueRouter);
 const routes = [
     {
         path: "/",
-        redirect: "/cj",
-    },
-    {
-        path: "/game",
-        name: "game",
         component: () => import("../views/game.vue"),
     },
 ];
