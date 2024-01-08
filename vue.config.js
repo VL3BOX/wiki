@@ -40,13 +40,13 @@ module.exports = {
             title : '云端宏排行榜 - JX3BOX',
             entry:'src/pages/macros.js',
             template : 'public/macro.html',
-            filename:'macros.html',
+            filename:'macro/tops/index.html',
         },
         macro : {
             title : '云端宏 - JX3BOX',
             entry:'src/pages/macro.js',
             template : 'public/macro.html',
-            filename:'macro.html',
+            filename:'macro/details/index.html',
         },
     },
 
