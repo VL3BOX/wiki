@@ -115,9 +115,6 @@ export default {
         padding: 0 12px 10px 12px;
         align-items: center;
         .fz(14px, 1.5);
-        .u-player-name,
-        .u-player-body {
-        }
         .el-button {
             .ml(2px);
         }

@@ -1,5 +1,5 @@
 .m-quest-view {
-    padding:0 10px;
+    padding: 0 10px;
     @media screen and (min-width: 768px) {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -64,7 +64,7 @@
         }
 
         .u-endpoint {
-            padding:2px 0;
+            padding: 2px 0;
             .flex;
             align-items: center;
 
@@ -150,7 +150,7 @@
         }
 
         .u-reward-list {
-            margin-top:10px;
+            margin-top: 10px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             padding-left: 30px;
@@ -161,7 +161,7 @@
     .u-subtitle {
         .bold;
         padding: 3px 0;
-        color:#ac9d84;
+        color: #ac9d84;
         border-bottom: 1px dotted lighten(#ac9d84, 20%);
         .fz(13px,1.8);
         margin-bottom: 12px;
@@ -170,14 +170,14 @@
     .u-subtitle2 {
         .bold;
         padding: 3px 0;
-        color:#ac9d84;
+        color: #ac9d84;
         .fz(13px,1.8);
         margin-bottom: 12px;
 
-        span{
-            background-color:#ac9d84;
-            color:#fff;
-            padding:5px 7px;
+        span {
+            background-color: #ac9d84;
+            color: #fff;
+            padding: 5px 7px;
             font-weight: normal;
             .fz(12px);
             .r(2px);
@@ -193,6 +193,38 @@
     .m-wiki-post-panel,
     .m-wiki-post-empty {
         grid-column: span 3;
+    }
+    .m-wiki-post-panel {
+        .m-panel-title {
+            .u-icon {
+                filter: invert(25%) sepia(90%) saturate(5308%) hue-rotate(203deg) brightness(96%) contrast(98%);
+                width: 28px;
+                height: 28px;
+                line-height: 28px;
+                color: #0366d6;
+                fill: #0366d6;
+                font-size: 22px;
+            }
+        }
+    }
+    .m-wiki-thx-panel {
+        .m-panel-title {
+            .flex;
+            align-items: center;
+            i {
+                width: 28px;
+                height: 28px;
+                line-height: 28px;
+                color: #0366d6;
+                fill: #0366d6;
+                font-size: 22px;
+            }
+            span {
+                .dbi;
+                font-size: 17px;
+                font-weight: 300;
+            }
+        }
     }
 }
 

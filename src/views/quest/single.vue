@@ -165,24 +165,36 @@
                         <i class="el-icon-edit"></i>
                         本次修订由 <b>{{ user_name }}</b> 提交于{{ updated_at }}
                     </div>
-                    <Thx
-                        class="m-thx"
-                        :postId="id"
-                        postType="quest"
-                        :postTitle="wiki_post.source.Name"
-                        :userId="author_id"
-                        :adminBoxcoinEnable="true"
-                        :userBoxcoinEnable="true"
-                        :authors="authors"
-                        mode="wiki"
-                        :key="'quest-thx-' + id"
-                        :client="client"
-                    />
                 </template>
             </WikiPanel>
 
             <!-- 历史版本 -->
             <WikiRevisions type="quest" :source-id="String(id)" />
+
+            <!-- 打赏 -->
+            <div class="m-wiki-thx-panel">
+                <WikiPanel>
+                    <template slot="head-title">
+                        <i class="el-icon-coin"></i>
+                        <span>参与打赏</span>
+                    </template>
+                    <template slot="body">
+                        <Thx
+                            class="m-thx"
+                            :postId="id"
+                            postType="quest"
+                            :postTitle="wiki_post.source.Name"
+                            :userId="author_id"
+                            :adminBoxcoinEnable="true"
+                            :userBoxcoinEnable="true"
+                            :authors="authors"
+                            mode="wiki"
+                            :key="'quest-thx-' + id"
+                            :client="client"
+                        />
+                    </template>
+                </WikiPanel>
+            </div>
 
             <!-- 百科评论 -->
             <WikiComments type="quest" :source-id="id_str" />
