@@ -43,9 +43,3 @@ export default {
 <style lang="less">
 @import "~@/assets/css/common/notice.less";
 </style>
-
-<style scoped lang="less">
-    .m-wiki-top{
-        background-color:@bg-light;
-    }
-</style>

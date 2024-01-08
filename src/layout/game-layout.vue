@@ -2,24 +2,20 @@
     <Fragment>
         <!-- 头部导航 -->
         <header class="m-header">
-            <ul class="m-header-left">
+            <a class="m-header-logo" :href="rootPath">
+                <img class="u-logo" src="@/assets/img/logo.png" alt="JX3BOX" />
+                <strong class="u-title">JX3BOX魔盒</strong>
+            </a>
+            <ul class="m-header-list">
                 <li><a :href="`${rootPath}macro/`">宏库</a></li>
-                <li><a :href="`${rootPath}tool/`">插件</a></li>
-                <li><a :href="`${rootPath}fb/`">副本</a></li>
                 <li><a :href="`${rootPath}bps/`">职业</a></li>
-                <li><a :href="`${rootPath}team/`">团队</a></li>
-            </ul>
-            <ul class="m-header-right">
-                <li><a :href="`${rootPath}cj/`">成就</a></li>
-                <li><a :href="`${rootPath}item/`">物品</a></li>
-                <li><a :href="`${rootPath}face/`">捏脸</a></li>
+                <li><a :href="`${rootPath}pvp/`">竞技</a></li>
+                <li><a :href="`${rootPath}fb/`">副本</a></li>
+                <li><a :href="`${rootPath}cj/`">百科</a></li>
+                <li><a :href="`${rootPath}pvx/`">休闲</a></li>
                 <li><a :href="`${rootPath}tool/`">工具</a></li>
                 <li><a :href="`${rootPath}bbs/`">茶馆</a></li>
             </ul>
-            <a class="m-header-center" :href="rootPath">
-                <img class="u-logo" src="@/assets/img/logo.png" alt="JX3BOX" />
-                <strong class="u-title">JX3BOX</strong>
-            </a>
         </header>
 
         <!-- 主体区域 -->

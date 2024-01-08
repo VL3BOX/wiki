@@ -3,25 +3,19 @@
         <!-- 今日价格 -->
         <el-row class="m-today" v-if="today">
             <el-col :span="8">
-                <div class="u-label">
-                    <i class="el-icon-right u-avg"></i> 今日均价
-                </div>
+                <div class="u-label"><i class="el-icon-right u-avg"></i> 今日均价</div>
                 <div class="u-value u-avg">
                     <GamePrice :price="today.price" />
                 </div>
             </el-col>
             <el-col :span="8">
-                <div class="u-label">
-                    <i class="el-icon-bottom u-min"></i> 今日最低价
-                </div>
+                <div class="u-label"><i class="el-icon-bottom u-min"></i> 今日最低价</div>
                 <div class="u-value u-min">
                     <GamePrice :price="today.min_price" />
                 </div>
             </el-col>
             <el-col :span="8">
-                <div class="u-label">
-                    <i class="el-icon-top u-max"></i> 今日最高价
-                </div>
+                <div class="u-label"><i class="el-icon-top u-max"></i> 今日最高价</div>
                 <div class="u-value u-max">
                     <GamePrice :price="today.max_price" />
                 </div>
@@ -31,25 +25,19 @@
         <!-- 昨日价格 -->
         <el-row class="m-today" v-if="!today && yesterday">
             <el-col :span="8">
-                <div class="u-label">
-                    <i class="el-icon-right u-avg"></i> 今日均价
-                </div>
+                <div class="u-label"><i class="el-icon-right u-avg"></i> 今日均价</div>
                 <div class="u-value u-avg">
                     <GamePrice :price="yesterday.price" />
                 </div>
             </el-col>
             <el-col :span="8">
-                <div class="u-label">
-                    <i class="el-icon-bottom u-min"></i> 今日最低价
-                </div>
+                <div class="u-label"><i class="el-icon-bottom u-min"></i> 今日最低价</div>
                 <div class="u-value u-min">
                     <GamePrice :price="yesterday.min_price" />
                 </div>
             </el-col>
             <el-col :span="8">
-                <div class="u-label">
-                    <i class="el-icon-top u-max"></i> 今日最高价
-                </div>
+                <div class="u-label"><i class="el-icon-top u-max"></i> 今日最高价</div>
                 <div class="u-value u-max">
                     <GamePrice :price="yesterday.max_price" />
                 </div>
@@ -57,20 +45,20 @@
         </el-row>
 
         <div v-show="!hidden" id="m-item-price-chart" />
-        <div v-show="!logs.length" style="text-align:center">🐖 暂无记录</div>
+        <div v-show="!logs.length" style="text-align: center">🐖 暂无记录</div>
     </div>
 </template>
 
 <script>
 import { Chart } from "@antv/g2";
-import { get_item_servers_price_logs, } from "@/service/item";
+import { get_item_servers_price_logs } from "@/service/item";
 import GamePrice from "@/components/game-price.vue";
 import item_price from "@/utils/item-price.js";
 
 export default {
     name: "ItemPriceChart",
     props: ["item_id", "server"],
-    data () {
+    data() {
         return {
             today: null,
             yesterday: null,
@@ -80,7 +68,7 @@ export default {
         };
     },
     methods: {
-        get_data () {
+        get_data() {
             if (this.item_id) {
                 get_item_servers_price_logs(this.item_id, {
                     server: this.server,
@@ -122,10 +110,9 @@ export default {
                     this.render();
                     this.hidden = !(this.logs.length > 0);
                 });
-
             }
         },
-        render () {
+        render() {
             if (this.chart) this.chart.destroy();
             this.chart = new Chart({
                 container: "m-item-price-chart",
@@ -181,7 +168,7 @@ export default {
     computed: {
         params() {
             return [this.item_id, this.server];
-        }
+        },
     },
     watch: {
         params: {
@@ -189,8 +176,8 @@ export default {
             immediate: true,
             handler() {
                 this.get_data();
-            }
-        }
+            },
+        },
     },
     components: {
         GamePrice,

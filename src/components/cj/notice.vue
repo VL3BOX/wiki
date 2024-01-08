@@ -1,8 +1,8 @@
 <template>
     <div class="m-wiki-top">
-        <!-- <div class="m-wiki-top__header">
+        <div class="m-wiki-top__header">
             <h3 class="u-title"><i class="el-icon-news"></i>公告</h3>
-        </div> -->
+        </div>
         <div class="m-wiki-top__content" v-html="data"></div>
     </div>
 </template>

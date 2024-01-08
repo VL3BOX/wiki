@@ -3,13 +3,14 @@
         <div class="m-wiki-view" v-if="wikiPost">
             <!-- Warning -->
             <div class="m-warning" :class="{ none: !warning }">❌ 您的浏览器版本太低,将无法正常使用本应用</div>
-
-            <WikiContent :wiki-post="wikiPost" :compatible="compatible" />
+            <Notice class="m-game-notice" v-if="type === 'achievement'"></Notice>
+            <WikiContent v-if="type !== 'price'" :wiki-post="wikiPost" :compatible="compatible" />
             <PriceTabs
                 v-if="type == 'item' && wikiPost && wikiPost.source && wikiPost.source.BindType != 3"
                 :source-id="source_id"
             />
-            <Relations :source-id="source_id" v-if="type == 'achievement'" />
+            <Price v-if="type === 'price'" :source-id="source_id"></Price>
+            <!-- <Relations :source-id="source_id" v-if="type == 'achievement'" /> -->
             <WikiRevisions v-if="wikiPost && wikiPost.post" :type="source_type" :source-id="source_id" :isGame="true" />
             <WikiComments v-if="wikiPost && wikiPost.post" :type="source_type" :source-id="source_id" />
         </div>
@@ -23,15 +24,27 @@ import star from "@/utils/star";
 import WikiContent from "@/components/wiki-content";
 import WikiRevisions from "@/components/wiki-revisions.vue";
 import WikiComments from "@/components/wiki-comments.vue";
-import Relations from "@/components/relations.vue";
+// import Relations from "@/components/relations.vue";
 import PriceTabs from "@/components/item/price-tabs.vue";
-import { wiki } from "@jx3box/jx3box-common/js/wiki.js";
+import Price from "@/components/item/price.vue";
+import { wiki } from "@jx3box/jx3box-common/js/wiki_v2.js";
 import { iconLink } from "@jx3box/jx3box-common/js/utils";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
+import Notice from "@/components/cj/notice.vue";
 import GameLayout from "@/layout/game-layout.vue";
 
 export default {
     name: "Wiki",
+    components: {
+        WikiContent,
+        WikiRevisions,
+        WikiComments,
+        // Relations,
+        PriceTabs,
+        GameLayout,
+        Notice,
+        Price,
+    },
     data() {
         return {
             ua: UA(),
@@ -68,38 +81,42 @@ export default {
         icon_url: iconLink,
         star,
         loadWiki: function (source_type, source_id) {
-            wiki.mix({ type: source_type, id: source_id, client: this.client }, { supply: 1 }).then(res => {
-                const { post, source, compatible, type, source_id } = res;
-                this.wikiPost = {
-                    post,
-                    source,
-                    type,
-                    source_id
-                };
-                this.compatible = compatible;
-            }).catch(err => {
-                console.log(err, 'err')
-            });
+            wiki.mix({ type: source_type, id: source_id, client: this.client })
+                .then((res) => {
+                    const { post, source, compatible, type, source_id, users } = res;
+                    this.wikiPost = {
+                        post,
+                        source,
+                        type,
+                        source_id,
+                        users,
+                    };
+                    this.compatible = compatible;
+                    this.source_id = source_id;
+                })
+                .catch((err) => {
+                    console.log(err, "err");
+                });
         },
     },
     watch: {
         id: {
             immediate: true,
             handler(id) {
+                let source_type = "";
                 // fix source_type
                 if (this.type == "cj") {
-                    this.source_type = "achievement";
-                } else if (this.type == "pet") {
+                    this.source_type = source_type = "achievement";
+                } else if (this.type == "pet" || this.type == "horse") {
                     this.source_type = "item";
+                    source_type = this.type == "pet" ? "pet" : "item";
                 } else {
-                    this.source_type = this.type || "achievement";
+                    this.source_type = source_type = this.type || "achievement";
                 }
 
                 // 获取最新攻略
                 if (id) {
-                    this.source_id = id;
-
-                    this.loadWiki(this.type, this.source_id);
+                    this.loadWiki(source_type, this.id);
                 }
             },
         },
@@ -108,9 +125,9 @@ export default {
             handler() {
                 // 获取攻略
                 if (this.$route.query.post_id) {
-                    wiki.getById(this.$route.query.post_id, { client: this.client })
-                    .then((res) => {
-                        this.wikiPost = res.data.data?.post;
+                    wiki.getById(this.$route.query.post_id).then((res) => {
+                        res = res.data;
+                        this.wikiPost = res.data;
                     });
                 }
             },
@@ -123,14 +140,6 @@ export default {
             if (type === "achievement") type = "cj";
             postStat(type, this.id);
         }
-    },
-    components: {
-        WikiContent,
-        WikiRevisions,
-        WikiComments,
-        Relations,
-        PriceTabs,
-        GameLayout,
     },
 };
 </script>
