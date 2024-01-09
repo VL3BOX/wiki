@@ -1,61 +1,61 @@
-.m-nav{
-    .el-tree{
-        background:none;
+//父级节点
+.el-tree-node__content {
+    .fz(14px, 28px);
+    .h(28px);
+    user-select: none;
+    color: #0366d6;
+}
+
+//子级节点
+.is-leaf + .el-tree-node__label {
+    &:before {
+        content: "» ";
+        color: #3d454d;
+        .mr(5px);
     }
 
-    .el-tree-node__label {
-        display: block;
-        width: 100%;
+    .flex;
+    align-items: center;
+}
 
-        .u-name {
-            color: @color-link;
-        }
-
-        .u-count {
-            .fz(12px);
-            color: #888888;
-            .ml(5px);
-            font-style: normal;
-            font-weight: normal !important;
-        }
-    }
-
-    // 当前
-    .on{
+.is-current {
+    & > .el-tree-node__content {
         .bold;
     }
+}
 
-    //父级节点
-    .el-tree-node__content {
-        .fz(14px, 28px);
-        .h(28px);
-        user-select: none;
+.el-tree-node__label {
+    .w(100%);
+    box-sizing: border-box;
+    line-height: 14px;
+    text-wrap: wrap;
+
+    .u-count {
+        font-size: 13px;
+        color: #888;
+        margin-left: 5px;
+        font-style: normal;
     }
 
-    //子级节点
-    .is-leaf + .el-tree-node__label {
-        &:before {
-            content: "»";
-            color: @color;
-            .mr(5px);
-        }
+    .u-leaf-name {
+        max-width: 160px;
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
+}
 
-    .filter-tree.other {
-        .el-tree-node__content {
-            height: 48px;
-            line-height: 48px;
-        }
+.el-tree-node__expand-icon.is-leaf {
+    .none;
+}
 
-        .el-tree-node__label {
-            padding: 0 15px;
-            border-bottom: 1px solid #eeeeee;
-        }
-
-        .is-leaf,
-        .el-tree-node__label:before {
-            .none;
-        }
+.m-nav{
+    .m-menus-panel {
+        .w(100%);
+        overflow-y: auto;
+        overflow-x: hidden;
+        .scrollbar();
     }
 
 }

@@ -1,5 +1,5 @@
 import { $next, $node, $cms } from "@jx3box/jx3box-common/js/https";
-const $ = $node();
+const $ = $node({ mute: true });
 
 export function getMyFav(params) {
     return $next().get(`api/article/favorites/my`, {

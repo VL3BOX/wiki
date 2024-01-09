@@ -29,7 +29,7 @@
                     <template slot="body">
                         <Thx
                             class="m-thx"
-                            :postId="id"
+                            :postId="~~id"
                             postType="knowledge"
                             :postTitle="title"
                             :userId="author_id"
@@ -188,9 +188,6 @@ export default {
         //         })
         // }
     },
-    created: function () {
-        this.getData(this.id);
-    },
     watch: {
         "$route.params.post_id": {
             immediate: true,
@@ -198,6 +195,14 @@ export default {
                 if (this.$route.params.post_id) {
                     // 获取指定攻略
                     this.getPostData();
+                }
+            },
+        },
+        id: {
+            immediate: true,
+            handler() {
+                if (this.id) {
+                    this.getData(this.id);
                 }
             },
         },

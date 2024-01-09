@@ -1,37 +1,33 @@
 <template>
-    <div class="m-nav">
-        <el-tree
-            :data="tree_data"
-            :props="defaultProps"
-            node-key="key"
-            :default-expanded-keys="defaultExpandedKeys"
-            @node-click="clickHandler"
-        >
-            <template slot-scope="{ data }">
-                <template v-if="data.app == app">
-                    <router-link :to="data.path || '/'" class="el-tree-node__label" :class="{ on: isActive(data) }">
-                        <span class="u-name" v-text="data.label"></span>
-                        <em v-if="data.count" class="u-count" v-text="`( ${data.count} )`"></em>
+    <nav class="m-nav">
+        <div class="m-menus-panel">
+            <el-tree
+                :data="maps"
+                :props="defaultProps"
+                node-key="id"
+                ref="tree"
+                :indent="42"
+                lazy
+                :load="loadNode"
+            >
+                <template slot-scope="{ node, data }">
+                    <span v-if="!node.isLeaf" class="el-tree-node__label">
+                        <span class="u-name" v-text="data.name"></span>
+                        <em v-if="data.count" class="u-count" v-text="`(${data.count})`"></em>
+                    </span>
+                    <router-link v-else class="el-tree-node__label" :to="menuLink(data, node)">
+                        <span class="u-leaf-name" v-text="data.name" :title="data.name"></span>
+                        <em v-if="data.count" class="u-count" v-text="`(${data.count})`"></em>
                     </router-link>
                 </template>
-                <template v-else>
-                    <a
-                        :href="`/${data.app}/${data.path == '/' ? '' : data.path}`"
-                        class="el-tree-node__label"
-                        :class="{ on: isActive(data) }"
-                    >
-                        <span class="u-name" v-text="data.label"></span>
-                        <em v-if="data.count" class="u-count" v-text="`( ${data.count} )`"></em>
-                    </a>
-                </template>
-            </template>
-        </el-tree>
-    </div>
+            </el-tree>
+        </div>
+    </nav>
 </template>
 
 <script>
-import { getKnowledgeMenus, getKnowledgeCount } from "@/service/knowledge.js";
-import { map, each } from "lodash";
+import { getKnowledgeMenus, getKnowledgeCount, getKnowledgeList } from "@/service/knowledge.js";
+import { each } from "lodash";
 import { getAppType } from "@jx3box/jx3box-common/js/utils";
 import { getCalendarCount } from "@/service/calendar";
 
@@ -41,39 +37,15 @@ export default {
     data: function () {
         return {
             active: "knowledge",
-            data: {
-                knowledge: {
-                    label: "通识",
-                    key: "knowledge",
-                    app: "knowledge",
-                    path: "/",
-                    children: [],
-                },
-            },
+            maps: [],
             defaultProps: {
                 children: "children",
-                label: "label",
+                label: "name",
+                isLeaf: "leaf",
             },
-            defaultExpandedKeys: ["knowledge"],
         };
     },
     computed: {
-        tree_data: function () {
-            return map(this.data, (item, key) => {
-                return item;
-            });
-        },
-        app: function () {
-            return getAppType();
-        },
-    },
-    watch: {
-        activeKey: {
-            immediate: true,
-            handler(val) {
-                val && (this.active = val);
-            },
-        },
     },
     methods: {
         // 数据加载
@@ -81,24 +53,51 @@ export default {
             // 通识
             this.loadKnowledge();
         },
+        async loadNode(node, resolve) {
+            const { level, data } = node;
+
+            if (level === 0) {
+                return resolve(this.maps);
+            }
+
+            const res = await getKnowledgeList({ type: data.id, _no_page: 1 });
+
+            let children = res?.data?.data;
+
+            children = children.map((item) => {
+                return {
+                    ...item,
+                    leaf: true,
+                };
+            });
+
+            if (children?.length) {
+                resolve(children);
+            } else {
+                resolve([]);
+            }
+        },
         loadKnowledge: async function () {
             // 加载通识子类统计
             const data = await getKnowledgeCount();
-            getKnowledgeMenus().then((res) => {
-                let knowledgeMenus = res?.data?.data;
-                let knowledgeTree = [];
-                each(knowledgeMenus, (item, key) => {
-                    const _item = data.data.data?.find((i) => i.type == item.name);
-                    knowledgeTree.push({
-                        key: item.name,
-                        path: "/type/" + item.name,
-                        label: item.label,
-                        count: _item.count,
-                        app: "knowledge",
-                    });
+            const res = await getKnowledgeMenus();
+            // const list = await getKnowledgeList({ _no_page: 1 });
+
+            let knowledgeMenus = res?.data?.data;
+            const maps = [];
+
+            each(knowledgeMenus, (item, key) => {
+                const _item = data.data.data?.find((i) => i.type == item.name);
+                maps.push({
+                    id: item.name,
+                    name: item.label,
+                    count: _item.count,
+                    children: [],
+                    leaf: false,
                 });
-                this.data.knowledge.children = knowledgeTree;
             });
+
+            this.maps = maps;
         },
         loadCalendarCount: function (year) {
             getCalendarCount({ year }).then((res) => {
@@ -113,21 +112,8 @@ export default {
                 });
             });
         },
-
-        // 交互操作
-        clickHandler: function (data, node) {
-            this.active = data.key;
-
-            if (data.type === "calendar" && node.expanded) {
-                this.loadCalendarCount(data.key);
-            }
-        },
-        isActive: function (data) {
-            if (data.children) {
-                return this.app == data.key;
-            } else {
-                return this.active == data.key;
-            }
+        menuLink(data, node) {
+            return { path: `/view/${data.id}` };
         },
     },
     created: function () {

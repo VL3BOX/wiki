@@ -26,7 +26,7 @@
                 <slot></slot>
             </div>
 
-            <RightSidebar class="m-wiki-right-side">
+            <RightSidebar class="m-wiki-right-side" :show-toggle="true">
                 <slot name="right"></slot>
             </RightSidebar>
             <Footer></Footer>
@@ -105,8 +105,8 @@ export default {
 }
 
 .m-wiki-right-side {
-    &.c-sidebar-right.is-close {
-        transform: translateX(0) !important;
-    }
+    // &.c-sidebar-right.is-close {
+    //     transform: translateX(0) !important;
+    // }
 }
 </style>
