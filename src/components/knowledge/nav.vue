@@ -28,7 +28,6 @@
 <script>
 import { getKnowledgeMenus, getKnowledgeCount, getKnowledgeList } from "@/service/knowledge.js";
 import { each } from "lodash";
-import { getAppType } from "@jx3box/jx3box-common/js/utils";
 import { getCalendarCount } from "@/service/calendar";
 
 export default {
