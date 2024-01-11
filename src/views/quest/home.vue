@@ -28,6 +28,30 @@
                     <li class="u-qlink">
                         <Counter type="quest" :showCounter="false"></Counter>
                     </li>
+                    <li class="u-qlink">
+                        <a target="_blank" href="/exam" style="background-color: #f7b044;">
+                            <i class="el-icon-goblet-square-full"></i>
+                            <span>科举题库</span>
+                        </a>
+                    </li>
+                    <li class="u-qlink">
+                        <a target="_blank" href="/reputation">
+                            <i class="el-icon-grape"></i>
+                            <span>声望大全</span>
+                        </a>
+                    </li>
+                    <li class="u-qlink">
+                        <a target="_blank" href="/book">
+                            <i class="el-icon-watermelon"></i>
+                            <span>书籍大全</span>
+                        </a>
+                    </li>
+                    <li class="u-qlink">
+                        <a target="_blank" href="pvg/gonggao/daily">
+                            <i class="el-icon-cherry"></i>
+                            <span>日常活动</span>
+                        </a>
+                    </li>
                 </ul>
             </template>
         </wiki-panel>

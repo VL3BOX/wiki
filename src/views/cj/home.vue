@@ -20,7 +20,7 @@
                         <Counter></Counter>
                     </li>
                     <li class="u-qlink">
-                        <a target="_blank" :href="hiddenAchievementsPostLink">
+                        <a target="_blank" :href="hiddenAchievementsPostLink" style="background-color: #f7b044;">
                             <i class="el-icon-medal"></i>
                             <span>隐藏成就</span>
                         </a>
@@ -33,10 +33,28 @@
                     </li>
                     <li class="u-qlink">
                         <a target="_blank" href="/pet">
-                            <i class="el-icon-lollipop"></i>
+                            <i class="el-icon-grape"></i>
                             <span>宠物大全</span>
                         </a>
                     </li>
+                    <li class="u-qlink">
+                        <a target="_blank" href="/horse">
+                            <i class="el-icon-watermelon"></i>
+                            <span>坐骑大全</span>
+                        </a>
+                    </li>
+                    <li class="u-qlink">
+                        <a target="_blank" href="/furniture">
+                            <i class="el-icon-cherry"></i>
+                            <span>家具大全</span>
+                        </a>
+                    </li>
+                    <!-- <li class="u-qlink">
+                        <a target="_blank" href="/book">
+                            <i class="el-icon-orange"></i>
+                            <span>书籍大全</span>
+                        </a>
+                    </li> -->
                 </ul>
             </template>
         </WikiPanel>

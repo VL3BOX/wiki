@@ -53,7 +53,7 @@ export default {
             isLogin: User.isLogin(),
             data: [],
             hotitems: [],
-            pageSize: 20,
+            pageSize: 24,
             total: 0,
             pageIndex: 1,
         };

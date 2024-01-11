@@ -70,7 +70,7 @@ export default {
             data: [],
 
             page: 1,
-            per: 10,
+            per: 8,
             total: 0,
         };
     },

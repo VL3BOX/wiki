@@ -19,14 +19,8 @@
                     <li class="qlink">
                         <Counter type="item" :showCounter="false"></Counter>
                     </li>
-                    <!-- <li class="qlink">
-                        <router-link :to="{ name: 'plan_list' }">
-                            <i class="el-icon-document"></i>
-                            物品清单
-                        </router-link>
-                    </li> -->
                     <li class="qlink">
-                        <router-link
+                        <router-link  style="background-color: #f7b044;"
                             :to="{
                                 name: 'search',
                                 query: {
@@ -34,34 +28,28 @@
                                 },
                             }"
                         >
-                            <i class="el-icon-cherry"></i>
+                            <i class="el-icon-sugar"></i>
                             <span>五行石合成</span>
                         </router-link>
                     </li>
                     <li class="qlink">
                         <a target="_blank" href="/pvg/manufacture">
-                            <i class="el-icon-magic-stick"></i>
+                            <i class="el-icon-grape"></i>
                             <span>技艺助手</span>
                         </a>
                     </li>
                     <li class="qlink">
-                        <a href="/item/plan_list">
-                            <i class="el-icon-orange"></i>
-                            <span>物品清单</span>
-                        </a>
-                    </li>
-                    <!-- <li class="qlink">
                         <a target="_blank" href="/pvg/price">
-                            <i class="el-icon-orange"></i>
-                            <span>金价走势</span>
+                            <i class="el-icon-watermelon"></i>
+                            <span>价格走势</span>
                         </a>
                     </li>
                     <li class="qlink">
-                        <a target="_blank" href="/pvg/item_price">
-                            <i class="el-icon-orange"></i>
-                            <span>物价大全</span>
+                        <a href="/item/plan_list">
+                            <i class="el-icon-cherry"></i>
+                            <span>物品清单</span>
                         </a>
-                    </li> -->
+                    </li>
                 </ul>
             </template>
         </WikiPanel>

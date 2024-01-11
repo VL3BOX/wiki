@@ -40,11 +40,23 @@
         }
     }
 
-    @search-btn-width: 80px;
-
     .u-search-btn {
-        .w(@search-btn-width);
+        // .w(@search-btn-width);
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
+    }
+}
+@media screen and (max-width:@phone){
+    .m-search-bar {
+        .m-search{
+            .el-input-group__prepend{
+                .u-text{
+                    .none;
+                }
+            }
+            .el-input-group__append{
+                .none;
+            }
+        }
     }
 }

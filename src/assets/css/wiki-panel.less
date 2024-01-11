@@ -88,6 +88,7 @@
         .u-meta {
             .mr(15px);
             .mt(5px);
+            overflow: auto;
 
             &:last-child {
                 .mr(0);
@@ -174,6 +175,20 @@
                 font-size: 17px;
                 font-weight: 300;
             }
+        }
+    }
+}
+
+.p-home{
+    @media screen and (max-width:@phone){
+        .m-panel-head{
+            padding:0 5px;
+        }
+    }
+
+    @media screen and (max-width:@phone){
+        .m-panel-body{
+            padding:15px 5px;
         }
     }
 }

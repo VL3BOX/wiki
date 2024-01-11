@@ -12,10 +12,10 @@
                 clearable
             >
                 <span slot="prepend">
-                    <slot><i class="el-icon-search"></i> 关键词</slot>
+                    <slot><i class="el-icon-search"></i> <span class="u-text">关键词</span></slot>
                 </span>
                 <el-button slot="append" class="u-search-btn" type="primary" plain @click="searchHandle"
-                    ><i class="el-icon-position"></i> 搜索</el-button
+                    ><i class="el-icon-position"></i> <span class="u-text">搜索</span></el-button
                 >
             </el-input>
         </div>

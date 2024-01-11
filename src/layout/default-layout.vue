@@ -22,7 +22,7 @@
         </LeftSidebar>
 
         <Main :withoutRight="withoutRight">
-            <div class="m-main">
+            <div class="m-main" :class="'p-' + pageName">
                 <slot></slot>
             </div>
 
@@ -91,6 +91,9 @@ export default {
         computedRoot: function () {
             return this.root ? this.root : this.slug;
         },
+        pageName : function (){
+            return this.$route.name
+        }
     },
 };
 </script>
@@ -104,9 +107,4 @@ export default {
     padding-top: 0;
 }
 
-.m-wiki-right-side {
-    // &.c-sidebar-right.is-close {
-    //     transform: translateX(0) !important;
-    // }
-}
 </style>

@@ -30,13 +30,18 @@
                 </div>
             </Search>
             <el-popover popper-class="u-player-setting-popover" placement="top" width="160" v-model="settingVisible">
-                <el-input v-model="playerName" placeholder="称呼" @input="handlePlayerInfoChange" size="mini"><template #prepend>称呼</template></el-input>
-                <el-input v-model="playerBody" placeholder="体型" @input="handlePlayerInfoChange" size="mini"><template #prepend>体型</template></el-input>
+                <el-input v-model="playerName" placeholder="称呼" @input="handlePlayerInfoChange" size="mini"
+                    ><template #prepend>称呼</template></el-input
+                >
+                <el-input v-model="playerBody" placeholder="体型" @input="handlePlayerInfoChange" size="mini"
+                    ><template #prepend>体型</template></el-input
+                >
                 <div style="text-align: right; margin: 0">
                     <el-button type="primary" size="mini" @click="settingVisible = false">确定</el-button>
                 </div>
                 <div class="u-player" slot="reference">
-                    <span class="u-player-name">{{ playerName }}</span>|
+                    <span class="u-player-name">{{ playerName }}</span
+                    >|
                     <span class="u-player-body">{{ playerBody }}</span>
                     <el-button type="text" icon="el-icon-setting"></el-button>
                 </div>
@@ -121,13 +126,18 @@ export default {
     }
 
     .u-tips {
-        margin:0 0 0 8px !important;
+        margin: 0 0 0 8px !important;
     }
 }
 
 .u-player-setting-popover {
     .el-input {
         margin-bottom: 6px;
+    }
+}
+@media screen and (max-width: @phone) {
+    .m-search-wrap .u-player {
+        .none;
     }
 }
 </style>
