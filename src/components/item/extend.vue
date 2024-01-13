@@ -1,5 +1,5 @@
 <template>
-    <div class="m-extend" :class="{ isHome: isHome }">
+    <div class="m-extend">
         <SideMsg></SideMsg>
         <!-- 贡献排行榜 -->
         <!-- <Rank type="item"></Rank> -->
