@@ -187,15 +187,4 @@ export default {
         .mr(2px);
     }
 }
-@media screen and (max-width: @ipad) {
-    .m-wiki-rank {
-        .none;
-    }
-
-    .isHome {
-        .m-wiki-rank {
-            .db;
-        }
-    }
-}
 </style>
