@@ -254,7 +254,8 @@
 
 <script>
 import Article from "@jx3box/jx3box-editor/src/Article.vue";
-import Fav from "@jx3box/jx3box-common-ui/src/interact/Fav.vue";
+// import Fav from "@jx3box/jx3box-common-ui/src/interact/Fav.vue";
+import Fav from "./item-fav";
 import Item from "@jx3box/jx3box-editor/src/Item.vue";
 import ItemIcon from "@/components/common/item-icon.vue";
 import Plan from "@/components/item/plan.vue";
@@ -359,9 +360,9 @@ export default {
             }
             return "";
         },
-        favList() {
-            return this.$store.state.myFavorites;
-        },
+        // favList() {
+        //     return this.$store.state.myFavorites;
+        // },
     },
     components: {
         "jx3-item": Item,
@@ -385,7 +386,7 @@ export default {
                     limit: 15,
                 }).then((data) => {
                     data = data.data;
-                    const prices = data.data.prices.sort((a, b) => a.created + b.created) || [];
+                    const prices = data.data?.prices.sort((a, b) => a.created + b.created) || [];
                     this.showPrice = !!prices.length;
                 });
             }
@@ -526,14 +527,14 @@ export default {
                 this.loadItemDetail();
             },
         },
-        favList: {
-            deep: true,
-            handler(list) {
-                if (!list.find((item) => item.id === this.source.id)) {
-                    this.$refs.fav.favorite = false;
-                }
-            },
-        },
+        // favList: {
+        //     deep: true,
+        //     handler(list) {
+        //         if (!list.find((item) => item.id === this.source.id)) {
+        //             this.$refs.fav.favorite = false;
+        //         }
+        //     },
+        // },
     },
     mounted: function () {
         if (this.post_id) {

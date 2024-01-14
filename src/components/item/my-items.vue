@@ -58,7 +58,16 @@ export default {
             pageIndex: 1,
         };
     },
-    computed: {},
+    computed: {
+        favChangeFlag() {
+            return this.$store.state.favChangeFlag;
+        },
+    },
+    watch: {
+        favChangeFlag() {
+            this.loadMyItems();
+        },
+    },
     methods: {
         remove(fId) {
             delMyFav(fId).then((res) => {
