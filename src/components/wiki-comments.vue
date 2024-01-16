@@ -47,7 +47,7 @@
 <script>
 import WikiPanel from "@/components/wiki-panel.vue";
 import Comment from "@/components/wiki-comment.vue";
-import { wikiComment } from "@jx3box/jx3box-common/js/wiki";
+import { wikiComment } from "@jx3box/jx3box-common/js/wiki_v2";
 import User from "@jx3box/jx3box-common/js/user";
 
 export default {
@@ -74,32 +74,24 @@ export default {
     methods: {
         get_comments() {
             if (!this.type || !this.sourceId) return;
-            // WikiComment.list(this.type, this.sourceId, this.client)
             this.loading = true;
-            wikiComment.list({ type: this.type, id: this.sourceId }, { client: this.client, page: this.page }).then(
-                (res) => {
+            wikiComment
+                .list({ type: this.type, id: this.sourceId }, { client: this.client, page: this.page })
+                .then((res) => {
                     res = res.data;
-                    if (res.code === 200) {
-                        let comments = res.data.comments;
-                        for (let i = 0; i < comments.length; i++) {
-                            comments[i]["reply_form"] = {
-                                show: false,
-                                content: "",
-                                user_nickname: User.getInfo().name,
-                            };
-                        }
-                        this.page = res.data.current_page;
-                        this.total = res.data.total;
-                        this.comments = filter(comments, 0);
-                        // this.comments = comments;
-                        this.loading = false;
+                    let comments = res.data.list;
+                    for (let i = 0; i < comments.length; i++) {
+                        comments[i]["reply_form"] = {
+                            show: false,
+                            content: "",
+                            user_nickname: User.getInfo().name,
+                        };
                     }
-                },
-                () => {
-                    this.comments = false;
+                    this.page = res.data.page;
+                    this.total = res.data.total;
+                    this.comments = filter(comments, 0);
                     this.loading = false;
-                }
-            );
+                });
 
             function filter(comments, parent) {
                 let outputs = [];
@@ -138,39 +130,23 @@ export default {
                 return;
             }
             const data = {
-                comment: {
-                    type: this.type,
-                    source_id: this.sourceId,
-                    parent_id: parent_id,
-                    user_nickname: form.user_nickname || User.getInfo().name,
-                    content: form.content,
-                },
+                type: this.type,
+                source_id: this.sourceId,
+                parent_id: parent_id,
+                user_nickname: form.user_nickname || User.getInfo().name,
+                content: form.content,
                 client: this.client,
             };
             wikiComment
-                .post({ data }, {})
-                .then(
-                    (res) => {
-                        res = res.data;
-                        if (res.code === 200) {
-                            form.content = "";
-                            this.$message({
-                                message: "提交成功，请等待审核",
-                                type: "success",
-                            });
-                        } else
-                            this.$message({
-                                message: `${res.message}`,
-                                type: "warning",
-                            });
-                    },
-                    () => {
-                        this.$message({
-                            message: "网络异常，提交失败",
-                            type: "warning",
-                        });
-                    }
-                )
+                .post(data)
+                .then((res) => {
+                    res = res.data;
+                    form.content = "";
+                    this.$message({
+                        message: "提交成功，请等待审核",
+                        type: "success",
+                    });
+                })
                 .finally(() => {
                     form.show = false;
                 });
