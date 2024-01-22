@@ -2,6 +2,7 @@
     <div class="m-detail-view">
         <AchievementSingle v-if="source" :achievement="source" show-favorite="true" />
 
+        <Notice></Notice>
         <div class="m-wiki-post-panel" v-if="wiki_post && wiki_post.post">
             <WikiPanel :wiki-post="wiki_post">
                 <template slot="head-title">
@@ -79,7 +80,7 @@ import WikiRevisions from "@/components/wiki-revisions.vue";
 import WikiComments from "@/components/wiki-comments.vue";
 import AchievementSingle from "@/components/cj/achievement-single.vue";
 import Relations from "@/components/relations.vue";
-// import Notice from "@/components/cj/notice.vue";
+import Notice from "@/components/cj/notice.vue";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
 import { wiki } from "@jx3box/jx3box-common/js/wiki_v2";
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
@@ -96,7 +97,7 @@ export default {
         WikiComments,
         Relations,
         Article,
-        // Notice,
+        Notice,
     },
     data() {
         return {

@@ -1,5 +1,6 @@
 <template>
     <div class="v-knowledge-single" v-loading="loading">
+        <notice></notice>
         <div class="m-wiki" v-if="data && data.post">
             <WikiPanel class="m-knowledge-panel" :wiki-post="data">
                 <template slot="head-title">
@@ -73,6 +74,7 @@ import { wiki } from "@jx3box/jx3box-common/js/wiki_v2";
 
 import Article from "@jx3box/jx3box-editor/src/Article.vue";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
+import notice from "@/components/cj/notice.vue";
 
 export default {
     name: "Detail",
@@ -87,6 +89,7 @@ export default {
         WikiPanel,
         WikiRevisions,
         Comment,
+        notice,
     },
     computed: {
         id: function () {

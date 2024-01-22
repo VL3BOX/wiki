@@ -1,6 +1,6 @@
 <template>
     <div id="m-item-view">
-        <div v-if="source && JSON.stringify(source) !== '{}'" class="w-item">
+        <div v-if="source" class="w-item">
             <div class="m-item-viewer">
                 <div class="w-left">
                     <jx3-item :item_id="source.id" />
@@ -185,6 +185,7 @@
             </el-tabs>
         </div>
 
+        <Notice></Notice>
         <div class="m-wiki-post-panel" v-if="wiki_post && wiki_post.post">
             <WikiPanel :wiki-post="wiki_post">
                 <template slot="head-title">
@@ -266,6 +267,7 @@ import ItemPrices from "@/components/item/item-prices.vue";
 import ItemPriceChart from "@/components/item/item-price-chart.vue";
 import GamePrice from "@jx3box/jx3box-common-ui/src/wiki/GamePrice.vue";
 import User from "@jx3box/jx3box-common/js/user";
+import Notice from "@/components/cj/notice.vue";
 
 import { postStat } from "@jx3box/jx3box-common/js/stat";
 import { wiki } from "@jx3box/jx3box-common/js/wiki_v2.js";
@@ -376,6 +378,7 @@ export default {
         "item-prices": ItemPrices,
         "item-price-chart": ItemPriceChart,
         GamePrice,
+        Notice,
     },
     methods: {
         get_data() {
@@ -418,6 +421,7 @@ export default {
             // 获取最新攻略
             if (this.id) {
                 get_item(this.id).then((res) => {
+                    console.log(res, "res")
                     this.source = res?.data?.data?.item;
                 });
                 wiki.mix({ type: "item", id: this.id, client: this.client }).then((res) => {

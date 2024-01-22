@@ -3,7 +3,7 @@
         <div class="m-wiki-view" v-if="wikiPost">
             <div class="m-warning" :class="{ none: !warning }">❌ 您的浏览器版本太低,将无法正常使用本应用</div>
             <!-- 公告 -->
-            <Notice class="m-game-notice" v-if="type === 'achievement'"></Notice>
+            <Notice class="m-game-notice"></Notice>
             <!-- 百科 -->
             <WikiContent v-if="type !== 'price'" :wiki-post="wikiPost" :compatible="compatible" />
             <!-- 物品价格 -->
