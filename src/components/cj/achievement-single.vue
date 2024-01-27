@@ -1,14 +1,42 @@
 <template>
-    <div class="m-achievement-single" :class="{ fold: fold }" v-if="hasContent">
+    <div class="m-achievement-single" :class="{ fold: fold, hidden: isHidden }" v-if="hasContent">
         <div class="u-header">
             <a class="u-title" :target="targetable" @click="url_filter(achievement.ID)" v-text="achievement.Name"></a>
             <div class="u-other">
-                <span class="u-attr" v-text="achievement.post ? '修订时间：' + ts2str(achievement.post.updated) : ''"></span>
-                <span class="u-attr" v-text="achievement.post ? '综合难度：' + star(achievement.post.level) : ''"></span>
-                <el-button class="u-attr u-fav" :type="completed ? 'info' : 'success'" plain size="mini" icon="el-icon-check" @click.stop="finish" :disabled="completed">{{
-                    completed ? "已完成" : "完成"
-                }}</el-button>
-                <Fav v-if="showFavorite" class="u-attr u-fav" post-type="achievement" :post-title="favTitle" :post-id="achievement.ID" />
+                <span
+                    class="u-attr"
+                    v-text="achievement.post ? '修订时间：' + ts2str(achievement.post.updated) : ''"
+                ></span>
+                <span
+                    class="u-attr"
+                    v-text="achievement.post ? '综合难度：' + star(achievement.post.level) : ''"
+                ></span>
+                <!-- <el-button
+                    class="u-attr u-fav"
+                    :type="completed ? 'info' : 'success'"
+                    plain
+                    size="mini"
+                    icon="el-icon-check"
+                    @click.stop="finish"
+                    :disabled="completed"
+                    >{{ completed ? "已完成" : "完成" }}</el-button
+                > -->
+                <el-button
+                    v-if="!isVirtual"
+                    class="u-attr u-fav u-complete-status"
+                    :type="completed ? 'info' : 'warning'"
+                    plain
+                    size="mini"
+                    :icon="completed ? 'el-icon-check' : 'el-icon-close'"
+                    >{{ completed ? "已完成" : "未完成" }}</el-button
+                >
+                <Fav
+                    v-if="showFavorite"
+                    class="u-attr u-fav"
+                    post-type="achievement"
+                    :post-title="favTitle"
+                    :post-id="achievement.ID"
+                />
             </div>
         </div>
         <div class="u-body">
@@ -26,7 +54,12 @@
                 <div class="u-attr u-desc" v-html="achievement.Desc"></div>
             </div>
             <div class="u-right">
-                <item-simple class="u-attr u-item-simple" :item="achievement.Item" only-icon="true" :icon-size="'36px'" />
+                <item-simple
+                    class="u-attr u-item-simple"
+                    :item="achievement.Item"
+                    only-icon="true"
+                    :icon-size="'36px'"
+                />
                 <div class="u-attr u-point" v-text="achievement.Point ? achievement.Point : 0"></div>
             </div>
         </div>
@@ -36,7 +69,14 @@
                 <div v-if="achievement.PostfixName" v-text="'称号后缀：' + achievement.PostfixName"></div>
             </div>
             <el-row v-if="achievement.SubAchievementList" class="u-subs" :gutter="30">
-                <el-col v-for="(sub_achievement, key) in achievement.SubAchievementList" :key="key" :xs="12" :sm="8" :md="8" class="u-sub">
+                <el-col
+                    v-for="(sub_achievement, key) in achievement.SubAchievementList"
+                    :key="key"
+                    :xs="12"
+                    :sm="8"
+                    :md="8"
+                    class="u-sub"
+                >
                     <router-link
                         :to="
                             sub_achievement.Visible == 1
@@ -54,7 +94,12 @@
                 </el-col>
             </el-row>
             <div v-if="achievement.SeriesAchievementList" class="u-seriess">
-                <div v-for="(series_achievement, key) in achievement.SeriesAchievementList" class="u-series" :key="key" :class="series_achievement.ID == achievement.ID ? 'active' : ''">
+                <div
+                    v-for="(series_achievement, key) in achievement.SeriesAchievementList"
+                    class="u-series"
+                    :key="key"
+                    :class="series_achievement.ID == achievement.ID ? 'active' : ''"
+                >
                     <router-link
                         :to="{
                             name: 'view',
@@ -91,37 +136,52 @@ export default {
     props: ["achievement", "fold", "target", "jump", "showFavorite"],
     computed: {
         empty() {
-            return !(this.achievement.Prefix || this.achievement.Postfix || this.achievement.SubAchievementList || this.achievement.SeriesAchievementList);
+            return !(
+                this.achievement.Prefix ||
+                this.achievement.Postfix ||
+                this.achievement.SubAchievementList ||
+                this.achievement.SeriesAchievementList
+            );
         },
         targetable() {
             return this.target || typeof this.target !== "undefined" ? this.target : "";
         },
-        client: function() {
+        client: function () {
             return this.$store.state.client;
         },
-        hasContent: function() {
+        hasContent: function () {
             return this.achievement && Object.keys(this.achievement).length;
-        },
-        completeAchievements() {
-            return this.$store.state.achievements;
         },
         currentRole() {
             return this.$store.state.role;
         },
+        completeAchievements() {
+            return this.$store.state.achievements;
+        },
         completed() {
-            return this.completeAchievements.includes(this.achievement.ID);
+            return this.completeAchievements.includes(this.achievement.ID + "");
         },
         isLogin() {
             return User.isLogin();
         },
-        favTitle : function (){
-            return this.achievement?.Name
-        }
+        favTitle: function () {
+            return this.achievement?.Name;
+        },
+        isVirtual() {
+            // 是否是虚拟角色 - 魔盒账号
+            return !this.currentRole?.jx3id;
+        },
+        onlyUncompleted() {
+            return this.$store.state.onlyUncompleted;
+        },
+        isHidden() {
+            return this.onlyUncompleted && this.completed;
+        },
     },
     methods: {
         ts2str,
         star,
-        icon_url: function(id) {
+        icon_url: function (id) {
             return iconLink(id, this.client);
         },
         url_filter(source_id) {
@@ -149,7 +209,7 @@ export default {
                 this.$alert("请先在侧边栏选择一个关联的角色", "警告", {
                     confirmButtonText: "确定",
                 });
-                return
+                return;
             }
 
             const list = [...new Set([...this.completeAchievements, this.achievement.ID])];

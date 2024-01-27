@@ -4,17 +4,32 @@
             <!-- <div v-if="!isLogin" class="u-tip el-alert el-alert--info is-light">
                 <i class="el-icon-warning-outline"></i> <a href="/team/role/bind" target="_blank">绑定角色</a>
             </div> -->
-            <el-select v-if="isLogin" v-model="currentRole" value-key="ID" placeholder="请选择当前角色" :disabled="!isLogin" popper-class="m-related-roles-options">
-                <span slot="prefix" class="u-prefix">
-                    关联角色
-                </span>
+            <el-select
+                v-if="isLogin"
+                v-model="currentRole"
+                value-key="ID"
+                placeholder="请选择当前角色"
+                :disabled="!isLogin"
+                popper-class="m-related-roles-options"
+            >
+                <span slot="prefix" class="u-prefix"> 关联角色 </span>
+                <!-- + ' ' + totalText -->
                 <el-option v-for="role in roleList" :key="role.ID" :value="role" :label="role.name">
                     <span class="u-role">
-                        <span class="u-role-name"><img class="u-role-icon" :src="showSchoolIcon(role.mount)" />{{ role.name }}</span>
+                        <span class="u-role-name"
+                            ><img class="u-role-icon" :src="showSchoolIcon(role.mount)" />{{ role.name }}</span
+                        >
                         <span class="u-role-server">{{ role.server }}</span>
                     </span>
                 </el-option>
             </el-select>
+        </div>
+        <div class="m-filters">
+            <el-checkbox v-model="uncompleted" label="未完成" border size="small"></el-checkbox>
+            <div class="u-total">
+                <b class="u-completed-num">{{ achievements.length }}</b>
+                <span class="u-total-num"> / {{ achievementTotal }}</span>
+            </div>
         </div>
         <el-select v-model="sidebar.general">
             <el-option v-for="type in menu_types" :key="type.value" :label="type.label" :value="type.value"></el-option>
@@ -32,7 +47,11 @@
             >
                 <router-link class="el-tree-node__label" slot-scope="{ data }" :to="menu_url(data)">
                     <span class="u-name" v-text="data.name"></span>
-                    <em v-if="data.achievements_count" class="u-count" v-text="`(${data.achievements_count})`"></em>
+                    <em
+                        v-if="data.achievements_count"
+                        class="u-count"
+                        v-text="`(${getMenuCompleted(data)}/${data.achievements_count})`"
+                    ></em>
                 </router-link>
             </el-tree>
         </div>
@@ -40,12 +59,13 @@
 </template>
 
 <script>
-import { getMenus, getRoleAchievements } from "@/service/achievement";
+import { getMenus, getRoleGameAchievements } from "@/service/achievement";
 
 import Bus from "@jx3box/jx3box-common-ui/service/bus";
 import { getUserRoles } from "@/service/team";
 import User from "@jx3box/jx3box-common/js/user";
 import { showSchoolIcon } from "@jx3box/jx3box-common/js/utils";
+import { flattenDeep } from "lodash";
 export default {
     name: "Sidebar",
     props: ["sidebar"],
@@ -65,7 +85,19 @@ export default {
             roleList: [],
             currentRole: "",
             isLogin: User.isLogin(),
+            uncompleted: false,
         };
+    },
+    computed: {
+        achievementTotal() {
+            return this.$store.state.achievementTotal;
+        },
+        achievements() {
+            return this.$store.state.achievements;
+        },
+        totalText() {
+            return `${this.achievements.length}/${this.achievementTotal}`;
+        },
     },
     watch: {
         sidebar: {
@@ -85,12 +117,24 @@ export default {
             deep: true,
             handler(val) {
                 this.$store.commit("SET_STATE", { key: "role", value: val });
-
-                this.loadRoleAchievements();
+                const { jx3id } = val;
+                if (!jx3id) return;
+                this.loadRoleAchievements(jx3id);
             },
+        },
+        uncompleted(bol) {
+            this.$store.commit("SET_STATE", { key: "onlyUncompleted", value: bol });
         },
     },
     methods: {
+        getMenuCompleted(data) {
+            data.all_achievements = data.children
+                ? Array.from(
+                      new Set(data.achievements.concat(flattenDeep(data.children.map((item) => item.achievements))))
+                  )
+                : data.achievements;
+            return data.all_achievements.filter((item) => this.achievements.includes(item + ""))?.length;
+        },
         filterNode(value, data) {
             if (!value) return true;
             return data.name.indexOf(value) !== -1;
@@ -102,7 +146,7 @@ export default {
             if (data.own_achievements_count === 0) {
                 first_node = node.childNodes[0];
                 if (first_node) {
-                    setTimeout(function() {
+                    setTimeout(function () {
                         that.$router.push({
                             name: that.sidebar.general == 2 ? "top_five" : "normal",
                             params: {
@@ -187,7 +231,7 @@ export default {
         },
         expand_menu() {
             let that = this;
-            that.$nextTick(function() {
+            that.$nextTick(function () {
                 // 默认展开当前菜单
                 let key = "";
                 if (that.sidebar.general != 3) {
@@ -246,9 +290,16 @@ export default {
                 });
         },
         // 获取角色成就状态
-        loadRoleAchievements() {
-            getRoleAchievements(this.currentRole.ID).then((res) => {
-                this.$store.commit("SET_STATE", { key: "achievements", value: res.data.data.list });
+        // loadRoleAchievements() {
+        //     getRoleAchievements(this.currentRole.ID).then((res) => {
+        //         this.$store.commit("SET_STATE", { key: "achievements", value: res.data.data.list });
+        //     });
+        // },
+        loadRoleAchievements(jx3id) {
+            getRoleGameAchievements(jx3id).then((res) => {
+                const achievements = res.data?.data?.achievements || "";
+                const list = achievements.split(",");
+                this.$store.commit("SET_STATE", { key: "achievements", value: list, isSession: true });
             });
         },
         showSchoolIcon,

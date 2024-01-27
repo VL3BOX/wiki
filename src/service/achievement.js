@@ -1,4 +1,4 @@
-import { $helper, $cms, $node } from "@jx3box/jx3box-common/js/https";
+import { $helper, $cms, $node, $next } from "@jx3box/jx3box-common/js/https";
 
 const $ = $node();
 // 获取成就公告
@@ -161,4 +161,13 @@ export function updateRoleAchievements(role_id, list) {
             },
         }
     );
+}
+
+// 获取角色成就
+export function getRoleGameAchievements(jx3id) {
+    return $next().get(`/api/next2/user-achievements`, {
+        params: {
+            jx3id,
+        },
+    });
 }

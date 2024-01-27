@@ -30,6 +30,8 @@ export default {
         getAchievementsTotal().then((data) => {
             data = data.data;
             this.count = data.data.count;
+            const total = ~~this.count["general"] + ~~this.count["armor"];
+            this.$store.commit("SET_STATE", { key: "achievementTotal", value: total });
         });
     },
 };
