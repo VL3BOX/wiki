@@ -6,7 +6,17 @@
             v-model="achievement.checked"
         ></el-checkbox>
         <div class="u-header">
-            <a class="u-title" :target="targetable" @click="url_filter(achievement.ID)" v-text="achievement.Name"></a>
+            <a class="u-title" :target="targetable" @click="url_filter(achievement.ID)">
+                <i class="m-achievement-status u-attr u-fav u-complete-status el-tag--light el-tag" :class="completed ? 'el-tag--success' : 'el-tag--warning'" v-if="!isVirtual">
+                    <i :class="completed ? 'el-icon-check' : 'el-icon-warning-outline'"></i>
+                    {{ completed ? "已完成" : "待完成" }}
+                </i>
+                <i class="m-achievement-status u-attr u-fav u-complete-status el-tag--light el-tag" :class="completedVirtual ? 'el-tag--success' : 'el-tag--warning'" v-else>
+                    <i :class="completedVirtual ? 'el-icon-check' : 'el-icon-warning-outline'"></i>
+                    {{ completedVirtual ? "已完成" : "待完成" }}
+                </i>
+                <span class="u-title-text">{{ achievement.Name }}</span>
+            </a>
             <div class="u-other">
                 <span
                     class="u-attr"
@@ -16,24 +26,7 @@
                     class="u-attr"
                     v-text="achievement.post ? '综合难度：' + star(achievement.post.level) : ''"
                 ></span>
-                <el-button
-                    v-if="!isVirtual"
-                    class="u-attr u-fav u-complete-status"
-                    :type="completed ? 'info' : 'warning'"
-                    plain
-                    size="mini"
-                    :icon="completed ? 'el-icon-check' : 'el-icon-close'"
-                    >{{ completed ? "已完成" : "未完成" }}</el-button
-                >
-                <template v-else>
-                    <el-button
-                        class="u-attr u-fav u-complete-status"
-                        :type="completedVirtual ? 'info' : 'warning'"
-                        plain
-                        size="mini"
-                        :icon="completedVirtual ? 'el-icon-check' : 'el-icon-close'"
-                        >{{ completedVirtual ? "已完成" : "未完成" }}</el-button
-                    >
+                <template v-if="isVirtual">
                     <el-button
                         v-if="!completedVirtual"
                         class="u-attr u-fav"
@@ -293,7 +286,7 @@ export default {
             cancelVirtualRoleAchievements(data).then((res) => {
                 this.$notify({
                     title: "操作成功",
-                    message: "已将该成就标记为未完成",
+                    message: "已将该成就标记为待完成",
                     type: "success",
                 });
                 const list = this.achievementsVirtual;

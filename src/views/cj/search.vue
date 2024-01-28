@@ -1,13 +1,13 @@
 <template>
     <div class="m-search-view">
         <span class="u-list-empty" v-if="isEmpty">👻 暂无记录</span>
-        <div v-if="isLogin && isVirtual && !isEmpty" class="m-search-op">
-            <el-checkbox v-model="isAll" border @change="switchAll">全选</el-checkbox>
+        <div v-if="isLogin && isVirtual && !isEmpty" class="m-normal-op">
+            <el-checkbox v-model="isAll" border @change="switchAll" size="small">全选</el-checkbox>
             <template v-if="selectedAchievements.length">
-                <el-button plain icon="el-icon-check" @click.stop="finishVirtual">
+                <el-button plain icon="el-icon-check" @click.stop="finishVirtual" size="small">
                     批量设为完成({{ selectedAchievements.length }})
                 </el-button>
-                <el-button type="info" icon="el-icon-close" @click.stop="cancelVirtual">
+                <el-button type="info" icon="el-icon-close" @click.stop="cancelVirtual" size="small">
                     批量取消完成({{ selectedAchievements.length }})
                 </el-button>
             </template>
@@ -148,7 +148,7 @@ export default {
             cancelVirtualRoleAchievements(data).then((res) => {
                 this.$notify({
                     title: "操作成功",
-                    message: "已将选中成就标记为未完成",
+                    message: "已将选中成就标记为待完成",
                     type: "success",
                 });
                 const list = this.achievementsVirtual.filter((item) => !ids.includes(item));

@@ -1,12 +1,12 @@
 <template>
     <div class="m-normal-view">
         <div v-if="isLogin && isVirtual" class="m-normal-op">
-            <el-checkbox v-model="isAll" border @change="switchAll">全选</el-checkbox>
+            <el-checkbox v-model="isAll" border @change="switchAll" size="small">全选</el-checkbox>
             <template v-if="selectedAchievements.length">
-                <el-button plain icon="el-icon-check" @click.stop="finishVirtual">
+                <el-button plain icon="el-icon-check" @click.stop="finishVirtual" size="small">
                     批量设为完成({{ selectedAchievements.length }})
                 </el-button>
-                <el-button type="info" icon="el-icon-close" @click.stop="cancelVirtual">
+                <el-button type="info" icon="el-icon-close" @click.stop="cancelVirtual" size="small">
                     批量取消完成({{ selectedAchievements.length }})
                 </el-button>
             </template>
@@ -126,7 +126,7 @@ export default {
             cancelVirtualRoleAchievements(data).then((res) => {
                 this.$notify({
                     title: "操作成功",
-                    message: "已将选中成就标记为未完成",
+                    message: "已将选中成就标记为待完成",
                     type: "success",
                 });
                 const list = this.achievementsVirtual.filter((item) => !ids.includes(item));
@@ -144,12 +144,12 @@ export default {
 };
 </script>
 <style lang="less">
-.m-normal-view {
-    .m-normal-op {
-        padding-bottom: 10px;
-        .el-checkbox {
-            margin-right: 10px;
-        }
+.m-normal-op {
+    padding-bottom: 10px;
+    .el-checkbox {
+        display: inline-flex;
+        align-items: center;
+        margin-right: 10px;
     }
 }
 </style>

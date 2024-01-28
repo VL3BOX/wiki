@@ -32,7 +32,7 @@
             </el-select>
         </div>
         <div v-if="currentRole" class="m-filters">
-            <el-checkbox v-model="uncompleted" label="未完成" border size="small"></el-checkbox>
+            <el-checkbox v-model="uncompleted" label="只看未完成" border size="small"></el-checkbox>
             <div class="u-total">
                 <b class="u-completed-num">{{ completedNum }}</b>
                 <span class="u-total-num"> / {{ achievementTotal }}</span>
