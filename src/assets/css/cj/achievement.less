@@ -18,12 +18,25 @@
         .none;
     }
 
+    .u-achievement-checkbox {
+        position: absolute;
+        left: 0px;
+        top: -3px;
+        .none;
+        &.is-checked {
+            .dbi;
+        }
+    }
+
     &:hover {
         border-color: @border-active;
         z-index: 100;
 
         .u-header .u-title {
             color: #d60036;
+        }
+        .u-achievement-checkbox {
+            .dbi;
         }
     }
 

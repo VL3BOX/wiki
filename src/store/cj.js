@@ -15,6 +15,7 @@ let store = {
         achievements: [],
         achievementTotal: 0,
         onlyUncompleted: false,
+        achievementsVirtual: [],
     },
     mutations: {
         SET_STATE: (state, { key, value, isSession = false }) => {
