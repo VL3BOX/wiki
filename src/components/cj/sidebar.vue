@@ -66,17 +66,13 @@
 </template>
 
 <script>
-import {
-    getMenus,
-    getRoleGameAchievements,
-    getVirtualRoleAchievements,
-} from "@/service/achievement";
+import { getMenus, getRoleGameAchievements, getVirtualRoleAchievements } from "@/service/achievement";
 
 import Bus from "@jx3box/jx3box-common-ui/service/bus";
 import { getUserRoles } from "@/service/team";
 import User from "@jx3box/jx3box-common/js/user";
 import { showSchoolIcon } from "@jx3box/jx3box-common/js/utils";
-import { flattenDeep } from "lodash";
+import { flattenDeep, cloneDeep } from "lodash";
 export default {
     name: "Sidebar",
     props: ["sidebar"],
@@ -105,6 +101,23 @@ export default {
         };
     },
     computed: {
+        // roleListNew() {
+        //     return this.roleList.concat({
+        //         ID: 8737,
+        //         uid: 7,
+        //         jx3id: "216172782146656628",
+        //         player_id: "32872820",
+        //         server: "蝶恋花",
+        //         name: "漠离",
+        //         mount: "2",
+        //         body_type: "2",
+        //         note: "",
+        //         custom: 0,
+        //         status: 1,
+        //         priority: 0,
+        //         created_at: "2021-06-16T18:01:57+08:00",
+        //     });
+        // },
         achievementTotal() {
             return this.$store.state.achievementTotal;
         },
@@ -119,7 +132,23 @@ export default {
             return !this.currentRole?.jx3id;
         },
         completedNum() {
-            return this.isVirtual ? this.achievementsVirtual.length : this.achievements.length;
+            const menus = cloneDeep(this.menus).map((newData) => {
+                newData.all_achievements = newData.children
+                    ? Array.from(
+                          new Set(
+                              newData.achievements.concat(
+                                  flattenDeep(newData.children.map((item) => item.achievements))
+                              )
+                          )
+                      )
+                    : newData.achievements;
+                return newData;
+            });
+            const menuAchievements = flattenDeep(menus.map((item) => item.all_achievements));
+
+            return this.isVirtual
+                ? this.achievementsVirtual.filter((id) => menuAchievements.includes(~~id))?.length
+                : this.achievements.filter((id) => menuAchievements.includes(~~id))?.length;
         },
     },
     watch: {
@@ -149,8 +178,10 @@ export default {
                 this.$store.commit("SET_STATE", { key: "role", value: val });
                 const { jx3id } = val;
                 if (jx3id) {
+                    this.$store.commit("SET_STATE", { key: "achievementsVirtual", value: [] });
                     this.loadRoleAchievements(jx3id);
                 } else {
+                    this.$store.commit("SET_STATE", { key: "achievements", value: [], isSession: true });
                     this.loadVirtualAchievements();
                 }
             },
@@ -158,23 +189,49 @@ export default {
         uncompleted(bol) {
             this.$store.commit("SET_STATE", { key: "onlyUncompleted", value: bol });
         },
-        isLogin(bol) {
-            if (!bol) {
-                this.currentRole = "";
-                this.$store.commit("SET_STATE", { key: "role", value: "" });
-                this.$store.commit("SET_STATE", { key: "achievements", value: [], isSession: true });
-            }
+        isLogin: {
+            immediate: true,
+            handler(bol) {
+                if (!bol) {
+                    this.currentRole = "";
+                    this.$store.commit("SET_STATE", { key: "role", value: "" });
+                    this.$store.commit("SET_STATE", { key: "cj-current-role", value: "", isSession: true });
+                    // this.$store.commit("SET_STATE", { key: "cj-roles", value: [], isSession: true });
+                    this.$store.commit("SET_STATE", { key: "achievements", value: [], isSession: true });
+                }
+            },
         },
     },
     methods: {
+        getLastAchievement(achievements = []) {
+            // 比如传功，只取最后一个传功100次的ID作为是否完成的依据
+            return achievements.map((achievement) => {
+                if (Array.isArray(achievement)) {
+                    // 比如传功，只取最后一个传功100次的ID作为是否完成的依据
+                    const lastOne = achievement?.[achievement.length - 1];
+                    return lastOne;
+                } else {
+                    return achievement;
+                }
+            });
+        },
         getMenuCompleted(data) {
-            data.all_achievements = data.children
+            const newData = cloneDeep(data);
+            newData.all_achievements = newData.children
                 ? Array.from(
-                      new Set(data.achievements.concat(flattenDeep(data.children.map((item) => item.achievements))))
+                      new Set(
+                          newData.achievements.concat(
+                              flattenDeep(
+                                  newData.children.map((item) => {
+                                      return this.getLastAchievement(item.achievements);
+                                  })
+                              )
+                          )
+                      )
                   )
-                : data.achievements;
+                : this.getLastAchievement(newData.achievements);
             const achievements = this.isVirtual ? this.achievementsVirtual : this.achievements;
-            return data.all_achievements.filter((item) => achievements.includes(item + ""))?.length;
+            return newData.all_achievements.filter((item) => achievements.includes(item + ""))?.length;
         },
         filterNode(value, data) {
             if (!value) return true;
@@ -324,7 +381,7 @@ export default {
                         res.data?.data?.list.filter((item) => {
                             return !!item.player_id;
                         }) || [];
-                    sessionStorage.setItem("cj-roles", JSON.stringify(this.roleList));
+                    // sessionStorage.setItem("cj-roles", JSON.stringify(this.roleList));
                 });
         },
         // 获取角色成就状态
@@ -351,11 +408,11 @@ export default {
             this.currentRole = JSON.parse(sessionStorage.getItem("cj-current-role"));
             this.loadUserRoles();
         } else {
-            if (sessionStorage.getItem("cj-roles")) {
-                this.roleList = JSON.parse(sessionStorage.getItem("cj-roles"));
-            } else {
-                this.loadUserRoles();
-            }
+            // if (sessionStorage.getItem("cj-roles")) {
+            //     this.roleList = JSON.parse(sessionStorage.getItem("cj-roles"));
+            // } else {
+            this.loadUserRoles();
+            // }
         }
     },
 };

@@ -7,11 +7,19 @@
         ></el-checkbox>
         <div class="u-header">
             <a class="u-title" :target="targetable" @click="url_filter(achievement.ID)">
-                <i class="m-achievement-status u-attr u-fav u-complete-status el-tag--light el-tag" :class="completed ? 'el-tag--success' : 'el-tag--warning'" v-if="!isVirtual">
+                <i
+                    class="m-achievement-status u-attr u-fav u-complete-status el-tag--light el-tag"
+                    :class="completed ? 'el-tag--success' : 'el-tag--warning'"
+                    v-if="!isVirtual"
+                >
                     <i :class="completed ? 'el-icon-check' : 'el-icon-warning-outline'"></i>
                     {{ completed ? "已完成" : "待完成" }}
                 </i>
-                <i class="m-achievement-status u-attr u-fav u-complete-status el-tag--light el-tag" :class="completedVirtual ? 'el-tag--success' : 'el-tag--warning'" v-else>
+                <i
+                    class="m-achievement-status u-attr u-fav u-complete-status el-tag--light el-tag"
+                    :class="completedVirtual ? 'el-tag--success' : 'el-tag--warning'"
+                    v-else
+                >
                     <i :class="completedVirtual ? 'el-icon-check' : 'el-icon-warning-outline'"></i>
                     {{ completedVirtual ? "已完成" : "待完成" }}
                 </i>
@@ -26,14 +34,14 @@
                     class="u-attr"
                     v-text="achievement.post ? '综合难度：' + star(achievement.post.level) : ''"
                 ></span>
-                <template v-if="isVirtual">
+                <template v-if="isLogin && isVirtual">
                     <el-button
                         v-if="!completedVirtual"
                         class="u-attr u-fav"
                         plain
                         size="mini"
                         icon="el-icon-check"
-                        @click.stop="finishVirtual"
+                        @click.stop="finishVirtual()"
                     >
                         设为完成
                     </el-button>
@@ -43,7 +51,7 @@
                         type="info"
                         size="mini"
                         icon="el-icon-close"
-                        @click.stop="cancelVirtual"
+                        @click.stop="cancelVirtual()"
                     >
                         取消完成
                     </el-button>
@@ -124,12 +132,34 @@
                             params: { source_id: series_achievement.ID },
                         }"
                     >
+                        <div class="u-status">
+                            <span v-if="hadCompleted(series_achievement.ID)" class="u-check">已完成</span>
+                            <span v-else class="u-close">待完成</span>
+                        </div>
                         <img class="u-icon" :src="icon_url(series_achievement.IconID)" />
                         <div class="detail">
                             <h4 v-text="series_achievement.Name"></h4>
                             <p v-html="description_filter(series_achievement.ShortDesc)"></p>
                         </div>
                     </router-link>
+                    <div class="u-op" v-if="isLogin && isVirtual">
+                        <el-tooltip
+                            v-if="!hadCompleted(series_achievement.ID)"
+                            class="item"
+                            effect="dark"
+                            content="设为完成"
+                            placement="bottom"
+                        >
+                            <i
+                                title="设为完成"
+                                class="u-icon el-icon-check"
+                                @click.stop="finishVirtual(series_achievement.ID)"
+                            ></i>
+                        </el-tooltip>
+                        <el-tooltip v-else class="item" effect="dark" content="取消完成" placement="bottom">
+                            <i class="u-icon el-icon-close" @click.stop="cancelVirtual(series_achievement.ID)"></i>
+                        </el-tooltip>
+                    </div>
                 </div>
             </div>
         </div>
@@ -143,7 +173,7 @@
 
 <script>
 import { ts2str, iconLink } from "@jx3box/jx3box-common/js/utils";
-import Fav from "@jx3box/jx3box-common-ui/src/interact/Fav.vue";
+// import Fav from "@jx3box/jx3box-common-ui/src/interact/Fav.vue";
 import ItemSimple from "@jx3box/jx3box-editor/src/ItemSimple.vue";
 import star from "@/utils/star";
 import { setVirtualRoleAchievements, cancelVirtualRoleAchievements } from "@/service/achievement";
@@ -151,6 +181,10 @@ import User from "@jx3box/jx3box-common/js/user";
 
 export default {
     name: "AchievementSingle",
+    components: {
+        "item-simple": ItemSimple,
+        // Fav,
+    },
     props: ["achievement", "initFold", "target", "jump", "showFavorite"],
     data() {
         return {
@@ -182,6 +216,10 @@ export default {
             return this.$store.state.achievements;
         },
         completed() {
+            if (this.achievement.Series) {
+                const list = this.achievement.Series.split("|");
+                return list.every((id) => this.completeAchievements.includes(id));
+            }
             return this.completeAchievements.includes(this.achievement.ID + "");
         },
         isLogin() {
@@ -205,6 +243,10 @@ export default {
             return this.$store.state.achievementsVirtual;
         },
         completedVirtual() {
+            if (this.achievement.Series) {
+                const list = this.achievement.Series.split("|");
+                return list.every((id) => this.achievementsVirtual.includes(id));
+            }
             return this.achievementsVirtual.includes(this.achievement.ID + "");
         },
     },
@@ -217,6 +259,10 @@ export default {
         },
     },
     methods: {
+        hadCompleted(id) {
+            const list = this.isVirtual ? this.achievementsVirtual : this.completeAchievements;
+            return list.includes(id + "");
+        },
         ts2str,
         star,
         icon_url: function (id) {
@@ -239,7 +285,7 @@ export default {
             return value;
         },
         // 虚拟角色完成
-        finishVirtual() {
+        finishVirtual(virtualId) {
             if (!this.isLogin) {
                 User.toLogin();
             }
@@ -249,7 +295,10 @@ export default {
                 });
                 return;
             }
-            const id = this.achievement.ID + "";
+            let id = (virtualId || this.achievement.ID) + "";
+            if (this.achievement.Series) {
+                id = virtualId ? virtualId + "" : this.achievement.Series.split("|").join();
+            }
             const data = {
                 achievements: id,
             };
@@ -259,15 +308,23 @@ export default {
                     message: "已将该成就标记为已完成",
                     type: "success",
                 });
-                const list = this.achievementsVirtual;
-                if (!list.includes(id)) {
-                    list.push(id);
+                let list = this.achievementsVirtual;
+
+                if (!virtualId && this.achievement.Series) {
+                    // 阶段成就
+                    const arr = this.achievement.Series.split("|");
+                    list = list.concat(arr);
+                } else {
+                    // 单成就
+                    if (!list.includes(id)) {
+                        list.push(id);
+                    }
                 }
                 this.$store.commit("SET_STATE", { key: "achievementsVirtual", value: list });
             });
         },
         // 取消完成
-        cancelVirtual() {
+        cancelVirtual(virtualId) {
             if (!this.isLogin) {
                 User.toLogin();
             }
@@ -279,7 +336,10 @@ export default {
                 return;
             }
 
-            const id = this.achievement.ID + "";
+            let id = (virtualId || this.achievement.ID) + "";
+            if (this.achievement.Series) {
+                id = virtualId ? virtualId + "" : this.achievement.Series.split("|").join();
+            }
             const data = {
                 achievements: id,
             };
@@ -289,18 +349,20 @@ export default {
                     message: "已将该成就标记为待完成",
                     type: "success",
                 });
-                const list = this.achievementsVirtual;
-                const index = list.findIndex((item) => item === id);
-                if (index > -1) {
-                    list.splice(index, 1);
+                let list = this.achievementsVirtual;
+                let arr = [];
+
+                if (!virtualId && this.achievement.Series) {
+                    // 阶段成就
+                    arr = this.achievement.Series.split("|");
+                } else {
+                    // 单成就
+                    arr = [id];
                 }
+                list = list.filter((item) => !arr.includes(item));
                 this.$store.commit("SET_STATE", { key: "achievementsVirtual", value: list });
             });
         },
-    },
-    components: {
-        "item-simple": ItemSimple,
-        // Fav,
     },
 };
 </script>

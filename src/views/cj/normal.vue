@@ -19,7 +19,7 @@
 import Achievements from "@/components/cj/achievements.vue";
 import { getMenuAchievements, setVirtualRoleAchievements, cancelVirtualRoleAchievements } from "@/service/achievement";
 
-import { get } from "lodash";
+import { get, flattenDeep } from "lodash";
 import User from "@jx3box/jx3box-common/js/user";
 
 export default {
@@ -41,7 +41,16 @@ export default {
             return this.$store.state.role;
         },
         selectedAchievements() {
-            return this.achievements.filter((item) => item.checked);
+            return flattenDeep(
+                this.achievements
+                    .filter((item) => item.checked)
+                    .map((item) => {
+                        if (item.SeriesAchievementList) {
+                            return item.SeriesAchievementList;
+                        }
+                        return item;
+                    })
+            );
         },
         isVirtual() {
             // 是否是虚拟角色 - 魔盒账号
