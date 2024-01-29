@@ -44,7 +44,8 @@
         <div v-if="currentRole" class="m-filters">
             <el-checkbox v-model="uncompleted" label="只看未完成" border size="small"></el-checkbox>
             <div class="u-total" v-if="[1, 2].includes(sidebar.general)">
-                <b class="u-completed-num">{{ numTotal }}</b>
+                <!-- numTotal -->
+                <b class="u-completed-num">{{ completedNum }}</b>
                 <span class="u-total-num"> / {{ achievementTotal }}</span>
             </div>
         </div>
