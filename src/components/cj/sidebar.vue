@@ -31,16 +31,23 @@
                 </el-option>
             </el-select>
         </div>
+        <el-alert
+            class="u-sync-tip"
+            v-if="!isVirtual && !isSync"
+            title="请先在游戏中的茗伊插件集/团队/团队平台中同步成就"
+            type="warning"
+        >
+        </el-alert>
+        <el-select v-model="sidebar.general">
+            <el-option v-for="type in menu_types" :key="type.value" :label="type.label" :value="type.value"></el-option>
+        </el-select>
         <div v-if="currentRole" class="m-filters">
             <el-checkbox v-model="uncompleted" label="只看未完成" border size="small"></el-checkbox>
-            <div class="u-total">
+            <div class="u-total" v-if="[1, 2].includes(sidebar.general)">
                 <b class="u-completed-num">{{ completedNum }}</b>
                 <span class="u-total-num"> / {{ achievementTotal }}</span>
             </div>
         </div>
-        <el-select v-model="sidebar.general">
-            <el-option v-for="type in menu_types" :key="type.value" :label="type.label" :value="type.value"></el-option>
-        </el-select>
         <div class="m-menus">
             <el-tree
                 class="filter-tree"
@@ -98,26 +105,10 @@ export default {
                 jx3id: 0,
                 ID: ~~User.getInfo().uid,
             },
+            isSync: false,
         };
     },
     computed: {
-        // roleListNew() {
-        //     return this.roleList.concat({
-        //         ID: 8737,
-        //         uid: 7,
-        //         jx3id: "216172782146656628",
-        //         player_id: "32872820",
-        //         server: "蝶恋花",
-        //         name: "漠离",
-        //         mount: "2",
-        //         body_type: "2",
-        //         note: "",
-        //         custom: 0,
-        //         status: 1,
-        //         priority: 0,
-        //         created_at: "2021-06-16T18:01:57+08:00",
-        //     });
-        // },
         achievementTotal() {
             return this.$store.state.achievementTotal;
         },
@@ -131,24 +122,13 @@ export default {
             // 是否是虚拟角色 - 魔盒账号
             return !this.currentRole?.jx3id;
         },
-        completedNum() {
-            const menus = cloneDeep(this.menus).map((newData) => {
-                newData.all_achievements = newData.children
-                    ? Array.from(
-                          new Set(
-                              newData.achievements.concat(
-                                  flattenDeep(newData.children.map((item) => item.achievements))
-                              )
-                          )
-                      )
-                    : newData.achievements;
-                return newData;
+        completedNum({ menus, achievementsVirtual, achievements }) {
+            const completedNumList = menus.map((data) => {
+                return this.getMenuCompleted(data, achievementsVirtual, achievements);
             });
-            const menuAchievements = flattenDeep(menus.map((item) => item.all_achievements));
-
-            return this.isVirtual
-                ? this.achievementsVirtual.filter((id) => menuAchievements.includes(~~id))?.length
-                : this.achievements.filter((id) => menuAchievements.includes(~~id))?.length;
+            return completedNumList.reduce((acc, cur) => {
+                return acc + cur;
+            }, 0);
         },
     },
     watch: {
@@ -181,8 +161,11 @@ export default {
                     this.$store.commit("SET_STATE", { key: "achievementsVirtual", value: [] });
                     this.loadRoleAchievements(jx3id);
                 } else {
+                    if (jx3id === 0) {
+                        // 虚拟角色
+                        this.loadVirtualAchievements();
+                    }
                     this.$store.commit("SET_STATE", { key: "achievements", value: [], isSession: true });
-                    this.loadVirtualAchievements();
                 }
             },
         },
@@ -215,7 +198,7 @@ export default {
                 }
             });
         },
-        getMenuCompleted(data) {
+        getMenuCompleted(data, achievementsVirtual, achievements) {
             const newData = cloneDeep(data);
             newData.all_achievements = newData.children
                 ? Array.from(
@@ -230,8 +213,10 @@ export default {
                       )
                   )
                 : this.getLastAchievement(newData.achievements);
-            const achievements = this.isVirtual ? this.achievementsVirtual : this.achievements;
-            return newData.all_achievements.filter((item) => achievements.includes(item + ""))?.length;
+            const list = this.isVirtual
+                ? achievementsVirtual || this.achievementsVirtual
+                : achievements || this.achievements;
+            return newData.all_achievements.filter((item) => list.includes(item + ""))?.length;
         },
         filterNode(value, data) {
             if (!value) return true;
@@ -388,6 +373,8 @@ export default {
         loadRoleAchievements(jx3id) {
             getRoleGameAchievements(jx3id).then((res) => {
                 const achievements = res.data?.data?.achievements || "";
+                const jx3id = res.data?.data?.jx3id;
+                this.isSync = !!jx3id; // 是否在游戏中同步
                 const list = achievements.split(",");
                 this.$store.commit("SET_STATE", { key: "achievements", value: list, isSession: true });
             });
