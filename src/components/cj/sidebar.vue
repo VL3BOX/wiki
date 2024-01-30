@@ -11,6 +11,7 @@
                 placeholder="请选择当前角色"
                 :disabled="!isLogin"
                 popper-class="m-related-roles-options"
+                size="small"
             >
                 <span slot="prefix" class="u-prefix">
                     角色
@@ -39,11 +40,11 @@
                 </el-option>
             </el-select>
         </div>
-        <el-select v-model="sidebar.general">
+        <el-select v-model="sidebar.general" size="small">
             <el-option v-for="type in menu_types" :key="type.value" :label="type.label" :value="type.value"></el-option>
         </el-select>
         <div v-if="currentRole" class="m-filters">
-            <el-checkbox v-model="uncompleted" label="只看未完成" border size="small"></el-checkbox>
+            <el-checkbox v-model="uncompleted" label="只看未完成" border size="mini"></el-checkbox>
             <div class="u-total" v-if="[1, 2].includes(sidebar.general)">
                 <!-- numTotal -->
                 <b class="u-completed-num">{{ completedNum }}</b>
