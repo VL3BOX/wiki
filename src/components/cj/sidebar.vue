@@ -12,7 +12,27 @@
                 :disabled="!isLogin"
                 popper-class="m-related-roles-options"
             >
-                <span slot="prefix" class="u-prefix"> 关联角色 </span>
+                <span slot="prefix" class="u-prefix">
+                    角色
+                    <el-tooltip
+                        v-if="!isVirtual && !isSync"
+                        class="item"
+                        effect="dark"
+                        content="请先在游戏中同步成就"
+                        placement="top"
+                    >
+                        <a href="/tool/74559" target="_blank"><i class="el-icon-warning-outline"></i></a>
+                    </el-tooltip>
+                    <el-tooltip
+                        v-else
+                        class="item"
+                        effect="dark"
+                        content="虚拟角色即为魔盒账号本身，可自定义进度"
+                        placement="top"
+                    >
+                        <a href="/tool/74559" target="_blank"><i class="el-icon-warning-outline"></i></a>
+                    </el-tooltip>
+                </span>
                 <el-option v-if="isLogin" :value="virtualRole" :label="virtualRole.name + '<虚拟角色>'">
                     <span class="u-role">
                         <span class="u-role-name"
@@ -31,13 +51,6 @@
                 </el-option>
             </el-select>
         </div>
-        <el-alert
-            class="u-sync-tip"
-            v-if="!isVirtual && !isSync"
-            title="请先在游戏中的茗伊插件集/团队/团队平台中同步成就"
-            type="warning"
-        >
-        </el-alert>
         <el-select v-model="sidebar.general">
             <el-option v-for="type in menu_types" :key="type.value" :label="type.label" :value="type.value"></el-option>
         </el-select>
