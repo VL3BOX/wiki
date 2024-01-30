@@ -124,8 +124,21 @@ export default {
         };
     },
     computed: {
+        generalTotal() {
+            return this.$store.state.generalTotal;
+        },
+        armorTotal() {
+            return this.$store.state.armorTotal;
+        },
         achievementTotal() {
-            return this.$store.state.achievementTotal;
+            let total = this.total;
+            if (this.sidebar.general === 1) {
+                total = this.generalTotal;
+            }
+            if (this.sidebar.general === 2) {
+                total = this.armorTotal;
+            }
+            return total;
         },
         achievements() {
             return this.$store.state.achievements;
@@ -145,26 +158,13 @@ export default {
                 return acc + cur;
             }, 0);
         },
-        completedVirtualNum() {
-            const menus = cloneDeep(this.menus).map((newData) => {
-                newData.all_achievements = newData.children
-                    ? Array.from(
-                          new Set(
-                              newData.achievements.concat(
-                                  flattenDeep(newData.children.map((item) => item.achievements))
-                              )
-                          )
-                      )
-                    : newData.achievements;
-                return newData;
+        total({ menus }) {
+            const numList = menus.map((data) => {
+                return data.achievements_count + data.own_achievements_count;
             });
-            const menuAchievements = flattenDeep(menus.map((item) => item.all_achievements));
-            return this.achievementsVirtual.filter((id) => menuAchievements.includes(~~id))?.length;
-        },
-        numTotal() {
-            // 将游戏角色的总量统计和虚拟角色总量统计做了区分，游戏角色按照游戏内的计算来，不计算阶段成就的子类；
-            // 虚拟角色因为要自己设置完成，计算阶段成就方便用户点击完成后有及时反馈。
-            return this.isVirtual ? this.completedVirtualNum : this.completedNum;
+            return numList.reduce((acc, cur) => {
+                return acc + cur;
+            }, 0);
         },
     },
     watch: {
