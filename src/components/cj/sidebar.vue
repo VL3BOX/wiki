@@ -17,6 +17,9 @@
                     <el-tooltip v-if="!isVirtual && !isSync" class="item" effect="dark" content="请先在游戏中同步成就" placement="top">
                         <a href="/tool/74559" target="_blank"><i class="el-icon-warning-outline"></i></a>
                     </el-tooltip>
+                    <el-tooltip v-else class="item" effect="dark" content="虚拟角色即为魔盒账号本身，可自定义进度" placement="top">
+                        <a href="/tool/74559" target="_blank"><i class="el-icon-warning-outline"></i></a>
+                    </el-tooltip>
                 </span>
                 <el-option v-for="role in roleList" :key="role.ID" :value="role" :label="role.name">
                     <span class="u-role">
