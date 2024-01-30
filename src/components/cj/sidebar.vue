@@ -13,20 +13,20 @@
                 popper-class="m-related-roles-options"
             >
                 <span slot="prefix" class="u-prefix"> 关联角色 </span>
-                <el-option v-for="role in roleList" :key="role.ID" :value="role" :label="role.name">
-                    <span class="u-role">
-                        <span class="u-role-name"
-                            ><img class="u-role-icon" :src="showSchoolIcon(role.mount)" />{{ role.name }}</span
-                        >
-                        <span class="u-role-server">{{ role.server }}</span>
-                    </span>
-                </el-option>
                 <el-option v-if="isLogin" :value="virtualRole" :label="virtualRole.name + '<虚拟角色>'">
                     <span class="u-role">
                         <span class="u-role-name"
                             ><img class="u-role-icon" :src="virtualRole.avatar" />{{ virtualRole.name }}</span
                         >
                         <span class="u-role-server"> &lt;虚拟角色&gt;</span>
+                    </span>
+                </el-option>
+                <el-option v-for="role in roleList" :key="role.ID" :value="role" :label="role.name">
+                    <span class="u-role">
+                        <span class="u-role-name"
+                            ><img class="u-role-icon" :src="showSchoolIcon(role.mount)" />{{ role.name }}</span
+                        >
+                        <span class="u-role-server">{{ role.server }}</span>
                     </span>
                 </el-option>
             </el-select>
@@ -167,12 +167,20 @@ export default {
                 if (that.sidebar.general) that.get_menus(this.sidebar.general);
             },
         },
-        roleList() {
-            if (this.roleList.length && !this.currentRole) {
-                this.currentRole = this.roleList[0];
-            }
+        // roleList() {
+        //     if (this.roleList.length && !this.currentRole) {
+        //         this.currentRole = this.roleList[0];
+        //     }
+        // },
+        virtualRole: {
+            immediate: true,
+            deep: true,
+            handler(virtualRole) {
+                this.currentRole = virtualRole;
+            },
         },
         currentRole: {
+            immediate: true,
             deep: true,
             handler(val) {
                 if (!val) return;
