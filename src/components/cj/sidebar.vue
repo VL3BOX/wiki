@@ -194,7 +194,6 @@ export default {
             },
         },
         currentRole: {
-            immediate: true,
             deep: true,
             handler(val) {
                 if (!val) return;
@@ -231,6 +230,7 @@ export default {
     },
     methods: {
         getLastAchievement(achievements = []) {
+            // 游戏角色
             // 比如传功，只取最后一个传功100次的ID作为是否完成的依据
             return achievements.map((achievement) => {
                 if (Array.isArray(achievement)) {
@@ -244,19 +244,24 @@ export default {
         },
         getMenuCompleted(data, achievementsVirtual, achievements) {
             const newData = cloneDeep(data);
+            const newDataAchievements = this.isVirtual
+                ? flattenDeep(newData.achievements)
+                : this.getLastAchievement(newData.achievements);
             newData.all_achievements = newData.children
                 ? Array.from(
                       new Set(
-                          newData.achievements.concat(
+                          newDataAchievements.concat(
                               flattenDeep(
                                   newData.children.map((item) => {
-                                      return this.getLastAchievement(item.achievements);
+                                      return this.isVirtual
+                                          ? item.achievements
+                                          : this.getLastAchievement(item.achievements);
                                   })
                               )
                           )
                       )
                   )
-                : this.getLastAchievement(newData.achievements);
+                : newDataAchievements;
             const list = this.isVirtual
                 ? achievementsVirtual || this.achievementsVirtual
                 : achievements || this.achievements;
@@ -444,6 +449,11 @@ export default {
             // } else {
             this.loadUserRoles();
             // }
+        }
+        if (this.currentRole.jx3id === 0) {
+            // 虚拟角色
+            this.loadVirtualAchievements();
+            this.$store.commit("SET_STATE", { key: "role", value: this.virtualRole });
         }
     },
 };

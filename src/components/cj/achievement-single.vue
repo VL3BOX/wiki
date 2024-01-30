@@ -7,22 +7,24 @@
         ></el-checkbox>
         <div class="u-header">
             <a class="u-title" :target="targetable" @click="url_filter(achievement.ID)">
-                <i
-                    class="m-achievement-status u-attr u-fav u-complete-status el-tag--light el-tag"
-                    :class="completed ? 'el-tag--success' : 'el-tag--warning'"
-                    v-if="!isVirtual"
-                >
-                    <i :class="completed ? 'el-icon-check' : 'el-icon-warning-outline'"></i>
-                    {{ completed ? "已完成" : "待完成" }}
-                </i>
-                <i
-                    class="m-achievement-status u-attr u-fav u-complete-status el-tag--light el-tag"
-                    :class="completedVirtual ? 'el-tag--success' : 'el-tag--warning'"
-                    v-else
-                >
-                    <i :class="completedVirtual ? 'el-icon-check' : 'el-icon-warning-outline'"></i>
-                    {{ completedVirtual ? "已完成" : "待完成" }}
-                </i>
+                <template v-if="isLogin">
+                    <i
+                        class="m-achievement-status u-attr u-fav u-complete-status el-tag--light el-tag"
+                        :class="completed ? 'el-tag--success' : 'el-tag--warning'"
+                        v-if="!isVirtual"
+                    >
+                        <i :class="completed ? 'el-icon-check' : 'el-icon-warning-outline'"></i>
+                        {{ completed ? "已完成" : "待完成" }}
+                    </i>
+                    <i
+                        class="m-achievement-status u-attr u-fav u-complete-status el-tag--light el-tag"
+                        :class="completedVirtual ? 'el-tag--success' : 'el-tag--warning'"
+                        v-else
+                    >
+                        <i :class="completedVirtual ? 'el-icon-check' : 'el-icon-warning-outline'"></i>
+                        {{ completedVirtual ? "已完成" : "待完成" }}
+                    </i>
+                </template>
                 <span class="u-title-text">{{ achievement.Name }}</span>
             </a>
             <div class="u-other">
@@ -289,7 +291,8 @@ export default {
             if (!this.isLogin) {
                 User.toLogin();
             }
-            if (!this.currentRole || this.currentRole.jx3id) {
+            console.log(this.currentRole);
+            if (!this.currentRole || this.currentRole.jx3id !== 0) {
                 this.$alert("请先在侧边栏选择虚拟角色", "警告", {
                     confirmButtonText: "确定",
                 });
