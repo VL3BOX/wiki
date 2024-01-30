@@ -411,10 +411,10 @@ export default {
         loadUserRoles() {
             this.isLogin &&
                 getUserRoles().then((res) => {
-                    this.roleList =
-                        res.data?.data?.list.filter((item) => {
-                            return !!item.player_id;
-                        }) || [];
+                    this.roleList = res.data?.data?.list || [];
+                    // res.data?.data?.list.filter((item) => {
+                    //     return !!item.player_id;
+                    // }) || [];
                     // sessionStorage.setItem("cj-roles", JSON.stringify(this.roleList));
                 });
         },
