@@ -4,9 +4,9 @@
             v-for="(achievement, key) in achievements"
             :key="key"
             :achievement="achievement"
-            :fold="fold"
             :target="target"
             :jump="jump"
+            :initFold="true"
         />
     </ul>
 </template>
@@ -16,18 +16,18 @@ import AchievementSingle from "@/components/cj/achievement-single.vue";
 
 export default {
     name: "Achievements",
-    props: ["achievements", "fold", "target", "jump"],
+    props: ["achievements", "target", "jump"],
     components: {
-      AchievementSingle,
+        AchievementSingle,
     },
-    watch:{
-        achievements(){
-            if (this.$route && typeof this.$store.state.scroll_tops[this.$route.name] !== 'undefined') {
+    watch: {
+        achievements() {
+            if (this.$route && typeof this.$store.state.scroll_tops[this.$route.name] !== "undefined") {
                 setTimeout(() => {
                     window.scrollTo(0, this.$store.state.scroll_tops[this.$route.name]);
                 }, 200);
             }
-        }
-    }
+        },
+    },
 };
 </script>

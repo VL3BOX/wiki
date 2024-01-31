@@ -13,10 +13,17 @@ let store = {
         client: location.href.includes("origin") ? "origin" : "std",
         role: "",
         achievements: [],
+        generalTotal: 0,
+        armorTotal: 0,
+        onlyUncompleted: false,
+        achievementsVirtual: [],
     },
     mutations: {
-        SET_STATE: (state, { key, value }) => {
+        SET_STATE: (state, { key, value, isSession = false }) => {
             state[key] = value;
+            if (isSession) {
+                sessionStorage.setItem(key, value);
+            }
         },
     },
     getters: {},

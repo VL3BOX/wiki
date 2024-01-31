@@ -1,4 +1,4 @@
-import { $helper, $cms, $node } from "@jx3box/jx3box-common/js/https";
+import { $helper, $cms, $node, $next } from "@jx3box/jx3box-common/js/https";
 
 const $ = $node();
 // 获取成就公告
@@ -139,26 +139,26 @@ export function getAchievementRanking(params) {
     });
 }
 
-// 获取角色的成就状态
-export function getRoleAchievements(role_id) {
-    return $cms().get(`/api/cms/helper/achievements/roles/${role_id}`, {
-        params: {
-            client,
-        },
-    });
+// 获取虚拟角色的成就状态
+export function getVirtualRoleAchievements() {
+    return $next().get(`/api/next2/virtual-achievements`);
 }
 
-// 批量更新角色的成就状态
-export function updateRoleAchievements(role_id, list) {
-    return $cms().post(
-        `/api/cms/helper/achievements/roles/${role_id}/done`,
-        {
-            list,
+// 上报虚拟角色的成就状态 只需上报新的成就ID即可，不需要上报已经完成的成就ID
+export function setVirtualRoleAchievements(data) {
+    return $next().post(`/api/next2/virtual-achievements`, data);
+}
+
+// 取消虚拟角色已完成的成就
+export function cancelVirtualRoleAchievements(data) {
+    return $next().post(`/api/next2/virtual-achievements/cancel`, data);
+}
+
+// 获取角色成就
+export function getRoleGameAchievements(jx3id) {
+    return $next().get(`/api/next2/user-achievements`, {
+        params: {
+            jx3id,
         },
-        {
-            params: {
-                client,
-            },
-        }
-    );
+    });
 }

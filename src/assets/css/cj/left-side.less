@@ -2,6 +2,35 @@
     box-sizing: border-box;
     .h(100%);
 
+    .m-filters {
+        .flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+        padding-right: 5px;
+        box-sizing: border-box;
+        .el-checkbox {
+            .flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+        }
+        .u-completed-num {
+            font-style: italic;
+            color: #0366d6;
+            font-size: 14px;
+        }
+        .u-total-num {
+            color: gray;
+            font-size: 14px;
+        }
+    }
+    .u-sync-tip {
+        margin-bottom: 10px;
+        padding:10px;
+    }
+
     .el-select {
         .db;
     }
@@ -98,8 +127,8 @@
 
     .u-prefix {
         .db;
-        .h(38px);
-        .lh(38px);
+        .h(30px);
+        .lh(30px);
 
         background-color: #f5f7fa;
         color: #909399;
@@ -113,7 +142,7 @@
     }
 
     .el-input--prefix .el-input__inner {
-        padding-left: 90px;
+        padding-left: 75px;
     }
 }
 
@@ -122,10 +151,15 @@
         display: flex;
         justify-content: space-between;
     }
+    .u-role-name {
+        .flex;
+        align-items: center;
+    }
     .u-role-icon {
         .size(20px);
         .y;
         .mr(3px);
+        .r(50%);
     }
     .u-role-server {
         color: #999;
