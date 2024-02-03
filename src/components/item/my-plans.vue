@@ -26,10 +26,10 @@
                         </h5>
                         <!-- <div class="u-misc">
                             <div class="u-delete" @click.stop="delete_plan($event, plan.id)">
-                                <i class="el-icon-delete " title="删除"></i>
+                                <i class="el-icon-delete " :title="$t('删除')"></i>
                             </div>
                             <div class="u-edit" @click.stop="edit_plan($event, plan.id)">
-                                <i class="el-icon-edit " title="编辑"></i>
+                                <i class="el-icon-edit " :title="$t('编辑')"></i>
                             </div>
                             <span class="u-updated">编辑于{{ date_format(plan.updated) }}</span>
                         </div> -->

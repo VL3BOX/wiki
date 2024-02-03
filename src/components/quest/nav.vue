@@ -1,6 +1,6 @@
 <template>
     <nav class="m-nav">
-        <el-input class="u-keyword" v-model="keyword" placeholder="输入关键字"> </el-input>
+        <el-input class="u-keyword" v-model="keyword" :placeholder="$t('输入关键字')"> </el-input>
         <div class="m-menus-panel">
             <el-tree
                 :data="maps"

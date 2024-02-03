@@ -3,7 +3,7 @@
 		<!-- 头部 - 标题&搜索 -->
 		<div class="m-plan-title">{{ $t('物品清单') }}</div>
 		<div class="m-plan-search">
-			<el-input placeholder="请输入搜索内容" v-model="search">
+			<el-input :placeholder="$t('请输入搜索内容')" v-model="search">
 				<span slot="prepend">{{ $t('关键词') }}</span>
 				<el-button slot="append" icon="el-icon-search"></el-button>
 			</el-input>

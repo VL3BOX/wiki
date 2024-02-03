@@ -66,7 +66,7 @@
                     <div class="u-target-sub" v-for="(killNpc, i) in quest.killNpcs" :key="i">
                         <span>{{ $t('击杀') }}</span>
                         <span>{{ killNpc.name }}</span>
-                        <el-tooltip v-if="killNpc.share" content="该目标可共享击杀" placement="top">
+                        <el-tooltip v-if="killNpc.share" :content="$t('该目标可共享击杀')" placement="top">
                             <img src="@/assets/img/quest/target-15.png" alt="" />
                         </el-tooltip>
                         <span> x {{ killNpc.amount }}</span>
@@ -127,12 +127,12 @@
         <div>
             <Notice></Notice>
             <el-tabs v-model="activeTab" @tab-click="handleTabClick">
-                <el-tab-pane label="任务文案" v-if="showDialog" name="dialog">
+                <el-tab-pane :label="$t('任务文案')" v-if="showDialog" name="dialog">
                     <div class="u-quest-dialog">
                         <quest-dialog :desc="quest.desc"></quest-dialog>
                     </div>
                 </el-tab-pane>
-                <el-tab-pane label="任务地图" v-if="showMap" name="map">
+                <el-tab-pane :label="$t('任务地图')" v-if="showMap" name="map">
                     <div class="u-quest-map">
                         <quest-map ref="map" :points="points" :filter="point_filter" :questType="quest.questType">
                         </quest-map>

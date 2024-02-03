@@ -3,31 +3,31 @@
         <h3 class="u-plan-header">{{ $t('编辑清单') }}</h3>
         <el-form class="u-form" label-position="left" label-width="80px">
             <!-- 清单名称 -->
-            <el-form-item label="标题">
+            <el-form-item :label="$t('标题')">
                 <el-input
                     v-model="data.title"
-                    placeholder="请输入物品清单的标题"
+                    :placeholder="$t('请输入物品清单的标题')"
                     maxlength="20"
                     show-word-limit
                 ></el-input>
             </el-form-item>
-            <el-form-item label="可见性">
+            <el-form-item :label="$t('可见性')">
                 <el-radio v-model="data.public" :label="1">{{ $t('公开') }}</el-radio>
                 <el-radio v-model="data.public" :label="0">{{ $t('私有') }}</el-radio>
             </el-form-item>
             <!-- 清单描述 -->
-            <el-form-item label="描述">
+            <el-form-item :label="$t('描述')">
                 <el-input
                     type="textarea"
                     :rows="3"
                     v-model="data.description"
-                    placeholder="简单说明一下你的物品清单"
+                    :placeholder="$t('简单说明一下你的物品清单')"
                     :maxlength="2000"
                     show-word-limit
                 ></el-input>
             </el-form-item>
             <!-- 清单类型 -->
-            <el-form-item label="清单">
+            <el-form-item :label="$t('清单')">
                 <!-- <el-radio-group v-model="data.type" size="medium" @change="resetPages"> -->
                     <!-- <el-radio-button label="1">{{ $t('道具清单') }}</el-radio-button> -->
                     <!-- <el-radio-button label="2">{{ $t('装备清单') }}</el-radio-button> -->
@@ -42,7 +42,7 @@
                     <div class="u-list-search">
                         <el-input
                             class="u-title"
-                            placeholder="请输入物品名称"
+                            :placeholder="$t('请输入物品名称')"
                             prefix-icon="el-icon-search"
                             v-model.lazy.trim="keyword"
                             clearable
@@ -63,7 +63,7 @@
                             </draggable>
                         </template>
 
-                        <el-empty description="输入物品名称进行搜索" :image-size="200" v-else></el-empty>
+                        <el-empty :description="$t('输入物品名称进行搜索')" :image-size="200" v-else></el-empty>
 
                         <el-pagination
                             small
@@ -112,7 +112,7 @@
                                                     size="mini"
                                                     v-model.number="item.count"
                                                     :min="1"
-                                                    label="数字"
+                                                    :label="$t('数字')"
                                                 ></el-input-number>
                                             </div>
                                             <i

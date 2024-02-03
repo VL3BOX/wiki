@@ -1,6 +1,6 @@
 <template>
     <DefaultLayout
-        name="任务百科"
+        :name="$t('任务百科')"
         slug="quest"
         root="/quest"
         without-right
@@ -30,10 +30,10 @@
                 </div>
             </Search>
             <el-popover popper-class="u-player-setting-popover" placement="top" width="160" v-model="settingVisible">
-                <el-input v-model="playerName" placeholder="称呼" @input="handlePlayerInfoChange" size="mini"
+                <el-input v-model="playerName" :placeholder="$t('称呼')" @input="handlePlayerInfoChange" size="mini"
                     ><template #prepend>{{ $t('称呼') }}</template></el-input
                 >
-                <el-input v-model="playerBody" placeholder="体型" @input="handlePlayerInfoChange" size="mini"
+                <el-input v-model="playerBody" :placeholder="$t('体型')" @input="handlePlayerInfoChange" size="mini"
                     ><template #prepend>{{ $t('体型') }}</template></el-input
                 >
                 <div style="text-align: right; margin: 0">

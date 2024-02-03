@@ -164,10 +164,10 @@
                     filterable
                     class="u-server"
                     v-model="server"
-                    placeholder="请选择服务器"
+                    :placeholder="$t('请选择服务器')"
                     size="mini"
                 >
-                    <el-option key label="前五低价区服" value v-if="isStdClient"></el-option>
+                    <el-option key :label="$t('前五低价区服')" value v-if="isStdClient"></el-option>
                     <el-option v-for="serve in servers" :key="serve" :label="serve" :value="serve"></el-option>
                 </el-select>
             </div>

@@ -8,7 +8,7 @@
                 v-if="isLogin"
                 v-model="currentRole"
                 value-key="ID"
-                placeholder="请选择当前角色"
+                :placeholder="$t('请选择当前角色')"
                 :disabled="!isLogin"
                 popper-class="m-related-roles-options"
                 size="small"
@@ -19,7 +19,7 @@
                         v-if="!isVirtual && !isSync"
                         class="item"
                         effect="dark"
-                        content="请先在游戏中同步成就"
+                        :content="$t('请先在游戏中同步成就')"
                         placement="top"
                     >
                         <a href="/tool/74559" target="_blank"><i class="el-icon-warning-outline"></i></a>
@@ -28,7 +28,7 @@
                         v-else
                         class="item"
                         effect="dark"
-                        content="虚拟角色即为魔盒账号本身，可自定义进度"
+                        :content="$t('虚拟角色即为魔盒账号本身，可自定义进度')"
                         placement="top"
                     >
                         <a href="/tool/74559" target="_blank"><i class="el-icon-warning-outline"></i></a>
@@ -56,7 +56,7 @@
             <el-option v-for="type in menu_types" :key="type.value" :label="type.label" :value="type.value"></el-option>
         </el-select>
         <div v-if="currentRole" class="m-filters">
-            <el-checkbox v-model="uncompleted" label="只看未完成" border size="mini"></el-checkbox>
+            <el-checkbox v-model="uncompleted" :label="$t('只看未完成')"看未完成')" border size="mini"></el-checkbox>
             <div class="u-total" v-if="[1, 2].includes(sidebar.general)">
                 <!-- numTotal -->
                 <b class="u-completed-num">{{ completedNum }}</b>

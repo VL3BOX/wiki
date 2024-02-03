@@ -5,7 +5,7 @@
                 <i class="el-icon-shopping-bag-1"></i>
                 <span>{{ $t('交易趋势') }}</span>
             </div>
-            <el-select class="u-server" v-model="server" placeholder="请选择服务器" size="mini">
+            <el-select class="u-server" v-model="server" :placeholder="$t('请选择服务器')" size="mini">
                 <el-option v-for="serve in servers" :key="serve" :label="serve" :value="serve"></el-option>
             </el-select>
         </template>

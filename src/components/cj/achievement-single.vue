@@ -149,16 +149,16 @@
                             v-if="!hadCompleted(series_achievement.ID)"
                             class="item"
                             effect="dark"
-                            content="设为完成"
+                            :content="$t('设为完成')"
                             placement="bottom"
                         >
                             <i
-                                title="设为完成"
+                                :title="$t('设为完成')"
                                 class="u-icon el-icon-check"
                                 @click.stop="finishVirtual(series_achievement.ID)"
                             ></i>
                         </el-tooltip>
-                        <el-tooltip v-else class="item" effect="dark" content="取消完成" placement="bottom">
+                        <el-tooltip v-else class="item" effect="dark" :content="$t('取消完成')" placement="bottom">
                             <i class="u-icon el-icon-close" @click.stop="cancelVirtual(series_achievement.ID)"></i>
                         </el-tooltip>
                     </div>

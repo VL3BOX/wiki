@@ -8,7 +8,7 @@
                     class="u-server"
                     style="width: 120px"
                     v-model="server"
-                    placeholder="请选择服务器"
+                    :placeholder="$t('请选择服务器')"
                     size="small"
                 >
                     <el-option v-for="serve in servers" :key="serve" :label="serve" :value="serve"></el-option>

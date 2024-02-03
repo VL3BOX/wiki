@@ -14,8 +14,8 @@
         :target="id ? '_blank' : '_self'"
     >
         <div class="u-reward-icon">
-            <img class="u-icon-bg" :src="backgroundUrl" alt="图标背景" />
-            <img v-if="icon == null" class="u-icon-img" :src="pointImgUrl" alt="图标" />
+            <img class="u-icon-bg" :src="backgroundUrl" :alt="$t('图标背景')" />
+            <img v-if="icon == null" class="u-icon-img" :src="pointImgUrl" :alt="$t('图标')" />
         </div>
         <div class="u-reward-desc">{{ displayName }}<br />{{ value }}</div>
     </a>

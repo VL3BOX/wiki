@@ -1,6 +1,6 @@
 <template>
     <el-popover popper-class="w-plans" placement="bottom" trigger="click" v-model="visible" width="300">
-        <el-input class="m-input" v-model.lazy="search" placeholder="请输入清单关键字" size="large" prefix-icon="el-icon-search"></el-input>
+        <el-input class="m-input" v-model.lazy="search" :placeholder="$t('请输入清单关键字')" size="large" prefix-icon="el-icon-search"></el-input>
         <div class="m-list" v-if="list && list.length">
             <div class="u-list" v-for="(item, index) in list" :key="index">
                 <div class="u-title" @click="showRelation(item, index)">
@@ -16,7 +16,7 @@
             </div>
         </div>
         <div v-else class="m-list">
-            <el-alert title="暂无清单" type="info" center show-icon :closable="false"> </el-alert>
+            <el-alert :title="$t('暂无清单')" type="info" center show-icon :closable="false"> </el-alert>
         </div>
         <el-pagination
             class="m-pagination"
@@ -31,7 +31,7 @@
         ></el-pagination>
 
         <el-popover popper-class="w-add-plans" placement="top" width="160" trigger="click" v-model="add">
-            <el-input class="u-input" v-model="new_plan" placeholder="请输入新清单名称"></el-input>
+            <el-input class="u-input" v-model="new_plan" :placeholder="$t('请输入新清单名称')"></el-input>
             <div style="text-align: right; margin: 0">
                 <el-button size="mini" type="text" @click="add = false">{{ $t('取消') }}</el-button>
                 <el-button type="primary" size="mini" @click="createPlan">{{ $t('确定') }}</el-button>

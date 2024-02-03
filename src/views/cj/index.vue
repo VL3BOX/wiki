@@ -1,6 +1,6 @@
 <template>
     <DefaultLayout
-        name="成就百科"
+        :name="$t('成就百科')"
         slug="cj"
         root="/cj"
         :publishEnable="true"

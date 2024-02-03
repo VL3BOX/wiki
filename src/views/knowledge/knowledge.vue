@@ -1,6 +1,6 @@
 <template>
     <DefaultLayout
-        name="通识百科"
+        :name="$t('通识百科')"
         slug="knowledge"
         root="/knowledge"
         without-right

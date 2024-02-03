@@ -3,7 +3,7 @@
         <el-carousel :autoplay="false" :arrow="showArrow" ref="carousel" :height="`${height}px`">
             <el-carousel-item v-for="(ps, mapId) in points" :key="mapId">
                 <div class="u-map__container" :style="containerSize">
-                    <img class="u-map-img" :src="mapImgUrl(mapId)" draggable="false" alt="任务地图图片" />
+                    <img class="u-map-img" :src="mapImgUrl(mapId)" draggable="false" :alt="$t('任务地图图片')" />
                     <div class="u-map-tool">
                         <p class="u-map-name">{{ mapName(mapId) }}</p>
                     </div>
