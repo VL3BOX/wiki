@@ -2,7 +2,7 @@
     <div class="m-left-side">
         <div class="m-related-roles">
             <!-- <div v-if="!isLogin" class="u-tip el-alert el-alert--info is-light">
-                <i class="el-icon-warning-outline"></i> <a href="/team/role/bind" target="_blank">绑定角色</a>
+                <i class="el-icon-warning-outline"></i> <a href="/team/role/bind" target="_blank">{{ $t('绑定角色') }}</a>
             </div> -->
             <el-select
                 v-if="isLogin"

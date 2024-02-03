@@ -2,7 +2,7 @@
     <WikiPanel :border-none="true">
         <template slot="head-title">
             <i class="el-icon-collection"></i>
-            <span>最近攻略</span>
+            <span>{{ $t('最近攻略') }}</span>
         </template>
         <template slot="body">
             <el-row class="m-posts">

@@ -2,7 +2,7 @@
     <div class="v-plan-view" v-loading="loading">
         <!-- 返回 & 收藏 -->
         <!-- <div class="m-plan-navigation">
-			<el-button class="u-goback" size="medium" icon="el-icon-arrow-left" @click="goBack" plain>返回列表</el-button>
+			<el-button class="u-goback" size="medium" icon="el-icon-arrow-left" @click="goBack" plain>{{ $t('返回列表') }}</el-button>
 		</div> -->
         <!-- 内容展示 -->
         <WikiPanel class="m-plan-content" :wiki-post="plan" :showQR="false">
@@ -15,10 +15,10 @@
             <template slot="head-actions">
                 <template v-if="isAuthor || isEditor">
                     <el-button type="primary" icon="el-icon-edit" size="mini" plain @click="editPlan(plan.id)"
-                        >编辑</el-button
+                        >{{ $t('编辑') }}</el-button
                     >
                     <el-button type="info" icon="el-icon-delete" size="mini" plain @click="deletePlan(plan.id)"
-                        >删除</el-button
+                        >{{ $t('删除') }}</el-button
                     >
                 </template>
                 <!-- <Fav post-type="item_plan" :post-id="plan.id" :post-title="plan && plan.title" /> -->
@@ -28,7 +28,7 @@
                 <!-- 内容备注 -->
                 <div class="m-description m-border">
                     <div class="u-title">
-                        <span>简介</span>
+                        <span>{{ $t('简介') }}</span>
                     </div>
                     <div class="u-desc">{{ plan.description || "作者很懒什么也没写 😜" }}</div>
                     <span class="u-user">

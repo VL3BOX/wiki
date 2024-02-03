@@ -33,8 +33,8 @@
         <el-popover popper-class="w-add-plans" placement="top" width="160" trigger="click" v-model="add">
             <el-input class="u-input" v-model="new_plan" placeholder="请输入新清单名称"></el-input>
             <div style="text-align: right; margin: 0">
-                <el-button size="mini" type="text" @click="add = false">取消</el-button>
-                <el-button type="primary" size="mini" @click="createPlan">确定</el-button>
+                <el-button size="mini" type="text" @click="add = false">{{ $t('取消') }}</el-button>
+                <el-button type="primary" size="mini" @click="createPlan">{{ $t('确定') }}</el-button>
             </div>
             <div class="m-create" slot="reference">
                 <!-- <a href="/publish/#/item_plan" target="_blank" class="el-button"><i class="el-icon-document-add"></i> 创建新清单</a> -->

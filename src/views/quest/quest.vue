@@ -17,7 +17,7 @@
             <Search :placeholder="placeholder" @search="search">
                 <div>
                     <el-tooltip content="查看任务链需要键入完整任务名或任务ID哦" placement="top">
-                        <el-checkbox v-model="chain">查看任务链</el-checkbox>
+                        <el-checkbox v-model="chain">{{ $t('查看任务链') }}</el-checkbox>
                     </el-tooltip>
                     <el-tooltip class="u-tips" effect="dark" placement="bottom">
                         <div slot="content">
@@ -31,13 +31,13 @@
             </Search>
             <el-popover popper-class="u-player-setting-popover" placement="top" width="160" v-model="settingVisible">
                 <el-input v-model="playerName" placeholder="称呼" @input="handlePlayerInfoChange" size="mini"
-                    ><template #prepend>称呼</template></el-input
+                    ><template #prepend>{{ $t('称呼') }}</template></el-input
                 >
                 <el-input v-model="playerBody" placeholder="体型" @input="handlePlayerInfoChange" size="mini"
-                    ><template #prepend>体型</template></el-input
+                    ><template #prepend>{{ $t('体型') }}</template></el-input
                 >
                 <div style="text-align: right; margin: 0">
-                    <el-button type="primary" size="mini" @click="settingVisible = false">确定</el-button>
+                    <el-button type="primary" size="mini" @click="settingVisible = false">{{ $t('确定') }}</el-button>
                 </div>
                 <div class="u-player" slot="reference">
                     <span class="u-player-name">{{ playerName }}</span

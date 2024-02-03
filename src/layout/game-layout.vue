@@ -7,14 +7,14 @@
                 <strong class="u-title">JX3BOX魔盒</strong>
             </a>
             <ul class="m-header-list">
-                <li><a :href="`${rootPath}macro/`">宏库</a></li>
-                <li><a :href="`${rootPath}bps/`">职业</a></li>
-                <li><a :href="`${rootPath}pvp/`">竞技</a></li>
-                <li><a :href="`${rootPath}fb/`">副本</a></li>
-                <li><a :href="`${rootPath}cj/`">百科</a></li>
-                <li><a :href="`${rootPath}pvx/`">休闲</a></li>
-                <li><a :href="`${rootPath}tool/`">工具</a></li>
-                <li><a :href="`${rootPath}bbs/`">茶馆</a></li>
+                <li><a :href="`${rootPath}macro/`">{{ $t('宏库') }}</a></li>
+                <li><a :href="`${rootPath}bps/`">{{ $t('职业') }}</a></li>
+                <li><a :href="`${rootPath}pvp/`">{{ $t('竞技') }}</a></li>
+                <li><a :href="`${rootPath}fb/`">{{ $t('副本') }}</a></li>
+                <li><a :href="`${rootPath}cj/`">{{ $t('百科') }}</a></li>
+                <li><a :href="`${rootPath}pvx/`">{{ $t('休闲') }}</a></li>
+                <li><a :href="`${rootPath}tool/`">{{ $t('工具') }}</a></li>
+                <li><a :href="`${rootPath}bbs/`">{{ $t('茶馆') }}</a></li>
             </ul>
         </header>
 
@@ -27,7 +27,7 @@
 
         <!-- 底部链接 -->
         <div class="m-footer">
-            &copy; <a :href="rootPath">剑三魔盒</a> [
+            &copy; <a :href="rootPath">{{ $t('剑三魔盒') }}</a> [
             <a class="u-link" :href="rootPath">{{ rootDomain }}</a> ]
         </div>
     </Fragment>

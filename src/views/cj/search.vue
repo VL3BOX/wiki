@@ -2,7 +2,7 @@
     <div class="m-search-view">
         <span class="u-list-empty" v-if="isEmpty">👻 暂无记录</span>
         <div v-if="isLogin && isVirtual && !isEmpty" class="m-normal-op">
-            <el-checkbox v-model="isAll" border @change="switchAll" size="small">全选</el-checkbox>
+            <el-checkbox v-model="isAll" border @change="switchAll" size="small">{{ $t('全选') }}</el-checkbox>
             <template v-if="selectedAchievements.length">
                 <el-button plain icon="el-icon-check" @click.stop="finishVirtual" size="small">
                     批量设为完成({{ selectedAchievements.length }})

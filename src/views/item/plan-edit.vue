@@ -1,6 +1,6 @@
 <template>
     <div class="p-plan-edit">
-        <h3 class="u-plan-header">编辑清单</h3>
+        <h3 class="u-plan-header">{{ $t('编辑清单') }}</h3>
         <el-form class="u-form" label-position="left" label-width="80px">
             <!-- 清单名称 -->
             <el-form-item label="标题">
@@ -12,8 +12,8 @@
                 ></el-input>
             </el-form-item>
             <el-form-item label="可见性">
-                <el-radio v-model="data.public" :label="1">公开</el-radio>
-                <el-radio v-model="data.public" :label="0">私有</el-radio>
+                <el-radio v-model="data.public" :label="1">{{ $t('公开') }}</el-radio>
+                <el-radio v-model="data.public" :label="0">{{ $t('私有') }}</el-radio>
             </el-form-item>
             <!-- 清单描述 -->
             <el-form-item label="描述">
@@ -29,11 +29,11 @@
             <!-- 清单类型 -->
             <el-form-item label="清单">
                 <!-- <el-radio-group v-model="data.type" size="medium" @change="resetPages"> -->
-                    <!-- <el-radio-button label="1">道具清单</el-radio-button> -->
-                    <!-- <el-radio-button label="2">装备清单</el-radio-button> -->
+                    <!-- <el-radio-button label="1">{{ $t('道具清单') }}</el-radio-button> -->
+                    <!-- <el-radio-button label="2">{{ $t('装备清单') }}</el-radio-button> -->
                 <!-- </el-radio-group> -->
                 <el-button class="u-add-plan" size="medium" icon="el-icon-plus" @click="addRelation" type="primary" plain
-                    >新增分组</el-button
+                    >{{ $t('新增分组') }}</el-button
                 >
             </el-form-item>
             <!-- 制作清单 -->
@@ -121,7 +121,7 @@
                                             ></i>
                                         </div>
                                     </template>
-                                    <div class="u-normal" v-else>拖拽所需道具到此处</div>
+                                    <div class="u-normal" v-else>{{ $t('拖拽所需道具到此处') }}</div>
                                 </draggable>
                             </div>
                         </el-col>
@@ -135,7 +135,7 @@
                     type="primary"
                     @click="submit"
                     :loading="loading"
-                    >保存</el-button
+                    >{{ $t('保存') }}</el-button
                 >
             </el-form-item>
         </el-form>

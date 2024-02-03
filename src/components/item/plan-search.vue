@@ -5,7 +5,7 @@
     >
         <div class="m-return">
             <el-button class="u-return-btn" @click="return_handle"
-                >返回</el-button
+                >{{ $t('返回') }}</el-button
             >
         </div>
         <div class="m-search">
@@ -15,14 +15,14 @@
                 @keydown.enter.native="search_handle"
                 placeholder="输入物品清单名称「回车」进行搜索"
             >
-                <span slot="prepend">关键词</span>
+                <span slot="prepend">{{ $t('关键词') }}</span>
                 <el-button
                     slot="append"
                     class="u-search-btn"
                     type="primary"
                     plain
                     @click="search_handle"
-                    >搜索</el-button
+                    >{{ $t('搜索') }}</el-button
                 >
             </el-input>
         </div>

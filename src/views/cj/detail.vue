@@ -7,12 +7,12 @@
             <WikiPanel :wiki-post="wiki_post">
                 <template slot="head-title">
                     <img class="u-icon" svg-inline src="@/assets/img/cj/achievement.svg" />
-                    <span class="u-txt">成就攻略</span>
+                    <span class="u-txt">{{ $t('成就攻略') }}</span>
                 </template>
                 <template slot="head-actions">
                     <a class="el-button el-button--primary" :href="publish_url(`achievement/${id}`)">
                         <i class="el-icon-edit"></i>
-                        <span>完善成就攻略</span>
+                        <span>{{ $t('完善成就攻略') }}</span>
                     </a>
                 </template>
                 <template slot="body">
@@ -21,7 +21,7 @@
                         <i class="el-icon-warning-outline"></i> 暂无缘起攻略，以下为重制攻略，仅作参考，<a
                             class="s-link"
                             :href="publish_url(`achievement/${id}`)"
-                            >参与修订</a
+                            >{{ $t('参与修订') }}</a
                         >。
                     </div>
                     <Article :content="wiki_post.post.content" />
@@ -42,7 +42,7 @@
                 <WikiPanel>
                     <template slot="head-title">
                         <i class="el-icon-coin"></i>
-                        <span class="u-txt">参与打赏</span>
+                        <span class="u-txt">{{ $t('参与打赏') }}</span>
                     </template>
                     <template slot="body">
                         <Thx
@@ -67,8 +67,8 @@
         </div>
         <div class="m-wiki-post-empty" v-if="is_empty">
             <i class="el-icon-s-opportunity"></i>
-            <span>暂无攻略，我要</span>
-            <a class="s-link" :href="publish_url(`achievement/${id}`)">完善攻略</a>
+            <span>{{ $t('暂无攻略，我要') }}</span>
+            <a class="s-link" :href="publish_url(`achievement/${id}`)">{{ $t('完善攻略') }}</a>
         </div>
     </div>
 </template>

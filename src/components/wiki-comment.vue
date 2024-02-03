@@ -31,7 +31,7 @@
                         @click="comment.reply_form.show = !comment.reply_form.show"
                     >
                         <i class="el-icon-arrow-up"></i>
-                        <span>收起</span>
+                        <span>{{ $t('收起') }}</span>
                     </el-button>
                     <el-button
                         type="primary"
@@ -41,7 +41,7 @@
                         @click="comment.reply_form.show = !comment.reply_form.show"
                     >
                         <i class="el-icon-chat-dot-round"></i>
-                        <span>回复</span>
+                        <span>{{ $t('回复') }}</span>
                     </el-button>
                     <!-- 更新时间 -->
                     <span class="u-time" v-text="ts2str(comment.updated)"></span>
@@ -55,7 +55,7 @@
                     </div>
                     <el-button type="primary" class="u-submit" @click="create_comment(comment.reply_form, comment.id)">
                         <i class="el-icon-check"></i>
-                        <span>提交</span>
+                        <span>{{ $t('提交') }}</span>
                     </el-button>
                 </div>
             </div>

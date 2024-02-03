@@ -3,7 +3,7 @@
         <WikiPanel :border-none="true">
             <template slot="head-title">
                 <i class="el-icon-location-information"></i>
-                <span>便捷入口</span>
+                <span>{{ $t('便捷入口') }}</span>
             </template>
             <!-- <template slot="head-actions">
                 <a class="other" target="_blank" :href="feedback">反馈建议 &raquo;</a>
@@ -13,7 +13,7 @@
                     <li class="u-qlink">
                         <a style="background-color: #fe7979" target="_blank" href="/tool/9126/">
                             <i class="el-icon-trophy"></i>
-                            <span>游戏内看百科</span>
+                            <span>{{ $t('游戏内看百科') }}</span>
                         </a>
                     </li>
                     <li class="u-qlink">
@@ -22,37 +22,37 @@
                     <li class="u-qlink">
                         <a target="_blank" :href="hiddenAchievementsPostLink" style="background-color: #f7b044;">
                             <i class="el-icon-medal"></i>
-                            <span>隐藏成就</span>
+                            <span>{{ $t('隐藏成就') }}</span>
                         </a>
                     </li>
                     <li class="u-qlink">
                         <a target="_blank" href="/adventure">
                             <i class="el-icon-ice-drink"></i>
-                            <span>奇遇大全</span>
+                            <span>{{ $t('奇遇大全') }}</span>
                         </a>
                     </li>
                     <li class="u-qlink">
                         <a target="_blank" href="/pet">
                             <i class="el-icon-grape"></i>
-                            <span>宠物大全</span>
+                            <span>{{ $t('宠物大全') }}</span>
                         </a>
                     </li>
                     <li class="u-qlink">
                         <a target="_blank" href="/horse">
                             <i class="el-icon-watermelon"></i>
-                            <span>坐骑大全</span>
+                            <span>{{ $t('坐骑大全') }}</span>
                         </a>
                     </li>
                     <li class="u-qlink">
                         <a target="_blank" href="/furniture">
                             <i class="el-icon-cherry"></i>
-                            <span>家具大全</span>
+                            <span>{{ $t('家具大全') }}</span>
                         </a>
                     </li>
                     <!-- <li class="u-qlink">
                         <a target="_blank" href="/book">
                             <i class="el-icon-orange"></i>
-                            <span>书籍大全</span>
+                            <span>{{ $t('书籍大全') }}</span>
                         </a>
                     </li> -->
                 </ul>
@@ -62,7 +62,7 @@
         <WikiPanel :border-none="true">
             <template slot="head-title">
                 <i class="el-icon-notebook-1"></i>
-                <span>热门成就</span>
+                <span>{{ $t('热门成就') }}</span>
             </template>
             <template slot="body">
                 <div class="m-achievement-slider">
@@ -121,7 +121,7 @@
         <WikiPanel :border-none="true">
             <template slot="head-title">
                 <i class="el-icon-notebook-2"></i>
-                <span>最新成就</span>
+                <span>{{ $t('最新成就') }}</span>
             </template>
             <template slot="head-actions">
                 <router-link class="other" :to="{ name: 'newest' }">查看更多 &raquo;</router-link>

@@ -10,9 +10,9 @@
                 <span class="u-title-id"> (ID:{{ quest.id }})</span>
             </p>
             <div class="u-tag-list">
-                <el-tag v-show="quest.canShare"><img src="@/assets/img/quest/player-63.png" alt="" />可分享任务</el-tag>
+                <el-tag v-show="quest.canShare"><img src="@/assets/img/quest/player-63.png" alt="" />{{ $t('可分享任务') }}</el-tag>
                 <el-tag v-show="quest.canAssist"
-                    ><img src="@/assets/img/quest/player-62.png" alt="" />可协助任务</el-tag
+                    ><img src="@/assets/img/quest/player-62.png" alt="" />{{ $t('可协助任务') }}</el-tag
                 >
             </div>
             <div class="u-endpoint__warpper">
@@ -64,7 +64,7 @@
                 <p v-html="targetDesc"></p>
                 <template v-if="quest.killNpcs && quest.killNpcs.length > 0">
                     <div class="u-target-sub" v-for="(killNpc, i) in quest.killNpcs" :key="i">
-                        <span>击杀</span>
+                        <span>{{ $t('击杀') }}</span>
                         <span>{{ killNpc.name }}</span>
                         <el-tooltip v-if="killNpc.share" content="该目标可共享击杀" placement="top">
                             <img src="@/assets/img/quest/target-15.png" alt="" />
@@ -80,7 +80,7 @@
                 </template>
                 <template v-if="quest.needItems && quest.needItems.length > 0">
                     <div class="u-target-sub" v-for="(needItem, i) in quest.needItems" :key="i">
-                        <span>收集</span>
+                        <span>{{ $t('收集') }}</span>
                         <item-icon :item_id="needItem.id" :has_title="true" :size="28"></item-icon>
                         <span>x {{ needItem.amount }}</span>
                         <point-filter
@@ -144,12 +144,12 @@
             <WikiPanel :wiki-post="wiki_post">
                 <template slot="head-title">
                     <img class="u-icon" svg-inline :src="icon" />
-                    <span class="u-txt">任务攻略</span>
+                    <span class="u-txt">{{ $t('任务攻略') }}</span>
                 </template>
                 <template slot="head-actions">
                     <a class="el-button el-button--primary" :href="publish_url(`quest/${id}`)">
                         <i class="el-icon-edit"></i>
-                        <span>完善任务攻略</span>
+                        <span>{{ $t('完善任务攻略') }}</span>
                     </a>
                 </template>
                 <template slot="body">
@@ -157,7 +157,7 @@
                         <i class="el-icon-warning-outline"></i> 暂无缘起攻略，以下为重制攻略，仅作参考，<a
                             class="s-link"
                             :href="publish_url(`quest/${id}`)"
-                            >参与修订</a
+                            >{{ $t('参与修订') }}</a
                         >。
                     </div>
                     <Article :content="wiki_post.post.content" />
@@ -176,7 +176,7 @@
                 <WikiPanel>
                     <template slot="head-title">
                         <i class="el-icon-coin"></i>
-                        <span>参与打赏</span>
+                        <span>{{ $t('参与打赏') }}</span>
                     </template>
                     <template slot="body">
                         <Thx
@@ -201,8 +201,8 @@
         </div>
         <div class="m-wiki-post-empty" v-else>
             <i class="el-icon-s-opportunity"></i>
-            <span>暂无攻略，我要</span>
-            <a class="s-link" :href="publish_url(`quest/${id}`)">完善攻略</a>
+            <span>{{ $t('暂无攻略，我要') }}</span>
+            <a class="s-link" :href="publish_url(`quest/${id}`)">{{ $t('完善攻略') }}</a>
         </div>
     </div>
 </template>

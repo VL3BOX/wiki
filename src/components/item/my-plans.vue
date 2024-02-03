@@ -3,10 +3,10 @@
         <div class="m-my-item-plans">
             <h3 class="c-sidebar-right-title">
                 <i class="u-icon u-icon-mycollection"><img svg-inline src="@/assets/img/plan.svg" /></i>
-                <span>我的清单</span>
+                <span>{{ $t('我的清单') }}</span>
                 <a class="fr el-button el-button--success el-button--mini" @click="onAddPlan" v-if="isLogin">
                     <i class="el-icon-document-add"></i>
-                    <span>创建</span>
+                    <span>{{ $t('创建') }}</span>
                 </a>
             </h3>
             <template v-if="isLogin">

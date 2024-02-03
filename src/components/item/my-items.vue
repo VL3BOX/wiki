@@ -5,7 +5,7 @@
                 <i class="u-icon u-icon-mycollection">
                     <img svg-inline src="@/assets/img/my.svg" />
                 </i>
-                <span>收藏物品</span>
+                <span>{{ $t('收藏物品') }}</span>
             </h3>
             <div class="m-items-my-list">
                 <div class="u-list" v-if="data && data.length">

@@ -34,7 +34,7 @@
                     </div>
                     <!-- 原料 -->
                     <div class="m-item-required" v-if="requiredList.length">
-                        <span class="u-label">制作原料</span>
+                        <span class="u-label">{{ $t('制作原料') }}</span>
                         <router-link
                             class="u-item"
                             v-for="item in requiredList"
@@ -49,80 +49,80 @@
                     <!-- 其余属性 -->
                     <ul class="m-other-fields">
                         <li class="m-other-field">
-                            <span class="u-label">拾取绑定</span>
+                            <span class="u-label">{{ $t('拾取绑定') }}</span>
                             <span class="u-value">{{ item_bind(source.BindType) }}</span>
                         </li>
                         <li class="m-other-field">
-                            <span class="u-label">可否交易</span>
+                            <span class="u-label">{{ $t('可否交易') }}</span>
                             <span class="u-value">{{ source.CanTrade ? "✔️ 可以" : "❌ 不可以" }}</span>
                         </li>
                         <li>
-                            <span class="u-label">回购价格</span>
+                            <span class="u-label">{{ $t('回购价格') }}</span>
                             <GamePrice class="u-value" :price="source.Price" v-if="source.Price" />
                             <span class="u-value" v-else>-</span>
                         </li>
                         <!-- <li v-if="source.Level">
-							<span class="u-label">品质等级</span>
+							<span class="u-label">{{ $t('品质等级') }}</span>
 							<span class="u-value" v-text="source.Level"></span>
 						</li> -->
                         <!-- <li class="m-other-field">
-							<span class="u-label">品质</span>
+							<span class="u-label">{{ $t('品质') }}</span>
 							<span class="u-value" v-html="`<span style='color:${item_color(source.Quality)}'>${item_quality(source.Quality)}</span>`"></span>
 						</li> -->
 
                         <li class="m-other-field">
-                            <span class="u-label">可否堆叠</span>
+                            <span class="u-label">{{ $t('可否堆叠') }}</span>
                             <span class="u-value">{{ source.CanStack ? "✔️ 可以" : "❌ 不可以" }}</span>
                         </li>
                         <li v-if="source.MaxExistAmount > 0">
-                            <span class="u-label">最大拥有数</span>
+                            <span class="u-label">{{ $t('最大拥有数') }}</span>
                             <span class="u-value">{{ source.MaxExistAmount }}</span>
                         </li>
                         <li v-if="source.MaxExistTime > 0">
-                            <span class="u-label">限时有效</span>
+                            <span class="u-label">{{ $t('限时有效') }}</span>
                             <span class="u-value">{{ showDuration(source.MaxExistTime) }}</span>
                         </li>
 
                         <!-- <li v-if="source.BelongSchool">
-							<span class="u-label">门派</span>
+							<span class="u-label">{{ $t('门派') }}</span>
 							<span class="u-value">{{source.BelongSchool}}</span>
 						</li>
 						<li v-if="source.MagicKind">
-							<span class="u-label">心法</span>
+							<span class="u-label">{{ $t('心法') }}</span>
 							<span class="u-value">{{source.MagicKind}}</span>
 						</li>
 						<li v-if="source.MagicType">
-							<span class="u-label">属性</span>
+							<span class="u-label">{{ $t('属性') }}</span>
 							<span class="u-value">{{source.MagicType}}</span>
 						</li> -->
                         <li v-if="source.GetType">
-                            <span class="u-label">获得途径</span>
+                            <span class="u-label">{{ $t('获得途径') }}</span>
                             <span class="u-value">{{ source.GetType }}</span>
                         </li>
                         <li v-if="source.CanChangeMagic">
-                            <span class="u-label">可否附魔</span>
+                            <span class="u-label">{{ $t('可否附魔') }}</span>
                             <span class="u-value">✔️ 可以</span>
                         </li>
                         <li v-if="source.CanExterior">
-                            <span class="u-label">可否收集</span>
+                            <span class="u-label">{{ $t('可否收集') }}</span>
                             <span class="u-value">✔️ 可以</span>
                         </li>
                         <li v-if="source.CanSetColor">
-                            <span class="u-label">可否染色</span>
+                            <span class="u-label">{{ $t('可否染色') }}</span>
                             <span class="u-value">✔️ 可以</span>
                         </li>
                         <li class="m-other-field">
-                            <span class="u-label">可否分解</span>
+                            <span class="u-label">{{ $t('可否分解') }}</span>
                             <span class="u-value">{{ source.CanApart ? "✔️ 可以" : "❌ 不可以" }}</span>
                         </li>
                         <li class="m-other-field">
-                            <span class="u-label">可否摧毁</span>
+                            <span class="u-label">{{ $t('可否摧毁') }}</span>
                             <span class="u-value">{{
                                 source.CanDestroy || source.CanDestroy === null ? "✔️ 可以" : "❌ 不可以"
                             }}</span>
                         </li>
                         <!-- <li v-if="source.CanShared">
-							<span class="u-label">可否分享</span>
+							<span class="u-label">{{ $t('可否分享') }}</span>
 							<span class="u-value" v-text="'可以分享'"></span>
 						</li> -->
 
@@ -135,7 +135,7 @@
                         </li>-->
 
                         <!-- <li v-if="source.AucGenre >= 1 && source.AucGenre <= 3">
-							<span class="u-label">耐久度</span>
+							<span class="u-label">{{ $t('耐久度') }}</span>
 							<span class="u-value" v-text="`${source.MaxDurability}/${source.MaxDurability}`"></span>
 						</li> -->
                         <!--<li class="m-field">
@@ -148,7 +148,7 @@
                         </li>-->
 
                         <!-- <li v-if="source.CanConsume">
-							<span class="u-label">消耗品</span>
+							<span class="u-label">{{ $t('消耗品') }}</span>
 							<span class="u-value" v-text="'是'"></span>
 						</li> -->
                     </ul>
@@ -190,12 +190,12 @@
             <WikiPanel :wiki-post="wiki_post">
                 <template slot="head-title">
                     <img class="u-icon" svg-inline src="@/assets/img/item.svg" />
-                    <span class="u-txt">物品攻略</span>
+                    <span class="u-txt">{{ $t('物品攻略') }}</span>
                 </template>
                 <template slot="head-actions">
                     <a class="el-button el-button--primary" :href="publish_url(`item/${id}`)">
                         <i class="el-icon-edit"></i>
-                        <span>完善物品攻略</span>
+                        <span>{{ $t('完善物品攻略') }}</span>
                     </a>
                 </template>
                 <template slot="body">
@@ -203,7 +203,7 @@
                         <i class="el-icon-warning-outline"></i> 暂无缘起攻略，以下为重制攻略，仅作参考，<a
                             class="s-link"
                             :href="publish_url(`item/${id}`)"
-                            >参与修订</a
+                            >{{ $t('参与修订') }}</a
                         >。
                     </div>
                     <Article :content="wiki_post.post.content" />
@@ -222,7 +222,7 @@
                 <WikiPanel>
                     <template slot="head-title">
                         <i class="el-icon-coin"></i>
-                        <span class="u-txt">参与打赏</span>
+                        <span class="u-txt">{{ $t('参与打赏') }}</span>
                     </template>
                     <template slot="body">
                         <Thx
@@ -247,8 +247,8 @@
         </div>
         <div class="m-wiki-post-empty" v-else>
             <i class="el-icon-s-opportunity"></i>
-            <span>暂无攻略，我要</span>
-            <a class="s-link" :href="publish_url(`item/${id}`)">完善攻略</a>
+            <span>{{ $t('暂无攻略，我要') }}</span>
+            <a class="s-link" :href="publish_url(`item/${id}`)">{{ $t('完善攻略') }}</a>
         </div>
     </div>
 </template>

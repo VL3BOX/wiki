@@ -135,8 +135,8 @@
                         }"
                     >
                         <div class="u-status">
-                            <span v-if="hadCompleted(series_achievement.ID)" class="u-check">已完成</span>
-                            <span v-else class="u-close">待完成</span>
+                            <span v-if="hadCompleted(series_achievement.ID)" class="u-check">{{ $t('已完成') }}</span>
+                            <span v-else class="u-close">{{ $t('待完成') }}</span>
                         </div>
                         <img class="u-icon" :src="icon_url(series_achievement.IconID)" />
                         <div class="detail">

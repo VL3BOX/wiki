@@ -4,9 +4,9 @@
             <template slot="empty-message">
                 <span>👻 暂无记录</span>
                 <template v-if="$route.query.auc_genre || $route.query.auc_sub_type_id">
-                    <span>，在</span>
+                    <span>{{ $t('，在') }}</span>
                     <span class="u-research" @click="clean_type">
-                        <b>全部分类下搜索</b>
+                        <b>{{ $t('全部分类下搜索') }}</b>
                     </span>
                 </template>
             </template>

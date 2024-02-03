@@ -1,7 +1,7 @@
 <template>
     <div class="m-search-bar" :class="$route.name == 'view' ? 'can-return' : ''">
         <div class="m-return">
-            <el-button class="u-return-btn" @click="returnHandle"><i class="el-icon-arrow-left"></i>返回</el-button>
+            <el-button class="u-return-btn" @click="returnHandle"><i class="el-icon-arrow-left"></i>{{ $t('返回') }}</el-button>
         </div>
         <div class="m-search">
             <el-input
@@ -12,10 +12,10 @@
                 clearable
             >
                 <span slot="prepend">
-                    <slot><i class="el-icon-search"></i> <span class="u-text">关键词</span></slot>
+                    <slot><i class="el-icon-search"></i> <span class="u-text">{{ $t('关键词') }}</span></slot>
                 </span>
                 <el-button slot="append" class="u-search-btn" type="primary" plain @click="searchHandle"
-                    ><i class="el-icon-position"></i> <span class="u-text">搜索</span></el-button
+                    ><i class="el-icon-position"></i> <span class="u-text">{{ $t('搜索') }}</span></el-button
                 >
             </el-input>
         </div>

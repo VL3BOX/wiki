@@ -3,7 +3,7 @@
         <template slot="head-title">
             <div class="u-title">
                 <i class="el-icon-shopping-bag-1"></i>
-                <span>交易趋势</span>
+                <span>{{ $t('交易趋势') }}</span>
             </div>
             <el-select class="u-server" v-model="server" placeholder="请选择服务器" size="mini">
                 <el-option v-for="serve in servers" :key="serve" :label="serve" :value="serve"></el-option>
@@ -60,7 +60,7 @@
                                         <span>前日：</span>
                                         <GamePrice :price="item.sub_days_2_price" />
                                     </template>
-                                    <span v-else>暂无价目</span>
+                                    <span v-else>{{ $t('暂无价目') }}</span>
                                 </span>
                             </div>
                         </router-link>
@@ -113,7 +113,7 @@
                                                 >
                                                     <GamePrice :price="item.sub_days_2_price" />
                                                 </template>
-                                                <span v-else>暂无价目</span>
+                                                <span v-else>{{ $t('暂无价目') }}</span>
                                             </span>
                                         </div>
                                     </a>

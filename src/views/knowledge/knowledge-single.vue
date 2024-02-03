@@ -10,7 +10,7 @@
                 <template slot="head-actions">
                     <a class="el-button el-button--primary" :href="publishLink(`knowledge/${id}`)">
                         <i class="el-icon-edit"></i>
-                        <span>完善百科通识</span>
+                        <span>{{ $t('完善百科通识') }}</span>
                     </a>
                 </template>
                 <template slot="body">
@@ -25,7 +25,7 @@
                 <WikiPanel>
                     <template slot="head-title">
                         <i class="el-icon-coin"></i>
-                        <span class="u-txt">参与打赏</span>
+                        <span class="u-txt">{{ $t('参与打赏') }}</span>
                     </template>
                     <template slot="body">
                         <Thx
@@ -47,7 +47,7 @@
             <WikiPanel v-if="id" class="m-knowledge-panel">
                 <template slot="head-title">
                     <i class="el-icon-chat-line-round"></i>
-                    <span class="u-title">讨论</span>
+                    <span class="u-title">{{ $t('讨论') }}</span>
                 </template>
                 <template slot="body">
                     <Comment :id="id" category="knowledge" />
@@ -57,8 +57,8 @@
 
         <div v-else class="m-wiki-null">
             <i class="el-icon-s-opportunity"></i>
-            <span>暂无内容，我要</span>
-            <a class="s-link" :href="publishLink(`knowledge/${id}`)">完善百科通识</a>
+            <span>{{ $t('暂无内容，我要') }}</span>
+            <a class="s-link" :href="publishLink(`knowledge/${id}`)">{{ $t('完善百科通识') }}</a>
         </div>
     </div>
 </template>

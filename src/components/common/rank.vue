@@ -2,7 +2,7 @@
     <div class="m-wiki-rank">
         <h2 class="m-title">
             <img class="u-icon" svg-inline src="@/assets/img/cj/rank.svg" />
-            <span class="u-text">排行榜</span>
+            <span class="u-text">{{ $t('排行榜') }}</span>
         </h2>
         <el-tabs v-model="activeTab">
             <el-tab-pane :label="tab.label" :name="tab.name" v-for="tab in tabs" :key="tab.name">

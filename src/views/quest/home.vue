@@ -8,11 +8,11 @@
     <div class="m-quest-home">
         <!-- 头部大标题 -->
         <!-- <img class="u-logo" src="@/assets/img/quest/quest_logo.png" alt="" /> -->
-        <!-- <h1 class="u-title">任务百科</h1> -->
+        <!-- <h1 class="u-title">{{ $t('任务百科') }}</h1> -->
         <wiki-panel :border-none="true">
             <template slot="head-title">
                 <i class="el-icon-location-information"></i>
-                <span>便捷入口</span>
+                <span>{{ $t('便捷入口') }}</span>
             </template>
             <template slot="head-actions">
                 <!-- <a class="other" target="_blank" :href="feedback">反馈建议 &raquo;</a> -->
@@ -22,7 +22,7 @@
                     <li class="u-qlink">
                         <a style="background-color: #fe7979" target="_blank" href="/tool/1428">
                             <i class="el-icon-trophy"></i>
-                            <span>游戏内看百科</span>
+                            <span>{{ $t('游戏内看百科') }}</span>
                         </a>
                     </li>
                     <li class="u-qlink">
@@ -31,25 +31,25 @@
                     <li class="u-qlink">
                         <a target="_blank" href="/exam" style="background-color: #f7b044;">
                             <i class="el-icon-goblet-square-full"></i>
-                            <span>科举题库</span>
+                            <span>{{ $t('科举题库') }}</span>
                         </a>
                     </li>
                     <li class="u-qlink">
                         <a target="_blank" href="/reputation">
                             <i class="el-icon-grape"></i>
-                            <span>声望大全</span>
+                            <span>{{ $t('声望大全') }}</span>
                         </a>
                     </li>
                     <li class="u-qlink">
                         <a target="_blank" href="/book">
                             <i class="el-icon-watermelon"></i>
-                            <span>书籍大全</span>
+                            <span>{{ $t('书籍大全') }}</span>
                         </a>
                     </li>
                     <li class="u-qlink">
                         <a target="_blank" href="pvg/gonggao/daily">
                             <i class="el-icon-cherry"></i>
-                            <span>日常活动</span>
+                            <span>{{ $t('日常活动') }}</span>
                         </a>
                     </li>
                 </ul>
@@ -58,7 +58,7 @@
         <wiki-panel :border-none="true">
             <template slot="head-title">
                 <i class="el-icon-notebook-1"></i>
-                <span>热门任务</span>
+                <span>{{ $t('热门任务') }}</span>
             </template>
             <template slot="body">
                 <quest-carousel :quests="hotQuests" :views="hotViews" :hot="true"></quest-carousel>
@@ -67,7 +67,7 @@
         <wiki-panel :border-none="true">
             <template slot="head-title">
                 <i class="el-icon-notebook-2"></i>
-                <span>最新任务</span>
+                <span>{{ $t('最新任务') }}</span>
             </template>
             <template slot="head-actions">
                 <router-link class="other" :to="{ name: 'newest' }">查看更多 &raquo;</router-link>
@@ -79,7 +79,7 @@
         <wiki-panel :border-none="true">
             <template slot="head-title">
                 <i class="el-icon-collection"></i>
-                <span>最新攻略</span>
+                <span>{{ $t('最新攻略') }}</span>
             </template>
             <newest-post slot="body"></newest-post>
         </wiki-panel>

@@ -6,7 +6,7 @@
     >
         <template slot="head-title">
             <i class="el-icon-link"></i>
-            <span>关联成就</span>
+            <span>{{ $t('关联成就') }}</span>
             <em class="u-remark">同BOSS下的其它成就</em>
         </template>
         <template slot="head-actions">

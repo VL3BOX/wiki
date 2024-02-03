@@ -16,19 +16,19 @@
             <div class="u-zhtr" @click="isTW = !isTW">
                 <i class="el-icon-guide"></i>
                 <span>[</span>
-                <span v-if="isTW" class="u-tr">繁體</span>
-                <span v-else class="u-cn">简体</span>
+                <span v-if="isTW" class="u-tr">{{ $t('繁體') }}</span>
+                <span v-else class="u-cn">{{ $t('简体') }}</span>
                 <span>]</span>
             </div>
         </template>
         <template slot="head-actions">
             <el-button v-if="!isEditMode" type="primary" class="u-edit" @click="editHandler">
                 <i class="el-icon-edit"></i>
-                <span>编辑修订</span>
+                <span>{{ $t('编辑修订') }}</span>
             </el-button>
             <el-button v-else class="u-edit" @click="isEditMode = false">
                 <i class="el-icon-back"></i>
-                <span>取消修订</span>
+                <span>{{ $t('取消修订') }}</span>
             </el-button>
         </template>
         <template slot="body">
@@ -36,7 +36,7 @@
             <div class="m-wiki-compatible" v-if="compatible && !isEditMode">
                 <i class="el-icon-warning-outline"></i> 暂无缘起攻略，以下为重制攻略，仅作参考，<a
                     :href="publish_url(`${wiki_post.type}/${wikiPost.source_id}`)"
-                    >参与修订</a
+                    >{{ $t('参与修订') }}</a
                 >。
             </div>
 
@@ -65,7 +65,7 @@
                     <i class="el-icon-s-opportunity"></i>
                     <span>
                         暂无百科攻略，我来
-                        <span class="u-edit" @click="editHandler">完善攻略</span>
+                        <span class="u-edit" @click="editHandler">{{ $t('完善攻略') }}</span>
                     </span>
                 </div>
             </template>
@@ -87,8 +87,8 @@
                     </div>
                 </div>
                 <div class="u-btn">
-                    <el-button size="mini" type="primary" @click="submitHanlder">提交</el-button>
-                    <el-button size="mini" @click="cancelHandler">取消</el-button>
+                    <el-button size="mini" type="primary" @click="submitHanlder">{{ $t('提交') }}</el-button>
+                    <el-button size="mini" @click="cancelHandler">{{ $t('取消') }}</el-button>
                 </div>
             </div>
         </template>

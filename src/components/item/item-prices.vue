@@ -2,10 +2,10 @@
     <div class="m-item-prices">
         <table v-if="prices.length" v-loading="priceLoading">
             <tr>
-                <th>物品</th>
-                <th>等级</th>
-                <th>上传时间</th>
-                <th>服务器</th>
+                <th>{{ $t('物品') }}</th>
+                <th>{{ $t('等级') }}</th>
+                <th>{{ $t('上传时间') }}</th>
+                <th>{{ $t('服务器') }}</th>
                 <th style="text-align: right">一口价 (总价)</th>
                 <th style="text-align: right">一口价 (单价)</th>
             </tr>

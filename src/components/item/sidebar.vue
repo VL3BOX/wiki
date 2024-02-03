@@ -1,7 +1,7 @@
 <template>
     <div class="m-cj-aside-left">
         <div class="m-menus">
-            <router-link class="u-all el-tree-node__label" :to="{ name: 'search', params: { keyword: '' } }"><i class="el-icon-caret-right"></i>全部</router-link>
+            <router-link class="u-all el-tree-node__label" :to="{ name: 'search', params: { keyword: '' } }"><i class="el-icon-caret-right"></i>{{ $t('全部') }}</router-link>
             <el-tree class="filter-tree" :data="menus" node-key="id" ref="tree" @node-click="clickNode">
                 <router-link class="el-tree-node__label" slot-scope="{ node, data }" :to="menu_url(data, node)">
                     <span class="u-name" v-text="data.label"></span>
