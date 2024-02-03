@@ -5,3 +5,8 @@ export function getWikiRanking(params) {
         params,
     });
 }
+
+//当前待审核的版本
+export function getWiki(post_id, params) {
+    return $cms().get(`/api/cms/wiki/post/id/${post_id}`, { params });
+}

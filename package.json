@@ -29,6 +29,7 @@
         "qrcode.vue": "^1.7.0",
         "urijs": "^1.19.11",
         "uuid": "^9.0.1",
+        "v-code-diff": "^1.7.2",
         "vue": "^2.6.11",
         "vue-clipboard2": "^0.3.3",
         "vue-fragment": "^1.6.0",
