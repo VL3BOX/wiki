@@ -8,7 +8,7 @@
             <h2 class="m-title">
                 <img class="u-icon" svg-inline src="@/assets/img/cj/puzzle.svg" />
                 <span class="u-text">{{ $t('各区服成就群') }}</span>
-                <a class="u-show-message" target="_blank" href="https://www.jx3box.com/tool/13659/">申请展示 »</a>
+                <a class="u-show-message" target="_blank" href="https://www.vl3box.com/tool/13659/">{{ $t('申请展示') }} »</a>
             </h2>
             <div class="m-group-content">
                 <!-- <el-tree

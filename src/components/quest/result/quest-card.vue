@@ -3,7 +3,7 @@
         <div class="u-map">{{ quest.map }}</div>
         <div class="u-name">
             <span class="u-name-title">
-                <el-tooltip v-if="quest.questType == 'act'" :content="`该任务是活动任务`" placement="top">
+                <el-tooltip v-if="quest.questType == 'act'" :content="$t('该任务是活动任务')" placement="top">
                     <img class="u-name-type" src="@/assets/img/quest/quest_logo_purple.png" />
                 </el-tooltip>
                 <el-tooltip v-else-if="quest.questType == 'repeat'" :content="`该任务可重复完成`" placement="top">
@@ -12,7 +12,7 @@
                 <span class="u-name-text" :style="questNameColor">{{ quest.name }}</span>
                 <el-tooltip
                     v-if="quest.schoolName"
-                    :content="`该任务仅 ${quest.schoolName} 门派可接取`"
+                    :content="$t('该任务仅') + quest.schoolName + $t('门派可接取')"
                     placement="top"
                 >
                     <img class="u-name-school" :src="schoolIcon(quest.schoolName)" alt="" />

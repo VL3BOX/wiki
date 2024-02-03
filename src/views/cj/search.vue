@@ -1,14 +1,14 @@
 <template>
     <div class="m-search-view">
-        <span class="u-list-empty" v-if="isEmpty">👻 暂无记录</span>
+        <span class="u-list-empty" v-if="isEmpty">👻 {{ $t('暂无记录') }}</span>
         <div v-if="isLogin && isVirtual && !isEmpty" class="m-normal-op">
             <el-checkbox v-model="isAll" border @change="switchAll" size="small">{{ $t('全选') }}</el-checkbox>
             <template v-if="selectedAchievements.length">
                 <el-button plain icon="el-icon-check" @click.stop="finishVirtual" size="small">
-                    批量设为完成({{ selectedAchievements.length }})
+                    {{ $t('批量设为完成') + '(' + selectedAchievements.length + ')' }}
                 </el-button>
                 <el-button type="info" icon="el-icon-close" @click.stop="cancelVirtual" size="small">
-                    批量取消完成({{ selectedAchievements.length }})
+                    {{ $t('批量取消完成') + '(' + selectedAchievements.length + ')' }}
                 </el-button>
             </template>
         </div>

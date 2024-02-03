@@ -3,17 +3,17 @@
         <template slot="head-title">
             <i class="el-icon-link"></i>
             <span>{{ $t('关联成就') }}</span>
-            <em class="u-remark">同BOSS下的其它成就</em>
+            <em class="u-remark">{{ $t('同BOSS下的其它成就') }}</em>
         </template>
         <template slot="head-actions">
-            <el-button type="primary" class="u-boss" :class="{ on: show_npc }" @click="show_npc = !show_npc">BOSS属性参考</el-button>
+            <el-button type="primary" class="u-boss" :class="{ on: show_npc }" @click="show_npc = !show_npc">{{ $t('BOSS属性参考') }}</el-button>
         </template>
         <template slot="body">
             <div class="m-section">
                 <div class="u-empty" v-if="!relations || !relations.length">
-                    <span v-if="relations === null">🎉 数据加载中...</span>
-                    <span v-if="relations === false">⚠️ 数据加载异常</span>
-                    <span v-if="relations && !relations.length">💧 暂无相关成就</span>
+                    <span v-if="relations === null">🎉 {{ $t('数据加载中...') }}</span>
+                    <span v-if="relations === false">⚠️ {{ $t('数据加载异常') }}</span>
+                    <span v-if="relations && !relations.length">💧 {{ $t('暂无相关成就') }}</span>
                 </div>
                 <div class="m-relations" v-if="relations && relations.length">
                     <router-link class="u-title" v-for="(relation, key) in relations" :key="key" :to="{ name: 'view', params: { source_id: relation.ID } }">
@@ -38,7 +38,7 @@
                         {{ npc.ID }}
                     </li>
                     <li class="u-name">
-                        首领:
+                        {{ $t('首领:') }}
                         <em></em>
                         {{ npc.Name }}
                     </li>

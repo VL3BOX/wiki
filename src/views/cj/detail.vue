@@ -18,7 +18,7 @@
                 <template slot="body">
                     <!-- <Notice></Notice> -->
                     <div class="m-wiki-compatible" v-if="compatible">
-                        <i class="el-icon-warning-outline"></i> 暂无缘起攻略，以下为重制攻略，仅作参考，<a
+                        <i class="el-icon-warning-outline"></i> {{ $t('暂无缘起攻略，以下为重制攻略，仅作参考，') }}<a
                             class="s-link"
                             :href="publish_url(`achievement/${id}`)"
                             >{{ $t('参与修订') }}</a
@@ -27,7 +27,7 @@
                     <Article :content="wiki_post.post.content" />
                     <div class="m-wiki-signature">
                         <i class="el-icon-edit"></i>
-                        本次修订由 <b>{{ user_name }}</b> 提交于{{ updated_at }}
+                        {{ $t('本次修订由') }} <b>{{ user_name }}</b> {{ $t('提交于') + updated_at }}
                     </div>
                 </template>
             </WikiPanel>

@@ -1,10 +1,10 @@
 <template>
     <div class="reward-item" :class="classes" v-if="display">
         <!-- 金钱 -->
-        <template v-if="reward.type == 'money'"> 获得金钱：<game-price :price="reward.count"></game-price> </template>
-        <template v-else-if="reward.type == 'exp'"> 获得阅历：{{ reward.count }} </template>
+        <template v-if="reward.type == 'money'"> {{ $t('获得金钱：') }}<game-price :price="reward.count"></game-price> </template>
+        <template v-else-if="reward.type == 'exp'"> {{ $t('获得阅历：') + reward.count }} </template>
         <template v-else-if="reward.type == 'affect'">
-            获得声望：{{ reward.force }}（{{ reward.count | affectNumber }}）
+            {{ $t('获得声望：') + reward.force }}（{{ reward.count | affectNumber }}）
         </template>
         <point-reward v-else-if="reward.type == 'titlePoint'" :type="'titlePoint'" :value="`x ${reward.count}`">
         </point-reward>

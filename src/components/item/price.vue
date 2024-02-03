@@ -1,9 +1,9 @@
 <template>
     <div class="p-price-new">
         <div class="m-price-title">
-            <div class="u-title">📈 价格波动</div>
+            <div class="u-title">📈 {{ $t('价格波动') }}</div>
             <div class="m-server">
-                <i class="el-icon-s-shop"></i> 服务器
+                <i class="el-icon-s-shop"></i> {{ $t('服务器') }}
                 <el-select
                     class="u-server"
                     style="width: 120px"
@@ -20,7 +20,7 @@
         </div>
 
         <div class="m-price-title">
-            <div class="u-title">💰 近期价格</div>
+            <div class="u-title">💰 {{ $t('近期价格') }}</div>
         </div>
         <div class="m-price-content">
             <item-prices :item_id="sourceId" :server="server" />

@@ -1,7 +1,7 @@
 <template>
     <GameLayout>
         <div class="m-wiki-view" v-if="wikiPost">
-            <div class="m-warning" :class="{ none: !warning }">❌ 您的浏览器版本太低,将无法正常使用本应用</div>
+            <div class="m-warning" :class="{ none: !warning }">❌ {{ $t('您的浏览器版本太低,将无法正常使用本应用') }}</div>
             <!-- 公告 -->
             <Notice class="m-game-notice"></Notice>
             <!-- 百科 -->

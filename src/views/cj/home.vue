@@ -124,7 +124,7 @@
                 <span>{{ $t('最新成就') }}</span>
             </template>
             <template slot="head-actions">
-                <router-link class="other" :to="{ name: 'newest' }">查看更多 &raquo;</router-link>
+                <router-link class="other" :to="{ name: 'newest' }">{{ $t('查看更多') }} &raquo;</router-link>
             </template>
             <template slot="body">
                 <el-carousel height="66px" direction="vertical" :interval="3500" indicator-position="none">

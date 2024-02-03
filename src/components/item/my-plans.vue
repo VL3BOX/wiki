@@ -46,10 +46,10 @@
                         :current-page.sync="page"
                     ></el-pagination>
                 </template>
-                <div v-else class="u-tip"><i class="el-icon-warning-outline"></i> 暂无物品清单记录</div>
+                <div v-else class="u-tip"><i class="el-icon-warning-outline"></i> {{ $t('暂无物品清单记录') }}</div>
             </template>
             <template v-else
-                ><div class="u-tip"><i class="el-icon-warning-outline"></i> 请先进行登录</div></template
+                ><div class="u-tip"><i class="el-icon-warning-outline"></i> {{ $t('请先进行登录') }}</div></template
             >
         </div>
     </div>

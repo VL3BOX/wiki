@@ -45,19 +45,19 @@
                                         :class="item | showItemTrendingClass"
                                     >{{item | showItemTrending}}</span>
                                     <template v-if="item.sub_days_0_price">
-                                        <span>今日：</span>
+                                        <span>{{ $t('今日：') }}</span>
                                         <GamePrice :price="item.sub_days_0_price" />
                                     </template>
                                     <template
                                         v-else-if="!item.sub_days_0_price && item.sub_days_1_price"
                                     >
-                                        <span>昨日：</span>
+                                        <span>{{ $t('昨日：') }}</span>
                                         <GamePrice :price="item.sub_days_1_price" />
                                     </template>
                                     <template
                                         v-else-if="!item.sub_days_0_price && !item.sub_days_1_price && item.sub_days_2_price"
                                     >
-                                        <span>前日：</span>
+                                        <span>{{ $t('前日：') }}</span>
                                         <GamePrice :price="item.sub_days_2_price" />
                                     </template>
                                     <span v-else>{{ $t('暂无价目') }}</span>

@@ -14,7 +14,7 @@
                         v-if="!isVirtual"
                     >
                         <i :class="completed ? 'el-icon-check' : 'el-icon-warning-outline'"></i>
-                        {{ completed ? "已完成" : "待完成" }}
+                        {{ completed ? $t('已完成') : $t('待完成') }}
                     </i>
                     <i
                         class="m-achievement-status u-attr u-fav u-complete-status el-tag--light el-tag"
@@ -22,7 +22,7 @@
                         v-else
                     >
                         <i :class="completedVirtual ? 'el-icon-check' : 'el-icon-warning-outline'"></i>
-                        {{ completedVirtual ? "已完成" : "待完成" }}
+                        {{ completedVirtual ? $t('已完成') : $t('待完成') }}
                     </i>
                 </template>
                 <span class="u-title-text">{{ achievement.Name }}</span>
@@ -30,11 +30,11 @@
             <div class="u-other">
                 <span
                     class="u-attr"
-                    v-text="achievement.post ? '修订时间：' + ts2str(achievement.post.updated) : ''"
+                    v-text="achievement.post ? $t('修订时间：') + ts2str(achievement.post.updated) : ''"
                 ></span>
                 <span
                     class="u-attr"
-                    v-text="achievement.post ? '综合难度：' + star(achievement.post.level) : ''"
+                    v-text="achievement.post ? $t('综合难度：') + star(achievement.post.level) : ''"
                 ></span>
                 <template v-if="isLogin && isVirtual">
                     <el-button
@@ -45,7 +45,7 @@
                         icon="el-icon-check"
                         @click.stop="finishVirtual()"
                     >
-                        设为完成
+                        {{ $t('设为完成') }}
                     </el-button>
                     <el-button
                         v-else
@@ -55,7 +55,7 @@
                         icon="el-icon-close"
                         @click.stop="cancelVirtual()"
                     >
-                        取消完成
+                        {{ $t('取消完成') }}
                     </el-button>
                 </template>
                 <Fav
@@ -93,8 +93,8 @@
         </div>
         <div class="u-footer">
             <div v-if="achievement.Prefix || achievement.Postfix" class="u-ch">
-                <div v-if="achievement.PrefixName" v-text="'称号前缀：' + achievement.PrefixName"></div>
-                <div v-if="achievement.PostfixName" v-text="'称号后缀：' + achievement.PostfixName"></div>
+                <div v-if="achievement.PrefixName" v-text="$t('称号前缀：') + achievement.PrefixName"></div>
+                <div v-if="achievement.PostfixName" v-text="$t('称号后缀：') + achievement.PostfixName"></div>
             </div>
             <el-row v-if="achievement.SubAchievementList" class="u-subs" :gutter="30">
                 <el-col

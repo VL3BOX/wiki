@@ -2,7 +2,7 @@
     <div class="m-cj-index">
         <Items :items="items">
             <template slot="empty-message">
-                <span>👻 暂无记录</span>
+                <span>👻 {{ $t('暂无记录') }}</span>
                 <template v-if="$route.query.auc_genre || $route.query.auc_sub_type_id">
                     <span>{{ $t('，在') }}</span>
                     <span class="u-research" @click="clean_type">

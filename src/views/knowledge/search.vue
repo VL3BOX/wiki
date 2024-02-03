@@ -1,6 +1,6 @@
 <template>
     <div class="m-search-view">
-        <span class="u-list-empty" v-if="isEmpty">👻 暂无记录</span>
+        <span class="u-list-empty" v-if="isEmpty">👻 {{ $t('暂无记录') }}</span>
         <!-- 搜索结果 & list列表 -->
         <knowledgeList v-if="list" :list="list" :total="total" :pagination="pagination" @onPageKey="onPageKey" />
     </div>

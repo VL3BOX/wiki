@@ -20,7 +20,7 @@
                         >{{ post.title }}</router-link
                     >
                 </div>
-                <div class="u-level" v-text="'综合难度：' + star(post.level)"></div>
+                <div class="u-level" v-text="$t('综合难度：') + star(post.level)"></div>
                 <div class="u-remark" v-if="post.remark" v-text="'📑 ' + post.remark"></div>
             </div>
             <div class="m-user">

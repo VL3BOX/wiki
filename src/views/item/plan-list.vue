@@ -24,7 +24,7 @@
 					</div>
 				</router-link>
 			</template>
-			<el-alert v-else center title="📋 没有对应的物品清单" type="info" :closable="false"></el-alert>
+			<el-alert v-else center :title="'📋' + $t('没有对应的物品清单')" type="info" :closable="false"></el-alert>
 		</div>
 		<el-pagination class="m-archive-pages" background layout="total, prev, pager, next, jumper" :hide-on-single-page="true" :page-size="per" :total="total" :current-page.sync="page"></el-pagination>
 	</div>

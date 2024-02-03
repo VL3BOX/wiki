@@ -6,8 +6,8 @@
                 <th>{{ $t('等级') }}</th>
                 <th>{{ $t('上传时间') }}</th>
                 <th>{{ $t('服务器') }}</th>
-                <th style="text-align: right">一口价 (总价)</th>
-                <th style="text-align: right">一口价 (单价)</th>
+                <th style="text-align: right">{{ $t('一口价 (总价)') }}</th>
+                <th style="text-align: right">{{ $t('一口价 (单价)') }}</th>
             </tr>
             <tr v-for="(price, key) in prices" :key="key">
                 <td>
@@ -41,7 +41,7 @@
                 ></td>
             </tr>
         </table>
-        <div v-else style="text-align: center">🐖 暂无记录</div>
+        <div v-else style="text-align: center">🐖 {{ $t('暂无记录') }}</div>
     </div>
 </template>
 

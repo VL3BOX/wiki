@@ -7,7 +7,7 @@
 <template>
     <div class="u-chain">
         <div class="list" v-if="showCurrent">
-            <el-divider><i class="el-icon-connection"></i> 任务链</el-divider>
+            <el-divider><i class="el-icon-connection"></i> {{ $t('任务链') }}</el-divider>
             <div class="u-chain-name" v-for="(item, i) in display_data.current" :key="item.id">
                 <span v-if="item.logic !== undefined">
                     <span :class="{ all: item.logic, one: !item.logic }" v-for="b in item.quests" :key="b.id">
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="branch" v-if="showBranch">
-            <el-divider><i class="el-icon-rank"></i> 任务分支</el-divider>
+            <el-divider><i class="el-icon-rank"></i> {{ $t('任务分支') }}</el-divider>
             <span class="u-chain-name" v-for="item in display_data.branch" :key="item.id">
                 「<router-link class="u-chain-link" :to="{ name: 'view', params: { quest_id: item.id } }">{{
                     item.name

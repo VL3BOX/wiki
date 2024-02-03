@@ -7,9 +7,9 @@
         <template slot="body">
             <div class="m-revisions-panel">
                 <div class="u-empty" v-if="!versions || !versions.length">
-                    <span v-if="versions === null">🎉 数据加载中...</span>
-                    <span v-if="versions === false">⚠️ 数据加载异常</span>
-                    <span v-if="versions && !versions.length">💧 暂无数据</span>
+                    <span v-if="versions === null">🎉 {{ $t('数据加载中...') }}</span>
+                    <span v-if="versions === false">⚠️ {{ $t('数据加载异常') }}</span>
+                    <span v-if="versions && !versions.length">💧 {{ $t('暂无数据') }}</span>
                 </div>
                 <table v-if="versions && versions.length" class="m-histories">
                     <tr>

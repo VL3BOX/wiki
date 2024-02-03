@@ -54,7 +54,7 @@
                         </li>
                         <li class="m-other-field">
                             <span class="u-label">{{ $t('可否交易') }}</span>
-                            <span class="u-value">{{ source.CanTrade ? "✔️ 可以" : "❌ 不可以" }}</span>
+                            <span class="u-value">{{ source.CanTrade ? `✔️ ${$t('可以')}` : `❌ ${$t('不可以')}` }}</span>
                         </li>
                         <li>
                             <span class="u-label">{{ $t('回购价格') }}</span>
@@ -72,7 +72,7 @@
 
                         <li class="m-other-field">
                             <span class="u-label">{{ $t('可否堆叠') }}</span>
-                            <span class="u-value">{{ source.CanStack ? "✔️ 可以" : "❌ 不可以" }}</span>
+                            <span class="u-value">{{ source.CanStack ? `✔️ ${$t('可以')}` : `❌ ${$t('不可以')}` }}</span>
                         </li>
                         <li v-if="source.MaxExistAmount > 0">
                             <span class="u-label">{{ $t('最大拥有数') }}</span>
@@ -101,24 +101,24 @@
                         </li>
                         <li v-if="source.CanChangeMagic">
                             <span class="u-label">{{ $t('可否附魔') }}</span>
-                            <span class="u-value">✔️ 可以</span>
+                            <span class="u-value">✔️ {{ $t('可以') }}</span>
                         </li>
                         <li v-if="source.CanExterior">
                             <span class="u-label">{{ $t('可否收集') }}</span>
-                            <span class="u-value">✔️ 可以</span>
+                            <span class="u-value">✔️ {{ $t('可以') }}</span>
                         </li>
                         <li v-if="source.CanSetColor">
                             <span class="u-label">{{ $t('可否染色') }}</span>
-                            <span class="u-value">✔️ 可以</span>
+                            <span class="u-value">✔️ {{ $t('可以') }}</span>
                         </li>
                         <li class="m-other-field">
                             <span class="u-label">{{ $t('可否分解') }}</span>
-                            <span class="u-value">{{ source.CanApart ? "✔️ 可以" : "❌ 不可以" }}</span>
+                            <span class="u-value">{{ source.CanApart ? `✔️ ${$t('可以')}` : `❌ ${$t('不可以')}` }}</span>
                         </li>
                         <li class="m-other-field">
                             <span class="u-label">{{ $t('可否摧毁') }}</span>
                             <span class="u-value">{{
-                                source.CanDestroy || source.CanDestroy === null ? "✔️ 可以" : "❌ 不可以"
+                                source.CanDestroy || source.CanDestroy === null ? `✔️ ${$t('可以')}` : `❌ ${$t('不可以')}`
                             }}</span>
                         </li>
                         <!-- <li v-if="source.CanShared">
@@ -158,7 +158,7 @@
 
         <div class="m-tabs" v-if="showPrice">
             <div class="m-price-server">
-                <i class="el-icon-s-shop"></i> 全服价格
+                <i class="el-icon-s-shop"></i> {{ $t('全服价格') }}
                 <el-select
                     v-if="activeTab === 'item-price-chart' || activeTab === 'item-prices'"
                     filterable
@@ -173,10 +173,10 @@
             </div>
 
             <el-tabs v-model="activeTab" type="border-card" @tab-click="active_tab_handle" v-loading="loading">
-                <el-tab-pane label="📈 价格波动" name="item-price-chart" v-if="source && source.BindType != 3">
+                <el-tab-pane :label="'📈' + $t('价格波动')" name="item-price-chart" v-if="source && source.BindType != 3">
                     <item-price-chart ref="item_price_chart" :item_id="source.id" :server="server" />
                 </el-tab-pane>
-                <el-tab-pane label="💰 近期价格" name="item-prices" v-if="source && source.BindType != 3" lazy>
+                <el-tab-pane :label="'💰'+ $t('近期价格')" name="item-prices" v-if="source && source.BindType != 3" lazy>
                     <item-prices ref="item_prices" :item_id="source.id" :server="server" />
                 </el-tab-pane>
                 <!-- <el-tab-pane label="📜 相关物品清单" name="relation-plans" lazy>
@@ -200,7 +200,7 @@
                 </template>
                 <template slot="body">
                     <div class="m-wiki-compatible" v-if="compatible">
-                        <i class="el-icon-warning-outline"></i> 暂无缘起攻略，以下为重制攻略，仅作参考，<a
+                        <i class="el-icon-warning-outline"></i> {{ $t('暂无缘起攻略，以下为重制攻略，仅作参考，') }}<a
                             class="s-link"
                             :href="publish_url(`item/${id}`)"
                             >{{ $t('参与修订') }}</a
@@ -209,7 +209,7 @@
                     <Article :content="wiki_post.post.content" />
                     <div class="m-wiki-signature">
                         <i class="el-icon-edit"></i>
-                        本次修订由 <b>{{ user_name }}</b> 提交于{{ updated_at }}
+                        {{ $t('本次修订由') }} <b>{{ user_name }}</b> {{ $t('提交于') + updated_at }}
                     </div>
                 </template>
             </WikiPanel>

@@ -88,7 +88,7 @@
                                 <el-input
                                     class="u-title"
                                     type="text"
-                                    placeholder="子清单标题（选填）"
+                                    :placeholder="$t('子清单标题（选填）')"
                                     v-model="relation.title"
                                     maxlength="20"
                                     show-word-limit
@@ -107,7 +107,7 @@
                                         >
                                             <ItemIcon :item_id="item.id" :has_title="true" />
                                             <div class="u-count">
-                                                <span>数量：</span>
+                                                <span>{{ $t('数量：') }}</span>
                                                 <el-input-number
                                                     size="mini"
                                                     v-model.number="item.count"

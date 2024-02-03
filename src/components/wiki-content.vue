@@ -34,7 +34,7 @@
         <template slot="body">
 
             <div class="m-wiki-compatible" v-if="compatible && !isEditMode">
-                <i class="el-icon-warning-outline"></i> 暂无缘起攻略，以下为重制攻略，仅作参考，<a
+                <i class="el-icon-warning-outline"></i> {{ $t('暂无缘起攻略，以下为重制攻略，仅作参考，') }}<a
                     :href="publish_url(`${wiki_post.type}/${wikiPost.source_id}`)"
                     >{{ $t('参与修订') }}</a
                 >。
@@ -42,9 +42,9 @@
 
             <!-- Tips -->
             <div class="m-tips" v-if="isEditMode">
-                游戏内仅支持简易文本修订,如需上传图片等,请至
-                <a :href="rootPath">JX3BOX网站</a>
-                操作
+                {{ $t('游戏内仅支持简易文本修订,如需上传图片等,请至') }}
+                <a :href="rootPath">{{ $t('JX3BOX网站') }}</a>
+                {{ $t('操作') }}
             </div>
 
 
@@ -64,7 +64,7 @@
                 <div v-else class="u-empty">
                     <i class="el-icon-s-opportunity"></i>
                     <span>
-                        暂无百科攻略，我来
+                        {{ $t('暂无百科攻略，我来') }}
                         <span class="u-edit" @click="editHandler">{{ $t('完善攻略') }}</span>
                     </span>
                 </div>
@@ -74,15 +74,15 @@
             <div class="m-publish" v-if="isEditMode">
                 <div class="m-other-fields">
                     <div class="u-level">
-                        <span>难度(1-5)：</span>
+                        <span>{{ $t('难度') }}(1-5)：</span>
                         <input type="number" id="level" min="1" max="5" v-model="publish.level" />
                     </div>
                     <div class="u-author">
-                        <span>昵称：</span>
+                        <span>{{ $t('昵称：') }}</span>
                         <input type="text" id="author" v-model="publish.author" autocomplete="off" />
                     </div>
                     <div class="u-remark">
-                        <span>修订说明：</span>
+                        <span>{{ $t('修订说明：') }}</span>
                         <input type="text" id="remark" v-model="publish.remark" autocomplete="off" />
                     </div>
                 </div>

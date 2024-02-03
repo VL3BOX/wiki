@@ -14,7 +14,7 @@
                 size="small"
             >
                 <span slot="prefix" class="u-prefix">
-                    角色
+                    {{ $t('角色') }}
                     <el-tooltip
                         v-if="!isVirtual && !isSync"
                         class="item"
@@ -39,7 +39,7 @@
                         <span class="u-role-name"
                             ><img class="u-role-icon" :src="virtualRole.avatar" />{{ virtualRole.name }}</span
                         >
-                        <span class="u-role-server"> &lt;虚拟角色&gt;</span>
+                        <span class="u-role-server"> &lt;{{ $t('虚拟角色') }}&gt;</span>
                     </span>
                 </el-option>
                 <el-option v-for="role in roleList" :key="role.ID" :value="role" :label="role.name">
@@ -56,7 +56,7 @@
             <el-option v-for="type in menu_types" :key="type.value" :label="type.label" :value="type.value"></el-option>
         </el-select>
         <div v-if="currentRole" class="m-filters">
-            <el-checkbox v-model="uncompleted" :label="$t('只看未完成')"看未完成')" border size="mini"></el-checkbox>
+            <el-checkbox v-model="uncompleted" :label="$t('只看未完成')" border size="mini"></el-checkbox>
             <div class="u-total" v-if="[1, 2].includes(sidebar.general)">
                 <!-- numTotal -->
                 <b class="u-completed-num">{{ completedNum }}</b>

@@ -1,7 +1,7 @@
 <template>
     <div class="m-knowledge-panel">
         <div class="m-title">
-            <span class="u-title-left"><i class="el-icon-location-information"></i><span> 便捷入口</span></span>
+            <span class="u-title-left"><i class="el-icon-location-information"></i><span> {{ $t('便捷入口') }}</span></span>
             <!-- <a class="u-title-right" target="_blank" :href="feedback">反馈建议 &raquo;</a> -->
         </div>
         <div class="m-entry m-panel">

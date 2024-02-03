@@ -70,7 +70,7 @@
                 <span>{{ $t('最新任务') }}</span>
             </template>
             <template slot="head-actions">
-                <router-link class="other" :to="{ name: 'newest' }">查看更多 &raquo;</router-link>
+                <router-link class="other" :to="{ name: 'newest' }">{{ $t('查看更多') }} &raquo;</router-link>
             </template>
             <template slot="body">
                 <quest-carousel :quests="newestQuests"></quest-carousel>

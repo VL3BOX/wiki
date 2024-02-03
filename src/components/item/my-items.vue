@@ -31,7 +31,7 @@
                     ><i class="el-icon-arrow-left"></i> <i class="el-icon-more"></i> <i class="el-icon-arrow-right"></i
                 ></a> -->
             </div>
-            <div v-if="isLogin && !data.length" class="u-tip"><i class="el-icon-warning-outline"></i> 暂无收藏物品</div>
+            <div v-if="isLogin && !data.length" class="u-tip"><i class="el-icon-warning-outline"></i> {{ $t('暂无收藏物品') }}</div>
         </div>
     </div>
 </template>

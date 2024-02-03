@@ -1,6 +1,6 @@
 <template>
     <div class="m-rare-view">
-        <span class="u-list-empty" v-if="isEmpty">👻 暂无记录</span>
+        <span class="u-list-empty" v-if="isEmpty">👻 {{ $t('暂无记录') }}</span>
         <Achievements :achievements="achievements" />
         <el-pagination
             background

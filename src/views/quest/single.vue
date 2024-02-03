@@ -17,7 +17,7 @@
             </div>
             <div class="u-endpoint__warpper">
                 <p class="u-endpoint" v-show="quest.start">
-                    <span class="u-endpoint-label"><i class="el-icon-video-play"></i> 任务起点: </span>
+                    <span class="u-endpoint-label"><i class="el-icon-video-play"></i> {{ $t('任务起点') }}: </span>
                     <span>{{ quest.start.mapName }}</span>
                     <span class="u-endpoint-separate"> - </span>
                     <item-icon
@@ -38,7 +38,7 @@
                     ></point-filter>
                 </p>
                 <p class="u-endpoint">
-                    <span class="u-endpoint-label"><i class="el-icon-remove-outline"></i> 任务终点: </span>
+                    <span class="u-endpoint-label"><i class="el-icon-remove-outline"></i> {{ $t('任务终点') }}: </span>
                     <span>{{ quest.end.mapName }}</span>
                     <span class="u-endpoint-separate"> - </span>
                     <item-icon
@@ -60,7 +60,7 @@
                 </p>
             </div>
             <div class="u-target" v-show="targetDesc">
-                <p class="u-subtitle">▶ 任务目标</p>
+                <p class="u-subtitle">▶ {{ $t('任务目标') }}</p>
                 <p v-html="targetDesc"></p>
                 <template v-if="quest.killNpcs && quest.killNpcs.length > 0">
                     <div class="u-target-sub" v-for="(killNpc, i) in quest.killNpcs" :key="i">
@@ -102,11 +102,11 @@
                 </div>
             </div>
             <div class="u-desc" v-show="questDesc">
-                <p class="u-subtitle">▶ 任务描述</p>
+                <p class="u-subtitle">▶ {{ $t('任务描述') }}</p>
                 <p v-html="questDesc"></p>
             </div>
             <div class="u-offer" v-if="quest.offerItems">
-                <p class="u-subtitle">▶ 提供物品</p>
+                <p class="u-subtitle">▶ {{ $t('提供物品') }}</p>
                 <div class="u-offer-list">
                     <item-icon
                         v-for="item in quest.offerItems"
@@ -117,7 +117,7 @@
                 </div>
             </div>
             <div class="u-reward" v-show="showReward">
-                <p class="u-subtitle">▶ 任务奖励</p>
+                <p class="u-subtitle">▶ {{ $t('任务奖励') }}</p>
                 <div class="u-reward-list">
                     <reward-item v-for="(reward, i) in quest.rewards" :key="i" :reward="reward"></reward-item>
                 </div>
@@ -154,7 +154,7 @@
                 </template>
                 <template slot="body">
                     <div class="m-wiki-compatible" v-if="compatible">
-                        <i class="el-icon-warning-outline"></i> 暂无缘起攻略，以下为重制攻略，仅作参考，<a
+                        <i class="el-icon-warning-outline"></i> {{ $t('暂无缘起攻略，以下为重制攻略，仅作参考，') }}<a
                             class="s-link"
                             :href="publish_url(`quest/${id}`)"
                             >{{ $t('参与修订') }}</a
@@ -163,7 +163,7 @@
                     <Article :content="wiki_post.post.content" />
                     <div class="m-wiki-signature">
                         <i class="el-icon-edit"></i>
-                        本次修订由 <b>{{ user_name }}</b> 提交于{{ updated_at }}
+                        {{ $t('本次修订由') }} <b>{{ user_name }}</b> {{ $t('提交于') + updated_at }}
                     </div>
                 </template>
             </WikiPanel>

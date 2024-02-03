@@ -94,7 +94,7 @@
                         </el-row>
                     </el-carousel-item>
                 </el-carousel>
-                <div v-else style="text-align: center">😂 暂无物品清单</div>
+                <div v-else style="text-align: center">😂 {{ $t('暂无物品清单') }}</div>
             </template>
         </WikiPanel>
 
@@ -138,7 +138,7 @@
                         </el-row>
                     </el-carousel-item>
                 </el-carousel>
-                <div v-else style="text-align: center">😂 暂无物品清单</div>
+                <div v-else style="text-align: center">😂 {{ $t('暂无物品清单') }}</div>
             </template>
         </WikiPanel>
 
@@ -169,7 +169,7 @@
                                         <span v-text="post.title"></span>
                                     </router-link>
                                 </div>
-                                <div class="u-level" v-text="'综合难度：' + star(post.level)"></div>
+                                <div class="u-level" v-text="$t('综合难度：') + star(post.level)"></div>
                                 <div class="u-remark" v-if="post.remark" v-text="'📑 ' + post.remark"></div>
                             </div>
                             <div class="m-user">
@@ -199,7 +199,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-else style="text-align: center">😂 暂无攻略</div>
+                <div v-else style="text-align: center">😂 {{ $t('暂无攻略') }}</div>
             </template>
         </WikiPanel>
     </div>

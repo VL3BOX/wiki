@@ -4,7 +4,7 @@
         <el-row class="m-today" v-if="currentPrice">
             <el-col :span="8">
                 <div class="u-label">
-                    <i class="el-icon-right u-avg"></i> 今日均价
+                    <i class="el-icon-right u-avg"></i> {{ $t('今日均价') }}
                 </div>
                 <div class="u-value u-avg">
                     <GamePrice :price="currentPrice.AvgPrice" />
@@ -12,7 +12,7 @@
             </el-col>
             <el-col :span="8">
                 <div class="u-label">
-                    <i class="el-icon-bottom u-min"></i> 今日最低价
+                    <i class="el-icon-bottom u-min"></i> {{ $t('今日最低价') }}
                 </div>
                 <div class="u-value u-min">
                     <GamePrice :price="currentPrice.LowestPrice" />
@@ -20,7 +20,7 @@
             </el-col>
             <el-col :span="8">
                 <div class="u-label">
-                    <i class="el-icon-top u-max"></i> 今日最高价
+                    <i class="el-icon-top u-max"></i> {{ $t('今日最高价') }}
                 </div>
                 <div class="u-value u-max">
                     <GamePrice :price="currentPrice.HighestPrice" />
@@ -29,7 +29,7 @@
         </el-row>
 
         <div v-show="!hidden" id="m-item-price-chart" />
-        <div v-show="!logs.length" style="text-align:center">🐖 暂无记录</div>
+        <div v-show="!logs.length" style="text-align:center">🐖 {{ $t('暂无记录') }}</div>
     </div>
 </template>
 

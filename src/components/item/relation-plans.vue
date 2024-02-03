@@ -47,7 +47,7 @@
 				</el-col>
 			</el-row> -->
 		</template>
-		<div v-else style="text-align: center">🐖 暂无记录</div>
+		<div v-else style="text-align: center">🐖 {{ $t('暂无记录') }}</div>
 	</div>
 </template>
 

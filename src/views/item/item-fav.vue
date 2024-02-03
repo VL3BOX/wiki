@@ -1,7 +1,7 @@
 <template>
     <el-button class="w-fav" size="mini" type="primary" @click="doFav">
         <i :class="favorite ? 'el-icon-star-on' : 'el-icon-star-off'"></i>
-        <span>{{ favorite ? "取消收藏" : "收藏" }}</span>
+        <span>{{ favorite ? $t('取消收藏') : $t('收藏') }}</span>
     </el-button>
 </template>
 

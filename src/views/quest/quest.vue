@@ -16,14 +16,14 @@
         <div class="m-search-wrap">
             <Search :placeholder="placeholder" @search="search">
                 <div>
-                    <el-tooltip content="查看任务链需要键入完整任务名或任务ID哦" placement="top">
+                    <el-tooltip :content="$t('查看任务链需要键入完整任务名或任务ID哦')" placement="top">
                         <el-checkbox v-model="chain">{{ $t('查看任务链') }}</el-checkbox>
                     </el-tooltip>
                     <el-tooltip class="u-tips" effect="dark" placement="bottom">
                         <div slot="content">
-                            <span>※ 支持任务名称精确或模糊搜索</span> <br />
-                            <span>※ 支持任务相关物品名称精确搜索</span> <br />
-                            <span>※ 支持成就名称精确搜索</span> <br />
+                            <span>※ {{ $t('支持任务名称精确或模糊搜索') }}</span> <br />
+                            <span>※ {{ $t('支持任务相关物品名称精确搜索') }}</span> <br />
+                            <span>※ {{ $t('支持成就名称精确搜索') }}</span> <br />
                         </div>
                         <el-button type="text" icon="el-icon-question"></el-button>
                     </el-tooltip>

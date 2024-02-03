@@ -7,9 +7,9 @@
         <template slot="body">
             <div class="m-comments-panel" v-loading="loading">
                 <div class="u-empty" v-if="!comments || !comments.length">
-                    <span v-if="comments === null">🎉 数据加载中...</span>
-                    <span v-if="comments === false">⚠️ 数据加载异常</span>
-                    <span v-if="comments && !comments.length">💧 暂无评论</span>
+                    <span v-if="comments === null">🎉 {{ $t('数据加载中...') }}</span>
+                    <span v-if="comments === false">⚠️ {{ $t('数据加载异常') }}</span>
+                    <span v-if="comments && !comments.length">💧 {{ $t('暂无评论') }}</span>
                 </div>
                 <!-- 递归评论组件 -->
                 <Comment :comments="comments" :source-id="sourceId" />
@@ -31,7 +31,7 @@
                     </h4>
                     <textarea class="u-reply-content" v-model="reply_form.content"></textarea>
                     <div class="u-author">
-                        <span>昵称：</span>
+                        <span>{{ $t('昵称：') }}</span>
                         <input v-model="reply_form.user_nickname" type="text" />
                     </div>
                     <el-button type="primary" class="u-submit" @click="create_comment(reply_form)">

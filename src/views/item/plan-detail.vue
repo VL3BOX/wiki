@@ -30,7 +30,7 @@
                     <div class="u-title">
                         <span>{{ $t('简介') }}</span>
                     </div>
-                    <div class="u-desc">{{ plan.description || "作者很懒什么也没写 😜" }}</div>
+                    <div class="u-desc">{{ plan.description || $t('作者很懒什么也没写') + ' 😜' }}</div>
                     <span class="u-user">
                         <img
                             class="u-avatar"
@@ -38,10 +38,10 @@
                             :alt="getUserInfo(plan, 'display_name')"
                         />
                         <a class="u-name" :href="authorLink(plan.user_id)">{{
-                            getUserInfo(plan, "display_name") || "匿名"
+                            getUserInfo(plan, "display_name") || $t('匿名')
                         }}</a>
                         <span class="u-time"
-                            >最后更新于 <i class="el-icon-time"></i>{{ date_format(plan.updated) }}</span
+                            >{{ $t('最后更新于') }} <i class="el-icon-time"></i>{{ date_format(plan.updated) }}</span
                         >
                     </span>
                 </div>
@@ -83,7 +83,7 @@
                                         :item="eq"
                                     />
                                 </div>
-                                <div v-else class="u-equip-null">- 暂无物品 -</div>
+                                <div v-else class="u-equip-null">- {{ $t('暂无物品') }} -</div>
                             </div>
                         </div>
                     </div>

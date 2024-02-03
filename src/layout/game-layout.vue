@@ -4,7 +4,7 @@
         <header class="m-header">
             <a class="m-header-logo" :href="rootPath">
                 <img class="u-logo" src="@/assets/img/logo.png" alt="JX3BOX" />
-                <strong class="u-title">JX3BOX魔盒</strong>
+                <strong class="u-title">{{ $t('JX3BOX魔盒') }}</strong>
             </a>
             <ul class="m-header-list">
                 <li><a :href="`${rootPath}macro/`">{{ $t('宏库') }}</a></li>

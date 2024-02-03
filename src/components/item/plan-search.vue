@@ -13,7 +13,7 @@
                 class="u-search-input"
                 v-model="keyword"
                 @keydown.enter.native="search_handle"
-                placeholder="输入物品清单名称「回车」进行搜索"
+                :placeholder="$t('输入物品清单名称「回车」进行搜索')"
             >
                 <span slot="prepend">{{ $t('关键词') }}</span>
                 <el-button

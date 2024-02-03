@@ -10,7 +10,7 @@
                 <template v-if="relation_index == index && item.relation">
                     <div class="u-child" v-for="(plan, k) in item.relation" :key="k" @click="addToPlan(item, k)">
                         <i class="el-icon-arrow-right"></i>
-                        <span>{{ plan.title || "子清单" + (k + 1) }}</span>
+                        <span>{{ plan.title || $t('子清单') + (k + 1) }}</span>
                     </div>
                 </template>
             </div>
@@ -38,12 +38,12 @@
             </div>
             <div class="m-create" slot="reference">
                 <!-- <a href="/publish/#/item_plan" target="_blank" class="el-button"><i class="el-icon-document-add"></i> 创建新清单</a> -->
-                <span class="el-button"><i class="el-icon-document-add"></i> 创建新清单</span>
+                <span class="el-button"><i class="el-icon-document-add"></i> {{ $t('创建新清单') }}</span>
             </div>
         </el-popover>
 
         <el-button size="mini" type="success" slot="reference" @click="openPlans"
-            ><i class="u-el-icon el-icon-shopping-cart-full"></i> 加入清单</el-button
+            ><i class="u-el-icon el-icon-shopping-cart-full"></i> {{ $t('加入清单') }}</el-button
         >
     </el-popover>
 </template>

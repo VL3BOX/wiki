@@ -11,7 +11,7 @@
                         v-text="comment.user_nickname"
                     ></a>
                     <template v-if="comment.parent_id">
-                        <span>&nbsp;回复&nbsp;</span>
+                        <span>&nbsp;{{ $t('回复') }}&nbsp;</span>
                         <a
                             class="u-nickname"
                             :href="comment.parent.user_id ? author_url(comment.parent.user_id) : null"
@@ -50,7 +50,7 @@
                 <div class="m-reply-form" v-if="comment.reply_form && comment.reply_form.show">
                     <textarea class="u-reply-content" v-model="comment.reply_form.content"></textarea>
                     <div class="u-author">
-                        <span>昵称：</span>
+                        <span>{{ $t('昵称：') }}</span>
                         <input v-model="comment.reply_form.user_nickname" type="text" />
                     </div>
                     <el-button type="primary" class="u-submit" @click="create_comment(comment.reply_form, comment.id)">

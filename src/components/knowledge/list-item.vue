@@ -8,10 +8,10 @@
 			<i class="el-icon-price-tag"></i>
 			<span v-for="item in formatTags(data.post.tags)" :key="item">{{ item }}</span>
 		</div>
-		<span class="u-remark" v-if="data.post"> <i class="el-icon-edit"></i>最后修订：{{ data.post.remark }}@{{ data.post.user_nickname }} </span>
+		<span class="u-remark" v-if="data.post"> <i class="el-icon-edit"></i>{{ $t('最后修订：') + data.post.remark }}@{{ data.post.user_nickname }} </span>
 		<div class="u-updated" v-if="data.updated">
 			<i class="el-icon-refresh"></i>
-			<span> 最后更新于{{ date_format(data.updated) }}</span>
+			<span> {{ $t('最后更新于') + date_format(data.updated) }}</span>
 		</div>
 	</router-link>
 </template>
