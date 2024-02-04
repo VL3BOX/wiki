@@ -1,22 +1,23 @@
 <template>
     <el-dialog class="m-wiki-diff-dialog" :visible.sync="show" :title="title" :before-close="close" width="80%">
         <div class="m-contents">
-            <el-alert class="u-tip" title="请选择两个版本进行对比" type="info" show-icon> </el-alert>
-            <el-checkbox-group v-model="checkboxGroup" :max="2" size="small" @change="checkChange">
-                <el-checkbox border v-for="item in list" :label="item.id" :key="item.id">{{
-                    item.version
-                }}</el-checkbox>
-            </el-checkbox-group>
+            <div class="m-versions">
+                <el-select v-model="version" placeholder="版本选择" style="width: 100%" clearable>
+                    <el-option v-for="item in list" :label="item.version" :value="item.id" :key="item.id"></el-option>
+                </el-select>
+                <el-select v-model="version1" placeholder="版本选择" style="width: 100%" clearable>
+                    <el-option v-for="item in list" :label="item.version" :value="item.id" :key="item.id"></el-option>
+                </el-select>
+            </div>
             <code-diff
-                v-if="checkboxGroup.length"
                 class="m-content-view"
-                :old-string="checkboxGroup.length === 2 ? checkboxContents[0] : ''"
-                :new-string="checkboxGroup.length === 2 ? checkboxContents[1] : checkboxContents[0]"
+                :old-string="content"
+                :new-string="content1"
                 :context="1024"
                 output-format="side-by-side"
                 maxHeight="600px"
-                :filename="checkboxGroup.length === 2 ? filename : ''"
-                :newFilename="checkboxGroup.length === 2 ? newFilename : filename"
+                :filename="filename"
+                :newFilename="newFilename"
             ></code-diff>
         </div>
         <template #footer>
@@ -45,23 +46,24 @@ export default {
             loading: false,
             checkboxGroup: [],
             list: [],
+            content: "",
+            content1: "",
+            version: "",
+            version1: "",
         };
     },
     computed: {
         title() {
             return "版本对比";
         },
-        checkboxContents() {
-            return this.list.filter((item) => this.checkboxGroup.includes(item.id)).map((item) => item.content);
-        },
         filename() {
-            const data = this.list.find((item) => item.id === this.checkboxGroup?.[0]);
+            const data = this.list.find((item) => item.id === this.version);
             return `${data?.version || ""} ${data?.user_nickname || ""} ${data?.remark || ""} ${
                 data?.updated ? ts2str(data?.updated) : ""
             }`;
         },
         newFilename() {
-            const data = this.list.find((item) => item.id === this.checkboxGroup?.[1]);
+            const data = this.list.find((item) => item.id === this.version1);
             return `${data?.version || ""} ${data?.user_nickname || ""} ${data?.remark || ""} ${
                 data?.updated ? ts2str(data?.updated) : ""
             }`;
@@ -89,20 +91,28 @@ export default {
                     });
             },
         },
+        version(id) {
+            if (id) {
+                this.load(id, "content");
+            } else {
+                this.content = "";
+            }
+        },
+        version1(id) {
+            if (id) {
+                this.load(id, "content1");
+            } else {
+                this.content1 = "";
+            }
+        },
     },
     methods: {
-        checkChange(list) {
-            list.forEach((id) => {
-                this.load(id);
-            });
-        },
-        load(id) {
+        load(id, key) {
             this.loading = true;
             getWiki(id)
                 .then((res) => {
-                    const index = this.list.findIndex((item) => item.id === id);
                     const content = res.data?.data?.post?.content || "";
-                    this.list[index].content = content;
+                    this[key] = content;
                 })
                 .finally(() => {
                     this.loading = false;
@@ -123,6 +133,11 @@ export default {
     }
     .u-tip {
         margin-bottom: 10px;
+    }
+    .m-versions {
+        margin: 10px 0;
+        .flex;
+        gap: 10px;
     }
 }
 </style>
