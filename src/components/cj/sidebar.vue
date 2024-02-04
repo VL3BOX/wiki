@@ -59,7 +59,7 @@
             <el-checkbox v-model="uncompleted" label="只看未完成" border size="mini"></el-checkbox>
             <div class="u-total" v-if="[1, 2].includes(sidebar.general)">
                 <!-- numTotal -->
-                <b class="u-completed-num">{{ completedNum }}</b>
+                <b class="u-completed-num">{{ uncompleted ? achievementTotal - completedNum : completedNum }}</b>
                 <span class="u-total-num"> / {{ achievementTotal }}</span>
             </div>
         </div>
@@ -77,7 +77,13 @@
                 <router-link class="el-tree-node__label" slot-scope="{ data }" :to="menu_url(data)">
                     <span class="u-name" v-text="data.name"></span>
                     <em v-if="data.achievements_count" class="u-count">
-                        (<span v-if="currentRole">{{ `${getMenuCompleted(data)}/` }}</span>
+                        (<span v-if="currentRole">{{
+                            `${
+                                uncompleted
+                                    ? data.achievements_count + ~~data.own_achievements_count - getMenuCompleted(data)
+                                    : getMenuCompleted(data)
+                            }/`
+                        }}</span>
                         <span>{{ `${data.achievements_count + ~~data.own_achievements_count}` }}</span
                         >)
                     </em>
