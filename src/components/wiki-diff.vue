@@ -44,7 +44,6 @@ export default {
     data() {
         return {
             loading: false,
-            checkboxGroup: [],
             list: [],
             content: "",
             content1: "",
@@ -86,7 +85,6 @@ export default {
                         return {
                             ...item,
                             version: `v${index + 1}`,
-                            content: "",
                         };
                     });
             },
