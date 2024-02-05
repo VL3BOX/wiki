@@ -203,7 +203,7 @@ export default {
             deep: true,
             handler(val) {
                 if (!val) return;
-                sessionStorage.setItem("cj-current-role", JSON.stringify(val));
+                localStorage.setItem("wiki_last_sync", val.jx3id || 0);
                 this.$store.commit("SET_STATE", { key: "role", value: val });
                 const { jx3id } = val;
                 if (jx3id) {
@@ -227,7 +227,8 @@ export default {
                 if (!bol) {
                     this.currentRole = "";
                     this.$store.commit("SET_STATE", { key: "role", value: "" });
-                    this.$store.commit("SET_STATE", { key: "cj-current-role", value: "", isSession: true });
+                    this.$store.commit("SET_STATE", { key: "wiki_last_sync", value: 0 });
+                    localStorage.setItem("wiki_last_sync", 0);
                     // this.$store.commit("SET_STATE", { key: "cj-roles", value: [], isSession: true });
                     this.$store.commit("SET_STATE", { key: "achievements", value: [], isSession: true });
                 }
@@ -418,6 +419,12 @@ export default {
             this.isLogin &&
                 getUserRoles().then((res) => {
                     this.roleList = res.data?.data?.list || [];
+                    const wiki_last_sync_jx3id = localStorage.getItem("wiki_last_sync");
+                    if (wiki_last_sync_jx3id && wiki_last_sync_jx3id !== "0") {
+                        this.currentRole = this.roleList.find((item) => item.jx3id == wiki_last_sync_jx3id) || "";
+                    } else {
+                        this.currentRole = this.virtualRole;
+                    }
                     // res.data?.data?.list.filter((item) => {
                     //     return !!item.player_id;
                     // }) || [];
@@ -446,21 +453,7 @@ export default {
         },
     },
     mounted() {
-        if (sessionStorage.getItem("cj-current-role")) {
-            this.currentRole = JSON.parse(sessionStorage.getItem("cj-current-role"));
-            this.loadUserRoles();
-        } else {
-            // if (sessionStorage.getItem("cj-roles")) {
-            //     this.roleList = JSON.parse(sessionStorage.getItem("cj-roles"));
-            // } else {
-            this.loadUserRoles();
-            // }
-        }
-        if (this.currentRole.jx3id === 0) {
-            // 虚拟角色
-            this.loadVirtualAchievements();
-            this.$store.commit("SET_STATE", { key: "role", value: this.virtualRole });
-        }
+        this.loadUserRoles();
     },
 };
 </script>
