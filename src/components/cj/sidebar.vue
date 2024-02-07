@@ -424,6 +424,8 @@ export default {
                         this.currentRole = this.roleList.find((item) => item.jx3id == wiki_last_sync_jx3id) || "";
                     } else {
                         this.currentRole = this.virtualRole;
+                        this.$store.commit("SET_STATE", { key: "role", value: this.virtualRole });
+                        this.loadVirtualAchievements();
                     }
                     // res.data?.data?.list.filter((item) => {
                     //     return !!item.player_id;

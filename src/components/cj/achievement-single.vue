@@ -22,7 +22,7 @@
                         v-else
                     >
                         <i :class="completedVirtual ? 'el-icon-check' : 'el-icon-warning-outline'"></i>
-                        {{ completedVirtual ? "已完成" : "待完成" }}
+                        {{ completedVirtualText }}
                     </i>
                 </template>
                 <span class="u-title-text">{{ achievement.Name }}</span>
@@ -264,11 +264,27 @@ export default {
             return this.$store.state.achievementsVirtual;
         },
         completedVirtual() {
-            if (this.achievement.Series) {
-                const list = this.achievement.Series.split("|");
-                return list.every((id) => this.achievementsVirtual.includes(id));
+            if (this.routeName !== "view") {
+                if (this.achievement.Series) {
+                    const list = this.achievement.Series.split("|");
+                    return list.every((id) => this.achievementsVirtual.includes(id));
+                }
             }
             return this.achievementsVirtual.includes(this.achievement.ID + "");
+        },
+        completedVirtualText() {
+            if (this.routeName !== "view" && this.achievement.Series) {
+                let num = 0;
+                const list = this.achievement.Series.split("|");
+                list.forEach((id) => {
+                    if (this.achievementsVirtual.includes(id)) {
+                        num++;
+                    }
+                });
+                const len = list.length;
+                return this.completedVirtual ? "已完成" : `待完成(${num}/${len})`;
+            }
+            return this.completedVirtual ? "已完成" : "待完成";
         },
     },
     watch: {
