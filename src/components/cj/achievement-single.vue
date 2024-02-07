@@ -14,7 +14,7 @@
                         v-if="!isVirtual"
                     >
                         <i :class="completed ? 'el-icon-check' : 'el-icon-warning-outline'"></i>
-                        {{ completed ? "已完成" : "待完成" }}
+                        {{ completedText }}
                     </i>
                     <i
                         class="m-achievement-status u-attr u-fav u-complete-status el-tag--light el-tag"
@@ -194,6 +194,9 @@ export default {
         };
     },
     computed: {
+        routeName() {
+            return this.$route.name;
+        },
         empty() {
             return !(
                 this.achievement.Prefix ||
@@ -218,11 +221,27 @@ export default {
             return this.$store.state.achievements;
         },
         completed() {
-            if (this.achievement.Series) {
-                const list = this.achievement.Series.split("|");
-                return list.every((id) => this.completeAchievements.includes(id));
+            if (this.routeName !== "view") {
+                if (this.achievement.Series) {
+                    const list = this.achievement.Series.split("|");
+                    return list.every((id) => this.completeAchievements.includes(id));
+                }
             }
             return this.completeAchievements.includes(this.achievement.ID + "");
+        },
+        completedText() {
+            if (this.routeName !== "view" && this.achievement.Series) {
+                let num = 0;
+                const list = this.achievement.Series.split("|");
+                list.forEach((id) => {
+                    if (this.completeAchievements.includes(id)) {
+                        num++;
+                    }
+                });
+                const len = list.length;
+                return this.completed ? "已完成" : `待完成(${num}/${len})`;
+            }
+            return this.completed ? "已完成" : "待完成";
         },
         isLogin() {
             return User.isLogin();
@@ -239,7 +258,7 @@ export default {
         },
         isHidden() {
             const completed = this.isVirtual ? this.completedVirtual : this.completed;
-            return this.onlyUncompleted && completed;
+            return this.onlyUncompleted && completed && this.routeName !== "view";
         },
         achievementsVirtual() {
             return this.$store.state.achievementsVirtual;
