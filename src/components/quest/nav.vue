@@ -68,7 +68,7 @@ export default {
                     if (questType[key]) {
                         maps.push({
                             id: key,
-                            name: questType[key],
+                            name: this.$i18n.t(questType[key]), // use i18n to translate for quest-type.json
                             children: mapObj[key],
                             count: mapObj[key].map((item) => item.count).reduce((a, b) => a + b),
                         });
