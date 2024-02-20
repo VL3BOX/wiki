@@ -4,6 +4,12 @@
             <i class="el-icon-time"></i>
             <span>{{ $t('历史版本') }}</span>
         </template>
+        <template slot="head-actions">
+            <span class="el-button el-button--primary" @click="visible = true">
+                <i class="el-icon-crop"></i>
+                <span>版本对比</span>
+            </span>
+        </template>
         <template slot="body">
             <div class="m-revisions-panel">
                 <div class="u-empty" v-if="!versions || !versions.length">
@@ -34,6 +40,7 @@
                     </tr>
                 </table>
             </div>
+            <WikiDiff v-if="visible" :visible="visible" :data="versions" @close="visible = false"></WikiDiff>
         </template>
     </WikiPanel>
 </template>
@@ -43,16 +50,19 @@ import WikiPanel from "@/components/wiki-panel.vue";
 import { wiki } from "@jx3box/jx3box-common/js/wiki_v2";
 import { getLink, authorLink, ts2str } from "@jx3box/jx3box-common/js/utils";
 import { __Root, __OriginRoot } from "@jx3box/jx3box-common/data/jx3box.json";
+import WikiDiff from "./wiki-diff.vue";
 
 export default {
     name: "WikiRevisions",
     components: {
         WikiPanel,
+        WikiDiff,
     },
     props: ["type", "sourceId", "isGame"],
     data: function () {
         return {
             versions: [],
+            visible: false,
         };
     },
     computed: {

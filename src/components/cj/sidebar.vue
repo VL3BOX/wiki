@@ -59,7 +59,7 @@
             <el-checkbox v-model="uncompleted" :label="$t('只看未完成')" border size="mini"></el-checkbox>
             <div class="u-total" v-if="[1, 2].includes(sidebar.general)">
                 <!-- numTotal -->
-                <b class="u-completed-num">{{ completedNum }}</b>
+                <b class="u-completed-num">{{ uncompleted ? achievementTotal - completedNum : completedNum }}</b>
                 <span class="u-total-num"> / {{ achievementTotal }}</span>
             </div>
         </div>
@@ -77,7 +77,13 @@
                 <router-link class="el-tree-node__label" slot-scope="{ data }" :to="menu_url(data)">
                     <span class="u-name" v-text="data.name"></span>
                     <em v-if="data.achievements_count" class="u-count">
-                        (<span v-if="currentRole">{{ `${getMenuCompleted(data)}/` }}</span>
+                        (<span v-if="currentRole">{{
+                            `${
+                                uncompleted
+                                    ? data.achievements_count + ~~data.own_achievements_count - getMenuCompleted(data)
+                                    : getMenuCompleted(data)
+                            }/`
+                        }}</span>
                         <span>{{ `${data.achievements_count + ~~data.own_achievements_count}` }}</span
                         >)
                     </em>
@@ -197,7 +203,7 @@ export default {
             deep: true,
             handler(val) {
                 if (!val) return;
-                sessionStorage.setItem("cj-current-role", JSON.stringify(val));
+                localStorage.setItem("wiki_last_sync", val.jx3id || 0);
                 this.$store.commit("SET_STATE", { key: "role", value: val });
                 const { jx3id } = val;
                 if (jx3id) {
@@ -221,7 +227,8 @@ export default {
                 if (!bol) {
                     this.currentRole = "";
                     this.$store.commit("SET_STATE", { key: "role", value: "" });
-                    this.$store.commit("SET_STATE", { key: "cj-current-role", value: "", isSession: true });
+                    this.$store.commit("SET_STATE", { key: "wiki_last_sync", value: 0 });
+                    localStorage.setItem("wiki_last_sync", 0);
                     // this.$store.commit("SET_STATE", { key: "cj-roles", value: [], isSession: true });
                     this.$store.commit("SET_STATE", { key: "achievements", value: [], isSession: true });
                 }
@@ -412,6 +419,14 @@ export default {
             this.isLogin &&
                 getUserRoles().then((res) => {
                     this.roleList = res.data?.data?.list || [];
+                    const wiki_last_sync_jx3id = localStorage.getItem("wiki_last_sync");
+                    if (wiki_last_sync_jx3id && wiki_last_sync_jx3id !== "0") {
+                        this.currentRole = this.roleList.find((item) => item.jx3id == wiki_last_sync_jx3id) || "";
+                    } else {
+                        this.currentRole = this.virtualRole;
+                        this.$store.commit("SET_STATE", { key: "role", value: this.virtualRole });
+                        this.loadVirtualAchievements();
+                    }
                     // res.data?.data?.list.filter((item) => {
                     //     return !!item.player_id;
                     // }) || [];
@@ -440,21 +455,7 @@ export default {
         },
     },
     mounted() {
-        if (sessionStorage.getItem("cj-current-role")) {
-            this.currentRole = JSON.parse(sessionStorage.getItem("cj-current-role"));
-            this.loadUserRoles();
-        } else {
-            // if (sessionStorage.getItem("cj-roles")) {
-            //     this.roleList = JSON.parse(sessionStorage.getItem("cj-roles"));
-            // } else {
-            this.loadUserRoles();
-            // }
-        }
-        if (this.currentRole.jx3id === 0) {
-            // 虚拟角色
-            this.loadVirtualAchievements();
-            this.$store.commit("SET_STATE", { key: "role", value: this.virtualRole });
-        }
+        this.loadUserRoles();
     },
 };
 </script>
