@@ -18,13 +18,13 @@ export default {
         return {
             count: {},
             countDict: {
-                total: "物品总数",
-                quality_0: "破败物品数",
-                quality_1: "普通物品数",
-                quality_2: "精巧物品数",
-                quality_3: "卓越物品数",
-                quality_4: "珍奇物品数",
-                quality_5: "稀世物品数"
+                total: this.$i18n.t('物品总数'),
+                quality_0: this.$i18n.t('破败物品数'),
+                quality_1: this.$i18n.t('普通物品数'),
+                quality_2: this.$i18n.t('精巧物品数'),
+                quality_3: this.$i18n.t('卓越物品数'),
+                quality_4: this.$i18n.t('珍奇物品数'),
+                quality_5: this.$i18n.t('稀世物品数')
             },
         };
     },
