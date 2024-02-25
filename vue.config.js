@@ -1,38 +1,38 @@
 const path = require("path");
 const pkg = require("./package.json");
 const { JX3BOX, SEO } = require("@jx3box/jx3box-common");
-const Setting = require("./setting.json");
+const Setting = require("./setting.vi.json");
 
 module.exports = {
     //❤️ Multiple pages ~
     pages: {
         index: {
-            title: "剑三wiki - JX3BOX",
+            title: "Bách khoa toàn thư" + Setting.suffix,
             entry: "src/main.js",
-            template: "public/index.html",
+            template: "public/index.vi.html",
             filename: "index.html",
         },
         quest: {
-            title: "任务百科 - JX3BOX",
-            template: "public/index.html",
+            title: "Bách khoa nhiệm vụ" + Setting.suffix,
+            template: "public/index.vi.html",
             entry: "src/pages/quest.js",
             filename: "quest/index.html",
         },
         knowledge: {
-            title: "通识百科 - JX3BOX",
-            template: "public/index.html",
+            title: "Bách khoa phổ thông" + Setting.suffix,
+            template: "public/index.vi.html",
             entry: "src/pages/knowledge.js",
             filename: "knowledge/index.html",
         },
         item: {
-            title: "物品百科 - JX3BOX",
-            template: "public/index.html",
+            title: "Bách khoa vật phẩm" + Setting.suffix,
+            template: "public/index.vi.html",
             entry: "src/pages/item.js",
             filename: "item/index.html",
         },
         cj: {
-            title: "成就百科 - JX3BOX",
-            template: "public/index.html",
+            title: "Bách khoa thành tựu" + Setting.suffix,
+            template: "public/index.vi.html",
             entry: "src/pages/cj.js",
             filename: "cj/index.html",
         },

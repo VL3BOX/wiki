@@ -14,15 +14,16 @@ import { getAchievementsTotal } from "@/service/achievement";
 export default {
     name: "AchievementCount",
     data() {
+        const { t } = this.$i18n;
         return {
             generalNum: 137, // 和游戏差异，固定加上
             count: {},
             countDict: {
-                general: this.$i18n.t('常规成就数'),
-                general_point: this.$i18n.t('常规资历数'),
-                armor: this.$i18n.t('五甲成就数'),
-                armor_point: this.$i18n.t('五甲资历数'),
-                // post_count: "收录攻略数",
+                general: t('常规成就数'),
+                general_point: t('常规资历数'),
+                armor: t('五甲成就数'),
+                armor_point: t('五甲资历数'),
+                // post_count: t("收录攻略数"),
             },
         };
     },
