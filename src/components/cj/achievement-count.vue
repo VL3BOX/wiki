@@ -2,7 +2,7 @@
     <div class="m-achievement-count">
         <div class="u-stat">
             <span v-for="(text, key) in countDict" :key="key">
-                <em>{{ text }}</em>
+                <em>{{ $t(text) }}</em>
                 <b>{{ count[key] }}</b>
             </span>
         </div>
@@ -14,16 +14,15 @@ import { getAchievementsTotal } from "@/service/achievement";
 export default {
     name: "AchievementCount",
     data() {
-        const { t } = this.$i18n;
         return {
             generalNum: 137, // 和游戏差异，固定加上
             count: {},
             countDict: {
-                general: t('常规成就数'),
-                general_point: t('常规资历数'),
-                armor: t('五甲成就数'),
-                armor_point: t('五甲资历数'),
-                // post_count: t("收录攻略数"),
+                general: '常规成就数',
+                general_point: '常规资历数',
+                armor: '五甲成就数',
+                armor_point: '五甲资历数',
+                // post_count: "收录攻略数",
             },
         };
     },

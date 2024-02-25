@@ -53,7 +53,7 @@
             </el-select>
         </div>
         <el-select v-model="sidebar.general" size="small">
-            <el-option v-for="type in menu_types" :key="type.value" :label="type.label" :value="type.value"></el-option>
+            <el-option v-for="type in menu_types" :key="type.value" :label="$t(type.label)" :value="type.value"></el-option>
         </el-select>
         <div v-if="currentRole" class="m-filters">
             <el-checkbox v-model="uncompleted" :label="$t('只看未完成')" border size="mini"></el-checkbox>
@@ -101,22 +101,20 @@ import { getUserRoles } from "@/service/team";
 import User from "@jx3box/jx3box-common/js/user";
 import { showSchoolIcon } from "@jx3box/jx3box-common/js/utils";
 import { flattenDeep, cloneDeep } from "lodash";
-
 export default {
     name: "Sidebar",
     props: ["sidebar"],
     data() {
-        const { t } = this.$i18n;
         return {
             menus_cache: [],
             menus: [],
             old_node: null,
             menu_types: [
-                { value: 1, label: t("常规成就") },
-                { value: 2, label: t("五甲成就") },
-                // { value: 4, label: t("宠物成就") },
-                // { value: 5, label: t("奇遇成就") },
-                { value: 3, label: t("其他板块") },
+                { value: 1, label: "常规成就" },
+                { value: 2, label: "五甲成就" },
+                // { value: 4, label: "宠物成就" },
+                // { value: 5, label: "奇遇成就" },
+                { value: 3, label: "其他板块" },
             ],
 
             roleList: [],
