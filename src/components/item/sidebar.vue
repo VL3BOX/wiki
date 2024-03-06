@@ -42,7 +42,7 @@ export default {
                             for (let index in data.data.menus) {
                                 data.data.menus[index].id = data.data.menus[index].AucGenre;
                                 for (let i in data.data.menus[index].children) {
-                                    data.data.menus[index].children[i].id = `${data.data.menus[index].AucGenre}-${data.data.menus[index].children[i].AucSubTypeID}`;
+                                    data.data.menus[index].children[i].id = `${data.data.menus[index].AucGenre}-${data.data.menus[index].children[i].AucSubType}`;
                                 }
                                 menus.push(data.data.menus[index]);
                             }
@@ -81,8 +81,8 @@ export default {
             // 父级菜单不请求
             if (AucGenre === null) return {};
             let params = {
-                AucGenre: AucGenre === "" ? "empty" : AucGenre,
-                AucSubTypeID: data.AucSubTypeID === "" ? "empty" : data.AucSubTypeID,
+                AucGenre: AucGenre === "" ? "empty" : Number(AucGenre),
+                AucSubTypeID: data.AucSubType === "" ? "empty" : Number(data.AucSubType),
             };
             return { name: "normal", params: params };
         },
