@@ -524,8 +524,8 @@ export default {
             handler() {
                 let item = this.source;
                 this.activeTab = item && item.BindType != 3 ? DEFAULT_ACTIVE_TAB : "relation-plans";
-                this.$store.state.sidebar.AucGenre = parseInt(item.AucGenre);
-                this.$store.state.sidebar.AucSubTypeID = parseInt(item.AucSubTypeID);
+                this.$store.state.sidebar.AucGenre = Number(item.AucGenre);
+                this.$store.state.sidebar.AucSubTypeID = Number(item.AucSubType);
 
                 this.get_data();
                 this.loadItemDetail();
